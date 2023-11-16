@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Domain
 {
-    public class Course : DBEntity
+    public class AssessmentDimension
     {
         public string Name { get; set; }
-
-        public Schedule Schedule { get; set; }
     }
 }
