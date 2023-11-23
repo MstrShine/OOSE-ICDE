@@ -8,5 +8,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Domain
 {
     public class GradeDescription : DBEntity
     {
+        public int Grade { get; set; }
+
+        public string Description { get; set; }
     }
 }

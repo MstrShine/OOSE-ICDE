@@ -8,5 +8,10 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Domain
 {
     public class ExaminationEvent : DBEntity
     {
+        public string Type { get; set; }
+
+        public List<DateTime> Dates { get; set; }
+
+        public string Prerequisites { get; set; }
     }
 }

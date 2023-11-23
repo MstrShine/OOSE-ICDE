@@ -8,5 +8,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Domain
 {
     public class Competency : DBEntity
     {
+        public string Code { get; set; }
+
+        public string Name { get; set; }
     }
 }

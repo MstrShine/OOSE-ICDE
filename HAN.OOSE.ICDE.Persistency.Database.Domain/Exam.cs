@@ -8,8 +8,16 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Domain
 {
     public class Exam : DBEntity
     {
-        public string Name { get; set; }
+        public int Weight { get; set; }
 
-        public AssessmentDimension AssessmentDimension { get; set; }
+        public string Type { get; set; }
+
+        public int MinimumGrade { get; set; }
+
+        public List<LearningOutcome> LearningOutcomes { get; set; }
+
+        public List<AssessmentDimension> AssessmentDimensions { get; set; }
+
+        public ExaminationEvent ExaminationEvent { get; set; }
     }
 }

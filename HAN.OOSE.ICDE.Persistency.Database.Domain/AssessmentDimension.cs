@@ -8,6 +8,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Domain
 {
     public class AssessmentDimension : DBEntity
     {
-        public string Name { get; set; }
+        public string Description { get; set; }
+
+        public List<AssessmentCriteria> Criterias { get; set; }
     }
 }

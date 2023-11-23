@@ -8,5 +8,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Domain
 {
     public class CoursePlanning : DBEntity
     {
+        public List<Lesson> Lessons { get; set; }
+
+        public List<ExaminationEvent> Examinations { get; set; }
     }
 }
