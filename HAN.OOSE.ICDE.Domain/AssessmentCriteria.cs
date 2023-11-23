@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HAN.OOSE.ICDE.Persistency.Database.Domain
+namespace HAN.OOSE.ICDE.Domain
 {
-    public class Schedule : DBEntity
+    public class AssessmentCriteria : Entity
     {
     }
 }

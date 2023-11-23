@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HAN.OOSE.ICDE.Persistency.Database.Domain
+namespace HAN.OOSE.ICDE.Domain
 {
-    public class Course : DBEntity
+    public class LearningOutcome : Entity
     {
-        public string Name { get; set; }
     }
 }
