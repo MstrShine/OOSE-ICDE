@@ -18,6 +18,6 @@ namespace HAN.OOSE.ICDE.Domain
 
         public List<AssessmentDimension> AssessmentDimensions { get; set; }
 
-        public ExaminationEvent ExaminationEvent { get; set; }
+        public List<ExaminationEvent> ExaminationEvents { get; set; }
     }
 }
