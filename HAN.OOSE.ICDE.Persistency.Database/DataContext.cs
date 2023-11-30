@@ -22,7 +22,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly((typeof(EntityMapper<>).Assembly));
+            modelBuilder.ApplyConfigurationsFromAssembly((typeof(DataContext).Assembly));
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

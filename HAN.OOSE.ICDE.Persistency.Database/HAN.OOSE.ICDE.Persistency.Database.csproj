@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HAN.OOSE.ICDE.Persistency.Database.Mapping\HAN.OOSE.ICDE.Persistency.Database.Mapping.csproj" />
+    <ProjectReference Include="..\HAN.OOSE.ICDE.Persistency.Database.Domain\HAN.OOSE.ICDE.Persistency.Database.Domain.csproj" />
   </ItemGroup>
 
 </Project>
