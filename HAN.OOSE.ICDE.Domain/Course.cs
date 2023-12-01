@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HAN.OOSE.ICDE.Domain
+﻿namespace HAN.OOSE.ICDE.Domain
 {
     public class Course : Entity
     {
@@ -14,7 +8,7 @@ namespace HAN.OOSE.ICDE.Domain
 
         public int CollegeYear { get; set; }
 
-        public int CTE {  get; set; }
+        public int CTE { get; set; }
 
         public List<LearningOutcomeUnit> LearningOutcomeUnits { get; set; }
 
