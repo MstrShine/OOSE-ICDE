@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
 {
-    public class ExamMap : EntityMapper<Exam>
+    public class ExamMap : VersionEntityMapper<Exam>
     {
         public override void ConfigureExtension(EntityTypeBuilder<Exam> builder)
         {

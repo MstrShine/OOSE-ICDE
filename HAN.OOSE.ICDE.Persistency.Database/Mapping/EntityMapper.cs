@@ -11,7 +11,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
 {
     public abstract class EntityMapper<T> : IEntityTypeConfiguration<T> where T : DBEntity
     {
-        public void Configure(EntityTypeBuilder<T> builder)
+        public virtual void Configure(EntityTypeBuilder<T> builder)
         {
             builder.HasKey(x => x.Id);
 

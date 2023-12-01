@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Domain
 {
-    public class AssessmentDimension : DBEntity
+    public class AssessmentDimension : VersionDBEntity
     {
         public string Description { get; set; }
 

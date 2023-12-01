@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
 {
-    public class LearningOutcomeMap : EntityMapper<LearningOutcome>
+    public class LearningOutcomeMap : VersionEntityMapper<LearningOutcome>
     {
         public override void ConfigureExtension(EntityTypeBuilder<LearningOutcome> builder)
         {

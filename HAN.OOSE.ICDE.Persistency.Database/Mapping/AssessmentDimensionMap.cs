@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
 {
-    public class AssessmentDimensionMap : EntityMapper<AssessmentDimension>
+    public class AssessmentDimensionMap : VersionEntityMapper<AssessmentDimension>
     {
         public override void ConfigureExtension(EntityTypeBuilder<AssessmentDimension> builder)
         {
