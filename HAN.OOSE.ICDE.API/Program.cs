@@ -1,5 +1,7 @@
 using HAN.OOSE.ICDE.Persistency.Database.Extensions;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Extensions;
+using HAN.OOSE.ICDE.Logic.Mapping.Extensions;
+using HAN.OOSE.ICDE.Logic.Extensions;
 
 namespace HAN.OOSE.ICDE.API
 {
@@ -18,6 +20,8 @@ namespace HAN.OOSE.ICDE.API
 
             builder.Services.AddDatabase();
             builder.Services.AddRepositories();
+            builder.Services.AddMapping();
+            builder.Services.AddLogic();
 
             var app = builder.Build();
 
