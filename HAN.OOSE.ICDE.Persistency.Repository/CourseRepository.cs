@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HAN.OOSE.ICDE.Persistency.Repository
+namespace HAN.OOSE.ICDE.Persistency.Database.Repository
 {
     public class CourseRepository : VersionedRepositoryBase<Course>
     {

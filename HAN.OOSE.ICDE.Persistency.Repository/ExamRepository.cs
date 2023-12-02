@@ -7,12 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HAN.OOSE.ICDE.Persistency.Repository
+namespace HAN.OOSE.ICDE.Persistency.Database.Repository
 {
     public class ExamRepository : VersionedRepositoryBase<Exam>
     {
         protected override DbSet<Exam> Table => dataContext.Exams;
-        
+
         public ExamRepository(DataContext dataContext) : base(dataContext)
         {
         }

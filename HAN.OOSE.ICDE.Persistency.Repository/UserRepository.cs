@@ -1,6 +1,6 @@
 ﻿using HAN.OOSE.ICDE.Persistency.Database;
 using HAN.OOSE.ICDE.Persistency.Database.Domain;
-using HAN.OOSE.ICDE.Persistency.Repository.Interfaces;
+using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HAN.OOSE.ICDE.Persistency.Repository
+namespace HAN.OOSE.ICDE.Persistency.Database.Repository
 {
     public class UserRepository : IEntityRepository<User>
     {
@@ -18,14 +18,14 @@ namespace HAN.OOSE.ICDE.Persistency.Repository
 
         private DbSet<User> Table => _dataContext.Users;
 
-        public UserRepository(DataContext dataContext) 
-        { 
+        public UserRepository(DataContext dataContext)
+        {
             _dataContext = dataContext;
         }
 
         public async Task DeleteAsync(Guid id)
         {
-            if(id == Guid.Empty)
+            if (id == Guid.Empty)
             {
                 throw new ArgumentNullException(nameof(id));
             }
@@ -43,7 +43,7 @@ namespace HAN.OOSE.ICDE.Persistency.Repository
 
         public Task<User> GetByIdAsync(Guid id)
         {
-            if(id == Guid.Empty)
+            if (id == Guid.Empty)
             {
                 throw new ArgumentNullException(nameof(id));
             }
@@ -53,7 +53,7 @@ namespace HAN.OOSE.ICDE.Persistency.Repository
 
         public async Task<User> SaveAsync(User entity)
         {
-            if(entity == null)
+            if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
@@ -67,12 +67,12 @@ namespace HAN.OOSE.ICDE.Persistency.Repository
 
         public async Task<User> UpdateAsync(User entity)
         {
-            if(entity == null)
+            if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            if(entity.Id == Guid.Empty)
+            if (entity.Id == Guid.Empty)
             {
                 throw new ArgumentNullException(nameof(entity.Id));
             }

@@ -1,6 +1,6 @@
 ﻿using HAN.OOSE.ICDE.Persistency.Database;
 using HAN.OOSE.ICDE.Persistency.Database.Domain;
-using HAN.OOSE.ICDE.Persistency.Repository.Interfaces;
+using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HAN.OOSE.ICDE.Persistency.Repository
+namespace HAN.OOSE.ICDE.Persistency.Database.Repository
 {
     public abstract class VersionedRepositoryBase<T> : IVersionedEntityRepository<T> where T : VersionDBEntity, new()
     {
@@ -83,12 +83,12 @@ namespace HAN.OOSE.ICDE.Persistency.Repository
 
         public async Task<T> UpdateAsync(T entity)
         {
-            if(entity == null)
+            if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            if(entity.Id == Guid.Empty)
+            if (entity.Id == Guid.Empty)
             {
                 throw new ArgumentNullException(nameof(entity.Id));
             }
