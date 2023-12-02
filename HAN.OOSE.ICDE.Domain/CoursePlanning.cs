@@ -1,6 +1,6 @@
 ﻿namespace HAN.OOSE.ICDE.Domain
 {
-    public class CoursePlanning : Entity
+    public class CoursePlanning : VersionedEntity
     {
         public List<Lesson> Lessons { get; set; }
 

@@ -1,6 +1,6 @@
 ﻿namespace HAN.OOSE.ICDE.Domain
 {
-    public class Competency : Entity
+    public class Competency : VersionedEntity
     {
         public string Code { get; set; }
 
