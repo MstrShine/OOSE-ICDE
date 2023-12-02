@@ -1,6 +1,5 @@
-﻿using HAN.OOSE.ICDE.Persistency.Database;
-using HAN.OOSE.ICDE.Persistency.Database.Domain;
-using Microsoft.EntityFrameworkCore;
+﻿using HAN.OOSE.ICDE.Persistency.Database.Domain;
+using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +8,9 @@ using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Repository
 {
-    public class LearningOutcomeRepository : VersionedRepositoryBase<LearningOutcome>
+    public class LearningOutcomeRepository : EntityRepository<IVersionedEntityRepositorySession<LearningOutcome>, LearningOutcome>
     {
-        protected override DbSet<LearningOutcome> Table => dataContext.LearningOutcomes;
-
-        public LearningOutcomeRepository(DataContext dataContext) : base(dataContext)
+        public LearningOutcomeRepository(IServiceProvider serviceProvider) : base(serviceProvider)
         {
         }
     }

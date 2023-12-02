@@ -1,6 +1,5 @@
-﻿using HAN.OOSE.ICDE.Persistency.Database;
-using HAN.OOSE.ICDE.Persistency.Database.Domain;
-using Microsoft.EntityFrameworkCore;
+﻿using HAN.OOSE.ICDE.Persistency.Database.Domain;
+using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +8,10 @@ using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Repository
 {
-    public class CompetencyRepository : VersionedRepositoryBase<Competency>
+    public class CompetencyRepository : EntityRepository<IVersionedEntityRepositorySession<Competency>, Competency>
     {
-        protected override DbSet<Competency> Table => dataContext.Competencies;
-
-        public CompetencyRepository(DataContext dataContext) : base(dataContext)
+        public CompetencyRepository(IServiceProvider serviceProvider) : base(serviceProvider)
         {
         }
-
     }
 }

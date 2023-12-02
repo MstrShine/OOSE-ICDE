@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces
+namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions
 {
-    public interface IVersionedEntityRepository<T> : IEntityRepository<T> where T : VersionDBEntity
+    public interface IVersionedEntityRepositorySession<T> : IEntityRepositorySession<T> where T : VersionDBEntity
     {
         Task<List<T>> GetByVersionIdAsync(Guid versionId);
     }

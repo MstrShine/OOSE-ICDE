@@ -1,6 +1,5 @@
-﻿using HAN.OOSE.ICDE.Persistency.Database;
-using HAN.OOSE.ICDE.Persistency.Database.Domain;
-using Microsoft.EntityFrameworkCore;
+﻿using HAN.OOSE.ICDE.Persistency.Database.Domain;
+using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +8,9 @@ using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Repository
 {
-    public class ExaminationEventRepository : VersionedRepositoryBase<ExaminationEvent>
+    public class ExaminationEventRepository : EntityRepository<IVersionedEntityRepositorySession<ExaminationEvent>, ExaminationEvent>
     {
-        protected override DbSet<ExaminationEvent> Table => dataContext.ExaminationEvents;
-
-        public ExaminationEventRepository(DataContext dataContext) : base(dataContext)
+        public ExaminationEventRepository(IServiceProvider serviceProvider) : base(serviceProvider)
         {
         }
     }

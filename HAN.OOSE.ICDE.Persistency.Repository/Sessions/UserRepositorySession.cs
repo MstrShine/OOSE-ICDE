@@ -1,6 +1,5 @@
-﻿using HAN.OOSE.ICDE.Persistency.Database;
-using HAN.OOSE.ICDE.Persistency.Database.Domain;
-using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces;
+﻿using HAN.OOSE.ICDE.Persistency.Database.Domain;
+using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,19 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HAN.OOSE.ICDE.Persistency.Database.Repository
+namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
 {
-    public abstract class VersionedRepositoryBase<T> : IVersionedEntityRepository<T> where T : VersionDBEntity, new()
+    public class UserRepositorySession : IEntityRepositorySession<User>
     {
-        protected readonly DataContext dataContext;
-
         private bool disposedValue;
 
-        protected abstract DbSet<T> Table { get; }
+        private readonly DataContext _dataContext;
 
-        protected VersionedRepositoryBase(DataContext dataContext)
+        private DbSet<User> Table => _dataContext.Users;
+
+        public UserRepositorySession(DataContext dataContext)
         {
-            this.dataContext = dataContext;
+            _dataContext = dataContext;
         }
 
         public async Task DeleteAsync(Guid id)
@@ -30,19 +29,18 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository
                 throw new ArgumentNullException(nameof(id));
             }
 
-            var entity = new T();
-            entity.Id = id;
-            Table.Remove(entity);
+            var user = new User { Id = id };
+            Table.Remove(user);
 
-            await dataContext.SaveChangesAsync();
+            await _dataContext.SaveChangesAsync();
         }
 
-        public Task<List<T>> GetAllAsync()
+        public Task<List<User>> GetAllAsync()
         {
             return Table.ToListAsync();
         }
 
-        public Task<T> GetByIdAsync(Guid id)
+        public Task<User> GetByIdAsync(Guid id)
         {
             if (id == Guid.Empty)
             {
@@ -52,17 +50,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository
             return Table.SingleAsync(x => x.Id == id);
         }
 
-        public Task<List<T>> GetByVersionIdAsync(Guid versionId)
-        {
-            if (versionId == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(versionId));
-            }
-
-            return Table.Where(x => x.VersionCollection == versionId).ToListAsync();
-        }
-
-        public async Task<T> SaveAsync(T entity)
+        public async Task<User> SaveAsync(User entity)
         {
             if (entity == null)
             {
@@ -70,18 +58,13 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository
             }
 
             entity.Id = Guid.NewGuid();
-            if (entity.VersionCollection == Guid.Empty)
-            {
-                entity.VersionCollection = Guid.NewGuid();
-            }
-
             await Table.AddAsync(entity);
-            await dataContext.SaveChangesAsync();
+            await _dataContext.SaveChangesAsync();
 
             return entity;
         }
 
-        public async Task<T> UpdateAsync(T entity)
+        public async Task<User> UpdateAsync(User entity)
         {
             if (entity == null)
             {
@@ -93,13 +76,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository
                 throw new ArgumentNullException(nameof(entity.Id));
             }
 
-            if (entity.VersionCollection == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(entity.VersionCollection));
-            }
-
             Table.Update(entity);
-            await dataContext.SaveChangesAsync();
+            await _dataContext.SaveChangesAsync();
 
             return entity;
         }
@@ -120,7 +98,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository
         }
 
         // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
-        // ~VersionedRepositoryBase()
+        // ~UserRepository()
         // {
         //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
         //     Dispose(disposing: false);
