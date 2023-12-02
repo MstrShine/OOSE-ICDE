@@ -1,6 +1,6 @@
 ﻿namespace HAN.OOSE.ICDE.Domain
 {
-    public class LearningOutcomeUnit : Entity
+    public class LearningOutcomeUnit : VersionedEntity
     {
         public string Code { get; set; }
 

@@ -1,6 +1,6 @@
 ﻿namespace HAN.OOSE.ICDE.Domain
 {
-    public class Course : Entity
+    public class Course : VersionedEntity
     {
         public string StudyProgram { get; set; }
 

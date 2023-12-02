@@ -1,6 +1,6 @@
 ﻿namespace HAN.OOSE.ICDE.Domain
 {
-    public class ExaminationEvent : Entity
+    public class ExaminationEvent : VersionedEntity
     {
         public string Type { get; set; }
 

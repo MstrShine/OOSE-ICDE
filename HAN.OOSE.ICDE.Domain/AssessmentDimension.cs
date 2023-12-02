@@ -1,6 +1,6 @@
 ﻿namespace HAN.OOSE.ICDE.Domain
 {
-    public class AssessmentDimension : Entity
+    public class AssessmentDimension : VersionedEntity
     {
         public string Description { get; set; }
 

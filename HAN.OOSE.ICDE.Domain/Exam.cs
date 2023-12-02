@@ -1,6 +1,6 @@
 ﻿namespace HAN.OOSE.ICDE.Domain
 {
-    public class Exam : Entity
+    public class Exam : VersionedEntity
     {
         public int Weight { get; set; }
 
