@@ -7,18 +7,18 @@ namespace HAN.OOSE.ICDE.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AssessmentCriteriaController : VersionedEntityController<AssessmentCriteria>
+    public class ExamController : VersionedEntityController<Exam>
     {
-        public AssessmentCriteriaController(
-            ILogger<BaseEntityController<AssessmentCriteria>> logger, 
-            IVersionedEntityManager<AssessmentCriteria> entityManager) : base(logger, entityManager)
+        public ExamController(
+            ILogger<BaseEntityController<Exam>> logger, 
+            IVersionedEntityManager<Exam> entityManager) : base(logger, entityManager)
         {
         }
 
         [HttpDelete("{id:guid}")]
         public override async Task<ActionResult> Delete(Guid id)
         {
-            if(id == Guid.Empty)
+            if (id == Guid.Empty)
             {
                 return BadRequest(new ArgumentNullException(nameof(id)));
             }
@@ -29,9 +29,9 @@ namespace HAN.OOSE.ICDE.API.Controllers
         }
 
         [HttpGet("{id:guid}")]
-        public override async Task<ActionResult<AssessmentCriteria>> Get(Guid id)
+        public override async Task<ActionResult<Exam>> Get(Guid id)
         {
-            if(id == Guid.Empty)
+            if (id == Guid.Empty)
             {
                 return BadRequest(new ArgumentNullException(nameof(id)));
             }
@@ -42,7 +42,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
         }
 
         [HttpGet]
-        public override async Task<ActionResult<List<AssessmentCriteria>>> GetAll()
+        public override async Task<ActionResult<List<Exam>>> GetAll()
         {
             var entities = await _entityManager.GetAllAsync();
 
@@ -50,9 +50,9 @@ namespace HAN.OOSE.ICDE.API.Controllers
         }
 
         [HttpGet("version/{versionId:guid}")]
-        public override async Task<ActionResult<List<AssessmentCriteria>>> GetByVersionId(Guid versionId)
+        public override async Task<ActionResult<List<Exam>>> GetByVersionId(Guid versionId)
         {
-            if(versionId == Guid.Empty)
+            if (versionId == Guid.Empty)
             {
                 return BadRequest(new ArgumentNullException(nameof(versionId)));
             }
@@ -63,42 +63,42 @@ namespace HAN.OOSE.ICDE.API.Controllers
         }
 
         [HttpPost]
-        public override async Task<ActionResult<AssessmentCriteria>> Post(AssessmentCriteria entity)
+        public override async Task<ActionResult<Exam>> Post(Exam entity)
         {
-            if(entity == null)
+            if (entity == null)
             {
                 return BadRequest(new ArgumentNullException(nameof(entity)));
             }
 
             var saved = await _entityManager.SaveAsync(entity);
-            if(saved == null)
+            if (saved == null)
             {
-                return BadRequest("Saving went wrong"); 
+                return BadRequest("Saving went wrong");
             }
 
             return Ok(saved);
         }
 
         [HttpPut("{id:guid}")]
-        public override async Task<ActionResult<AssessmentCriteria>> Put(Guid id, AssessmentCriteria entity)
+        public override async Task<ActionResult<Exam>> Put(Guid id, Exam entity)
         {
-            if(id == Guid.Empty)
+            if (id == Guid.Empty)
             {
                 return BadRequest(new ArgumentNullException(nameof(id)));
             }
 
-            if(entity == null)
+            if (entity == null)
             {
                 return BadRequest(new ArgumentNullException(nameof(entity)));
             }
 
-            if(id != entity.Id)
+            if (id != entity.Id)
             {
                 return BadRequest(new ArgumentException("Id in URL not the same as in sent object"));
             }
 
             var updated = await _entityManager.UpdateAsync(entity);
-            if(updated == null)
+            if (updated == null)
             {
                 return BadRequest(new ArgumentException("Updating went wrong"));
             }

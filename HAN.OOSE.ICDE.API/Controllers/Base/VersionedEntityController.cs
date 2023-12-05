@@ -3,7 +3,7 @@ using HAN.OOSE.ICDE.Domain;
 using HAN.OOSE.ICDE.Logic.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HAN.OOSE.ICDE.API.Controllers
+namespace HAN.OOSE.ICDE.API.Controllers.Base
 {
     public abstract class VersionedEntityController<T> : BaseEntityController<T>, IVersionedEntityController<T> where T : VersionedEntity
     {

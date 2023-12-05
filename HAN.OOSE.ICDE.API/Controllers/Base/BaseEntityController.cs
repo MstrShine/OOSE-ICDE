@@ -1,7 +1,7 @@
 ﻿using HAN.OOSE.ICDE.Domain;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HAN.OOSE.ICDE.API.Controllers
+namespace HAN.OOSE.ICDE.API.Controllers.Base
 {
     public abstract class BaseEntityController<T> : ControllerBase where T : Entity
     {
@@ -9,7 +9,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
 
         public BaseEntityController(ILogger<BaseEntityController<T>> logger)
         {
-            this._logger = logger;
+            _logger = logger;
         }
     }
 }
