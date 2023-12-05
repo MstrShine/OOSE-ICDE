@@ -42,7 +42,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Extensions
             services.AddScoped<IEntityRepository<IVersionedEntityRepositorySession<LearningOutcome>, LearningOutcome>, LearningOutcomeRepository>();
             services.AddTransient<IVersionedEntityRepositorySession<LearningOutcome>, LearningOutcomeRepositorySession>();
 
-            services.AddScoped<IEntityRepository<IVersionedEntityRepositorySession<LearningOutcome>, LearningOutcome>, LearningOutcomeRepository>();
+            services.AddScoped<IEntityRepository<IVersionedEntityRepositorySession<LearningOutcomeUnit>, LearningOutcomeUnit>, LearningOutcomeUnitRepository>();
             services.AddTransient<IVersionedEntityRepositorySession<LearningOutcomeUnit>, LearningOutcomeUnitRepositorySession>();
 
             services.AddScoped<IEntityRepository<IVersionedEntityRepositorySession<Lesson>, Lesson>, LessonRepository>();
