@@ -28,7 +28,7 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
                 Author = _userMap.FromEntity(entity.Author)
             };
 
-            return _FromEntity(dbEntity);
+            return _FromEntity(dbEntity, entity);
         }
 
         public T ToEntity(Y dbEntity)
@@ -41,11 +41,11 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
                 Author = _userMap.ToEntity(dbEntity.Author)
             };
 
-            return _ToEntity(entity);
+            return _ToEntity(entity, dbEntity);
         }
 
-        protected abstract Y _FromEntity(Y dbEntity);
+        protected abstract Y _FromEntity(Y dbEntity, T entity);
 
-        protected abstract T _ToEntity(T entity);
+        protected abstract T _ToEntity(T entity, Y dbEntity);
     }
 }
