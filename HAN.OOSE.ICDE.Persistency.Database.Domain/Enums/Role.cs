@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HAN.OOSE.ICDE.Domain
+namespace HAN.OOSE.ICDE.Persistency.Database.Domain.Enums
 {
-    public abstract class Entity
+    public enum Role
     {
-        public Guid Id { get; set; }
+        Student,
+        Teacher,
+        Administrator
     }
 }

@@ -1,8 +1,8 @@
-﻿using HAN.OOSE.ICDE.Persistency.Database.Domain.Base;
+﻿using HAN.OOSE.ICDE.Domain.Base;
 
-namespace HAN.OOSE.ICDE.Persistency.Database.Domain
+namespace HAN.OOSE.ICDE.Domain
 {
-    public class Exam : VersionDBEntity
+    public class Exam : VersionedEntity
     {
         public int Weight { get; set; }
 

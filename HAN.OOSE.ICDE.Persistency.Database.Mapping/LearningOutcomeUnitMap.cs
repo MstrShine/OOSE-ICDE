@@ -8,18 +8,17 @@ using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
 {
-    public class CourseMap : EntityMapper<Course>
+    public class LearningOutcomeUnitMap : EntityMapper<LearningOutcomeUnit>
     {
-        public override void ConfigureExtension(EntityTypeBuilder<Course> builder)
+        public override void ConfigureExtension(EntityTypeBuilder<LearningOutcomeUnit> builder)
         {
-            builder.Property(x => x.StudyProgram);
             builder.Property(x => x.Code);
-            builder.Property(x => x.CollegeYear);
             builder.Property(x => x.CTE);
+            builder.Property(x => x.MinimumGrade);
 
-            builder.HasMany(x => x.LearningOutcomeUnits).WithOne();
+            builder.HasMany(x => x.Exams).WithOne();
+            builder.HasMany(x => x.LearningOutcomes).WithOne();
             builder.HasMany(x => x.Competencies).WithOne();
-            builder.HasOne(x => x.CoursePlanning).WithOne();
         }
     }
 }

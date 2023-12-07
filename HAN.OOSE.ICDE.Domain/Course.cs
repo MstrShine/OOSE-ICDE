@@ -1,8 +1,8 @@
-﻿using HAN.OOSE.ICDE.Persistency.Database.Domain.Base;
+﻿using HAN.OOSE.ICDE.Domain.Base;
 
-namespace HAN.OOSE.ICDE.Persistency.Database.Domain
+namespace HAN.OOSE.ICDE.Domain
 {
-    public class Course : VersionDBEntity
+    public class Course : VersionedEntity
     {
         public string Name { get; set; }
 
@@ -15,7 +15,5 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Domain
         public int CollegeYear { get; set; }
 
         public int CTE { get; set; }
-
-        public Guid StudyId { get; set; }
     }
 }
