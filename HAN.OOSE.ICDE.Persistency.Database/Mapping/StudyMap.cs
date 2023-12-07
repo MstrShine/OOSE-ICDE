@@ -1,5 +1,6 @@
 ﻿using HAN.OOSE.ICDE.Persistency.Database.Domain;
 using HAN.OOSE.ICDE.Persistency.Database.Mapping.Base;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
         {
             builder.Property(x => x.Name);
 
-            builder.HasMany<Course>().WithOne().HasForeignKey(x => x.StudyId);
+            builder.HasMany<Course>().WithOne().HasForeignKey(x => x.StudyId).OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

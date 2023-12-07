@@ -1,5 +1,6 @@
 ﻿using HAN.OOSE.ICDE.Persistency.Database.Domain;
 using HAN.OOSE.ICDE.Persistency.Database.Mapping.Base;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
@@ -14,9 +15,9 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
 
             builder.Property(x => x.CourseId);
 
-            builder.HasMany<Exam>().WithOne().HasForeignKey(x => x.LearningOutcomeUnitId);
-            builder.HasMany<LearningOutcome>().WithOne().HasForeignKey(x => x.LearningOutcomeUnitId);
-            builder.HasMany<Competency>().WithOne().HasForeignKey(x => x.LearningOutcomeUnitId);
+            builder.HasMany<Exam>().WithOne().HasForeignKey(x => x.LearningOutcomeUnitId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasMany<LearningOutcome>().WithOne().HasForeignKey(x => x.LearningOutcomeUnitId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasMany<Competency>().WithOne().HasForeignKey(x => x.LearningOutcomeUnitId).OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
