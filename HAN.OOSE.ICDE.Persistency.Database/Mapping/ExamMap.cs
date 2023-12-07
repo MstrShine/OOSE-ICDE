@@ -14,9 +14,9 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
 
             builder.Property(x => x.LearningOutcomeUnitId);
 
-            builder.HasMany(x => x.LearningOutcomes).WithOne().HasForeignKey(x => x.ExamId);
-            builder.HasMany(x => x.AssessmentDimensions).WithOne().HasForeignKey(x => x.ExamId);
-            builder.HasMany(x => x.ExaminationEvents).WithOne().HasForeignKey(x => x.ExamId);
+            builder.HasMany<LearningOutcome>().WithOne().HasForeignKey(x => x.ExamId);
+            builder.HasMany<AssessmentDimension>().WithOne().HasForeignKey(x => x.ExamId);
+            builder.HasMany<ExaminationEvent>().WithOne().HasForeignKey(x => x.ExamId);
         }
     }
 }

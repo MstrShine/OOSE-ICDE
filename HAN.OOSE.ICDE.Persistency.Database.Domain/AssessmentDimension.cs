@@ -4,8 +4,6 @@
     {
         public string Description { get; set; }
 
-        public List<AssessmentCriteria> Criterias { get; set; }
-
         public Guid ExamId { get; set; }
     }
 }

@@ -8,8 +8,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
     {
         public override void ConfigureExtension(EntityTypeBuilder<CoursePlanning> builder)
         {
-            builder.HasMany(x => x.Lessons).WithOne();
-            builder.HasMany(x => x.Examinations).WithOne();
+            builder.HasMany<Lesson>().WithOne().HasForeignKey(x => x.CoursePlanningId);
+            builder.HasMany<ExaminationEvent>().WithOne().HasForeignKey(x => x.CoursePlanningId);
         }
     }
 }

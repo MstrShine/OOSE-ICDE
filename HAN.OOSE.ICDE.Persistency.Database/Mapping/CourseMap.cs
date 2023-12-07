@@ -13,9 +13,9 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
             builder.Property(x => x.CollegeYear).IsRequired();
             builder.Property(x => x.CTE).IsRequired();
 
-            builder.HasMany(x => x.LearningOutcomeUnits).WithOne().HasForeignKey(x => x.CourseId);
-            builder.HasMany(x => x.Competencies).WithOne().HasForeignKey(x => x.CourseId);
-            builder.HasOne(x => x.CoursePlanning).WithOne(x => x.Course).HasForeignKey<CoursePlanning>(x => x.CourseId);
+            builder.HasMany<LearningOutcomeUnit>().WithOne().HasForeignKey(x => x.CourseId);
+            builder.HasMany<Competency>().WithOne().HasForeignKey(x => x.CourseId);
+            builder.HasOne<CoursePlanning>().WithOne().HasForeignKey<CoursePlanning>(x => x.CourseId);
         }
     }
 }

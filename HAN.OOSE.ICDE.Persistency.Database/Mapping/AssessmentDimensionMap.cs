@@ -12,7 +12,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
 
             builder.Property(x => x.ExamId);
 
-            builder.HasMany(x => x.Criterias).WithOne();
+            builder.HasMany<AssessmentCriteria>().WithOne().HasForeignKey(x => x.AssessmentDimensionId);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
 
             builder.Property(x => x.CoursePlanningId);
 
-            builder.HasMany(x => x.LearningOutcomes).WithOne().HasForeignKey(x => x.LessonId);
+            builder.HasMany<LearningOutcome>().WithOne().HasForeignKey(x => x.LessonId);
         }
     }
 }

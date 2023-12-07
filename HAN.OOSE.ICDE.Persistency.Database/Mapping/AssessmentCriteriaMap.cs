@@ -13,7 +13,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
             builder.Property(x => x.MinimumGrade).IsRequired();
             builder.Property(x => x.Explanation);
 
-            builder.HasMany(x => x.GradeDescriptions).WithOne().HasForeignKey(x => x.AssessmentCriteriaId);
+            builder.HasMany<GradeDescription>().WithOne().HasForeignKey(x => x.AssessmentCriteriaId);
         }
     }
 }

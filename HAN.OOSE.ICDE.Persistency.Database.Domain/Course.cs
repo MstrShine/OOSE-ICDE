@@ -9,11 +9,5 @@
         public int CollegeYear { get; set; }
 
         public int CTE { get; set; }
-
-        public List<LearningOutcomeUnit> LearningOutcomeUnits { get; set; }
-
-        public List<Competency> Competencies { get; set; }
-
-        public CoursePlanning CoursePlanning { get; set; }
     }
 }
