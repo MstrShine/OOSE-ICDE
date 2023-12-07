@@ -13,5 +13,7 @@
         public List<LearningOutcome> LearningOutcomes { get; set; }
 
         public List<Competency> Competencies { get; set; }
+
+        public Guid CourseId { get; set; }
     }
 }

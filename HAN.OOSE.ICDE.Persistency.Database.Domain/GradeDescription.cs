@@ -5,5 +5,7 @@
         public int Grade { get; set; }
 
         public string Description { get; set; }
+
+        public Guid AssessmentCriteriaId { get; set; }
     }
 }

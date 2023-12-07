@@ -11,5 +11,7 @@
         public List<GradeDescription> GradeDescriptions { get; set; }
 
         public string Explanation { get; set; }
+
+        public Guid AssessmentDimensionId { get; set; }
     }
 }

@@ -13,5 +13,7 @@
         public List<AssessmentDimension> AssessmentDimensions { get; set; }
 
         public List<ExaminationEvent> ExaminationEvents { get; set; }
+
+        public Guid LearningOutcomeUnitId { get; set; }
     }
 }

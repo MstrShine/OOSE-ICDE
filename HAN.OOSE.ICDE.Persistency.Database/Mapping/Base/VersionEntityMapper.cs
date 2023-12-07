@@ -1,7 +1,7 @@
 ﻿using HAN.OOSE.ICDE.Persistency.Database.Domain;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
+namespace HAN.OOSE.ICDE.Persistency.Database.Mapping.Base
 {
     public abstract class VersionEntityMapper<T> : EntityMapper<T> where T : VersionDBEntity
     {

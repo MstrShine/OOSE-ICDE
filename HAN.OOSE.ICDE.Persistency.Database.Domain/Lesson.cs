@@ -11,5 +11,7 @@
         public DateTime Date { get; set; }
 
         public List<LearningOutcome> LearningOutcomes { get; set; }
+
+        public Guid CoursePlanningId { get; set; }
     }
 }
