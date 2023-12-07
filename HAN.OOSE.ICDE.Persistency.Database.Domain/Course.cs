@@ -15,5 +15,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Domain
         public int CollegeYear { get; set; }
 
         public int CTE { get; set; }
+
+        public Guid StudyId { get; set; }
     }
 }
