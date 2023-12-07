@@ -1,4 +1,6 @@
-﻿namespace HAN.OOSE.ICDE.Persistency.Database.Domain
+﻿using HAN.OOSE.ICDE.Persistency.Database.Domain.Base;
+
+namespace HAN.OOSE.ICDE.Persistency.Database.Domain
 {
     public class Exam : VersionDBEntity
     {

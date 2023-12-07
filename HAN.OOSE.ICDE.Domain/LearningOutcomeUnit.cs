@@ -1,4 +1,6 @@
-﻿namespace HAN.OOSE.ICDE.Domain
+﻿using HAN.OOSE.ICDE.Domain.Base;
+
+namespace HAN.OOSE.ICDE.Domain
 {
     public class LearningOutcomeUnit : VersionedEntity
     {
@@ -8,10 +10,6 @@
 
         public double MinimumGrade { get; set; }
 
-        public List<Exam> Exams { get; set; }
-
-        public List<LearningOutcome> LearningOutcomes { get; set; }
-
-        public List<Competency> Competencies { get; set; }
+        public Guid CourseId { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace HAN.OOSE.ICDE.Domain
+﻿namespace HAN.OOSE.ICDE.Domain.Base
 {
     public abstract class Entity
     {
