@@ -2,6 +2,10 @@
 {
     public class Course : VersionDBEntity
     {
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
         public string StudyProgram { get; set; }
 
         public string Code { get; set; }

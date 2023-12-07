@@ -8,6 +8,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
     {
         public override void ConfigureExtension(EntityTypeBuilder<Course> builder)
         {
+            builder.Property(x => x.Name).IsRequired();
+            builder.Property(x => x.Description).IsRequired();
             builder.Property(x => x.StudyProgram).IsRequired();
             builder.Property(x => x.Code).IsRequired();
             builder.Property(x => x.CollegeYear).IsRequired();
