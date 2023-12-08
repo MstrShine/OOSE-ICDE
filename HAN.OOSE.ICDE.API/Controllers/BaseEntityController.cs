@@ -1,4 +1,4 @@
-﻿using HAN.OOSE.ICDE.Domain;
+﻿using HAN.OOSE.ICDE.Domain.Base;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HAN.OOSE.ICDE.API.Controllers

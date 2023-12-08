@@ -1,7 +1,9 @@
 ﻿using HAN.OOSE.ICDE.Persistency.Database.Domain;
+using HAN.OOSE.ICDE.Persistency.Database.Domain.Base;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
+namespace HAN.OOSE.ICDE.Persistency.Database.Mapping.Base
 {
     public abstract class VersionEntityMapper<T> : EntityMapper<T> where T : VersionDBEntity
     {
@@ -12,7 +14,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
             builder.Property(x => x.VersionCollection);
             builder.Property(x => x.DateOfCreation).ValueGeneratedOnAdd();
 
-            builder.HasOne(x => x.Author).WithMany();
+            builder.HasOne<User>().WithMany().HasForeignKey(x => x.Author).OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
