@@ -1,4 +1,5 @@
 ﻿using HAN.OOSE.ICDE.Persistency.Database.Domain;
+using HAN.OOSE.ICDE.Persistency.Database.Domain.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;

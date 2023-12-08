@@ -1,4 +1,5 @@
 ﻿using HAN.OOSE.ICDE.Persistency.Database.Domain;
+using HAN.OOSE.ICDE.Persistency.Database.Domain.Base;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
+namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions.Base
 {
     public abstract class VersionedRepositorySessionBase<T> : IVersionedEntityRepositorySession<T> where T : VersionDBEntity, new()
     {
