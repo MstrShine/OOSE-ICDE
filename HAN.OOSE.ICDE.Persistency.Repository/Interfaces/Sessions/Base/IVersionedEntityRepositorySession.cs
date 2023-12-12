@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions
+namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions.Base
 {
     public interface IVersionedEntityRepositorySession<T> : IEntityRepositorySession<T> where T : VersionDBEntity
     {

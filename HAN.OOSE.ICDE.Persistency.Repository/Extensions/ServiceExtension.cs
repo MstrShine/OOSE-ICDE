@@ -1,6 +1,6 @@
 ﻿using HAN.OOSE.ICDE.Persistency.Database.Domain;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces;
-using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
+using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions.Base;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions;
 using Microsoft.Extensions.DependencyInjection;
 using System;
