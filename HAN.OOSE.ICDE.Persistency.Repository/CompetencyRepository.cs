@@ -1,5 +1,6 @@
 ﻿using HAN.OOSE.ICDE.Persistency.Database.Domain;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Base;
+using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions.Base;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Repository
 {
-    public class CompetencyRepository : EntityRepository<IVersionedEntityRepositorySession<Competency>, Competency>
+    public class CompetencyRepository : EntityRepository<ICompetencyRepositorySession, Competency>
     {
         public CompetencyRepository(IServiceProvider serviceProvider) : base(serviceProvider)
         {

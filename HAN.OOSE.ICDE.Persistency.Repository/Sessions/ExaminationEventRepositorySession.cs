@@ -1,4 +1,5 @@
 ﻿using HAN.OOSE.ICDE.Persistency.Database.Domain;
+using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions.Base;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,12 +10,32 @@ using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
 {
-    public class ExaminationEventRepositorySession : VersionedRepositorySessionBase<ExaminationEvent>
+    public class ExaminationEventRepositorySession : VersionedRepositorySessionBase<ExaminationEvent>, IExaminationEventRepositorySession
     {
         protected override DbSet<ExaminationEvent> Table => dataContext.ExaminationEvents;
 
         public ExaminationEventRepositorySession(DataContext dataContext) : base(dataContext)
         {
+        }
+
+        public Task<List<ExaminationEvent>> GetByCoursePlanningId(Guid coursePlanningId)
+        {
+            if(coursePlanningId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(coursePlanningId));
+            }
+
+            return Table.Where(x => x.CoursePlanningId == coursePlanningId).ToListAsync();
+        }
+
+        public Task<List<ExaminationEvent>> GetByExamId(Guid examId)
+        {
+            if(examId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof (examId));
+            }
+
+            return Table.Where(x => x.ExamId == examId).ToListAsync();
         }
     }
 }

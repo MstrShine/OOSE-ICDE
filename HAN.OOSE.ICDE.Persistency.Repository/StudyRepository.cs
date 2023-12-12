@@ -1,6 +1,6 @@
 ﻿using HAN.OOSE.ICDE.Persistency.Database.Domain;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Base;
-using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
+using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions.Base;
 using System;
 using System.Collections.Generic;
@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Repository
 {
-    public class AssessmentDimensionRepository : EntityRepository<IAssessmentDimensionRepositorySession, AssessmentDimension>
+    public class StudyRepository : EntityRepository<IEntityRepositorySession<Study>, Study>
     {
-        public AssessmentDimensionRepository(IServiceProvider serviceProvider) : base(serviceProvider)
+        public StudyRepository(IServiceProvider serviceProvider) : base(serviceProvider)
         {
         }
     }

@@ -57,6 +57,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database
         public DbSet<Lesson> Lessons { get; set; }
 
         public DbSet<User> Users { get; set; }
+
+        public DbSet<Study> Studies { get; set; }
         #endregion
     }
 }
