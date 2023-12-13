@@ -1,4 +1,4 @@
-﻿namespace HAN.OOSE.ICDE.Persistency.Database.Domain
+﻿namespace HAN.OOSE.ICDE.Persistency.Database.Domain.Base
 {
     public abstract class DBEntity
     {

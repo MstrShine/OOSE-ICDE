@@ -1,6 +1,7 @@
 ﻿using HAN.OOSE.ICDE.Persistency.Database.Domain;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
+using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions.Base;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -15,41 +16,44 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Extensions
     {
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
-            services.AddScoped<IEntityRepository<IVersionedEntityRepositorySession<AssessmentCriteria>, AssessmentCriteria>, AssessmentCriteriaRepository>();
-            services.AddTransient<IVersionedEntityRepositorySession<AssessmentCriteria>, AssessmentCriteriaRepositorySession>();
+            services.AddScoped<IEntityRepository<IAssessmentCriteriaRepositorySession, AssessmentCriteria>, AssessmentCriteriaRepository>();
+            services.AddTransient<IAssessmentCriteriaRepositorySession, AssessmentCriteriaRepositorySession>();
 
-            services.AddScoped<IEntityRepository<IVersionedEntityRepositorySession<AssessmentDimension>, AssessmentDimension>, AssessmentDimensionRepository>();
-            services.AddTransient<IVersionedEntityRepositorySession<AssessmentDimension>, AssessmentDimensionRepositorySession>();
+            services.AddScoped<IEntityRepository<IAssessmentDimensionRepositorySession, AssessmentDimension>, AssessmentDimensionRepository>();
+            services.AddTransient<IAssessmentDimensionRepositorySession, AssessmentDimensionRepositorySession>();
 
-            services.AddScoped<IEntityRepository<IVersionedEntityRepositorySession<Competency>, Competency>, CompetencyRepository>();
-            services.AddTransient<IVersionedEntityRepositorySession<Competency>, CompetencyRepositorySession>();
+            services.AddScoped<IEntityRepository<ICompetencyRepositorySession, Competency>, CompetencyRepository>();
+            services.AddTransient<ICompetencyRepositorySession, CompetencyRepositorySession>();
 
-            services.AddScoped<IEntityRepository<IVersionedEntityRepositorySession<CoursePlanning>, CoursePlanning>, CoursePlanningRepository>();
-            services.AddTransient<IVersionedEntityRepositorySession<CoursePlanning>, CoursePlanningRepositorySession>();
+            services.AddScoped<IEntityRepository<ICoursePlanningRepositorySession, CoursePlanning>, CoursePlanningRepository>();
+            services.AddTransient<ICoursePlanningRepositorySession, CoursePlanningRepositorySession>();
 
-            services.AddScoped<IEntityRepository<IVersionedEntityRepositorySession<Course>, Course>, CourseRepository>();
-            services.AddTransient<IVersionedEntityRepositorySession<Course>, CourseRepositorySession>();
+            services.AddScoped<IEntityRepository<ICourseRepositorySession, Course>, CourseRepository>();
+            services.AddTransient<ICourseRepositorySession, CourseRepositorySession>();
 
-            services.AddScoped<IEntityRepository<IVersionedEntityRepositorySession<ExaminationEvent>, ExaminationEvent>, ExaminationEventRepository>();
-            services.AddTransient<IVersionedEntityRepositorySession<ExaminationEvent>, ExaminationEventRepositorySession>();
+            services.AddScoped<IEntityRepository<IExaminationEventRepositorySession, ExaminationEvent>, ExaminationEventRepository>();
+            services.AddTransient<IExaminationEventRepositorySession, ExaminationEventRepositorySession>();
 
-            services.AddScoped<IEntityRepository<IVersionedEntityRepositorySession<Exam>, Exam>, ExamRepository>();
-            services.AddTransient<IVersionedEntityRepositorySession<Exam>, ExamRepositorySession>();
+            services.AddScoped<IEntityRepository<IExamRepositorySession, Exam>, ExamRepository>();
+            services.AddTransient<IExamRepositorySession, ExamRepositorySession>();
 
-            services.AddScoped<IEntityRepository<IVersionedEntityRepositorySession<GradeDescription>, GradeDescription>, GradeDescriptionRepository>();
-            services.AddTransient<IVersionedEntityRepositorySession<GradeDescription>, GradeDescriptionRepositorySession>();
+            services.AddScoped<IEntityRepository<IGradeDescriptionRepositorySession, GradeDescription>, GradeDescriptionRepository>();
+            services.AddTransient<IGradeDescriptionRepositorySession, GradeDescriptionRepositorySession>();
             
-            services.AddScoped<IEntityRepository<IVersionedEntityRepositorySession<LearningOutcome>, LearningOutcome>, LearningOutcomeRepository>();
-            services.AddTransient<IVersionedEntityRepositorySession<LearningOutcome>, LearningOutcomeRepositorySession>();
+            services.AddScoped<IEntityRepository<ILearningOutcomeRepositorySession, LearningOutcome>, LearningOutcomeRepository>();
+            services.AddTransient<ILearningOutcomeRepositorySession, LearningOutcomeRepositorySession>();
 
-            services.AddScoped<IEntityRepository<IVersionedEntityRepositorySession<LearningOutcomeUnit>, LearningOutcomeUnit>, LearningOutcomeUnitRepository>();
-            services.AddTransient<IVersionedEntityRepositorySession<LearningOutcomeUnit>, LearningOutcomeUnitRepositorySession>();
+            services.AddScoped<IEntityRepository<ILearningOutcomeUnitRepositorySession, LearningOutcomeUnit>, LearningOutcomeUnitRepository>();
+            services.AddTransient<ILearningOutcomeUnitRepositorySession, LearningOutcomeUnitRepositorySession>();
 
-            services.AddScoped<IEntityRepository<IVersionedEntityRepositorySession<Lesson>, Lesson>, LessonRepository>();
-            services.AddTransient<IVersionedEntityRepositorySession<Lesson>, LessonRepositorySession>();
+            services.AddScoped<IEntityRepository<ILessonRepositorySession, Lesson>, LessonRepository>();
+            services.AddTransient<ILessonRepositorySession, LessonRepositorySession>();
 
             services.AddScoped<IEntityRepository<IEntityRepositorySession<User>, User>, UserRepository>();
             services.AddTransient<IEntityRepositorySession<User>, UserRepositorySession>();
+
+            services.AddScoped<IEntityRepository<IEntityRepositorySession<Study>, Study>, StudyRepository>();
+            services.AddTransient<IEntityRepositorySession<Study>, StudyRepositorySession>();
 
             return services;
         }

@@ -1,4 +1,6 @@
-﻿namespace HAN.OOSE.ICDE.Domain
+﻿using HAN.OOSE.ICDE.Domain.Base;
+
+namespace HAN.OOSE.ICDE.Domain
 {
     public class AssessmentCriteria : VersionedEntity
     {
@@ -8,8 +10,8 @@
 
         public int MinimumGrade { get; set; }
 
-        public List<GradeDescription> GradeDescriptions { get; set; }
-
         public string Explanation { get; set; }
+
+        public Guid AssessmentDimensionId { get; set; }
     }
 }
