@@ -28,14 +28,14 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
             return Table.Where(x => x.CourseId == courseId).ToListAsync();
         }
 
-        public Task<List<Competency>> GetByLearningOutcomeUnitId(Guid learningOutcomeId)
+        public Task<List<Competency>> GetByLearningOutcomeUnitId(Guid learningOutcomeUnitId)
         {
-            if(learningOutcomeId == Guid.Empty)
+            if(learningOutcomeUnitId == Guid.Empty)
             {
-                throw new ArgumentNullException(nameof(learningOutcomeId));
+                throw new ArgumentNullException(nameof(learningOutcomeUnitId));
             }
 
-            return Table.Where(x => x.LearningOutcomeUnitId == learningOutcomeId).ToListAsync();
+            return Table.Where(x => x.LearningOutcomeUnitId == learningOutcomeUnitId).ToListAsync();
         }
     }
 }
