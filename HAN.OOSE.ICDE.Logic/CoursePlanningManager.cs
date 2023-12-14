@@ -31,7 +31,7 @@ namespace HAN.OOSE.ICDE.Logic
             var coursePlannings = new List<CoursePlanning>();
             using(var session = _repository.CreateSession())
             {
-                var dbList = await session.GetByCourseId(courseId);
+                var dbList = await session.GetByCourseIdAsync(courseId);
                 coursePlannings = dbList.Select(x => _mapper.ToEntity(x)).ToList();
             }
 

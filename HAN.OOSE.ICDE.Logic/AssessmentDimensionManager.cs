@@ -31,7 +31,7 @@ namespace HAN.OOSE.ICDE.Logic
             var assessmentDimensions = new List<AssessmentDimension>();
             using(var session = _repository.CreateSession())
             {
-                var dbList = await session.GetByExamId(examId);
+                var dbList = await session.GetByExamIdAsync(examId);
                 assessmentDimensions = dbList.Select(x => _mapper.ToEntity(x)).ToList();
             }
 

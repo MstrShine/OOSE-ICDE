@@ -31,7 +31,7 @@ namespace HAN.OOSE.ICDE.Logic
             var competencies = new List<Competency>();
             using (var session = _repository.CreateSession())
             {
-                var dbList = await session.GetByCourseId(courseId);
+                var dbList = await session.GetByCourseIdAsync(courseId);
                 competencies = dbList.Select(x => _mapper.ToEntity(x)).ToList();
             }
 
@@ -48,7 +48,7 @@ namespace HAN.OOSE.ICDE.Logic
             var competencies = new List<Competency>();
             using(var session = _repository.CreateSession()) 
             {
-                var dbList = await session.GetByLearningOutcomeUnitId(learningOutcomeUnitId);
+                var dbList = await session.GetByLearningOutcomeUnitIdAsync(learningOutcomeUnitId);
                 competencies = dbList.Select(x => _mapper.ToEntity(x)).ToList();
             }
 

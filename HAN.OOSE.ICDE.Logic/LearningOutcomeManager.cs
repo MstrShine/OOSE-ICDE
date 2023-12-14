@@ -31,7 +31,7 @@ namespace HAN.OOSE.ICDE.Logic
             var learningOutcomes = new List<LearningOutcome>();
             using(var session = _repository.CreateSession())
             {
-                var dbList = await session.GetByExamId(examId);
+                var dbList = await session.GetByExamIdAsync(examId);
                 learningOutcomes = dbList.Select(x => _mapper.ToEntity(x)).ToList();
             }
 
@@ -48,7 +48,7 @@ namespace HAN.OOSE.ICDE.Logic
             var learningOutcomes = new List<LearningOutcome>();
             using(var session = _repository.CreateSession())
             {
-                var dbList = await session.GetByLearningOutcomeUnitId(learningOutcomeUnitId);
+                var dbList = await session.GetByLearningOutcomeUnitIdAsync(learningOutcomeUnitId);
                 learningOutcomes = dbList.Select(x => _mapper.ToEntity(x)).ToList();
             }
 
@@ -65,7 +65,7 @@ namespace HAN.OOSE.ICDE.Logic
             var learningOutcomes = new List<LearningOutcome>();
             using(var session = _repository.CreateSession())
             {
-                var dbList = await session.GetByLessonId(lessonId);
+                var dbList = await session.GetByLessonIdAsync(lessonId);
                 learningOutcomes = dbList.Select(x => _mapper.ToEntity(x)).ToList();
             }
 

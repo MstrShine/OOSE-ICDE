@@ -31,7 +31,7 @@ namespace HAN.OOSE.ICDE.Logic
             var gradeDescriptions = new List<GradeDescription>();
             using(var session = _repository.CreateSession())
             {
-                var dbList = await session.GetByAssessmentCriteriaId(assessmentCriteriaId);
+                var dbList = await session.GetByAssessmentCriteriaIdAsync(assessmentCriteriaId);
                 gradeDescriptions = dbList.Select(x => _mapper.ToEntity(x)).ToList();
             }
 

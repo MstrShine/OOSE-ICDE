@@ -31,7 +31,7 @@ namespace HAN.OOSE.ICDE.Logic
             var learningOutcomeUnits = new List<LearningOutcomeUnit>();
             using(var session = _repository.CreateSession()) 
             { 
-                var dbList = await session.GetByCourseId(courseId);
+                var dbList = await session.GetByCourseIdAsync(courseId);
                 learningOutcomeUnits = dbList.Select(x => _mapper.ToEntity(x)).ToList();
             }
 

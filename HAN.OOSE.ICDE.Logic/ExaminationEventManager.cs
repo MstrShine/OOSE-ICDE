@@ -31,7 +31,7 @@ namespace HAN.OOSE.ICDE.Logic
             var examinationEvents = new List<ExaminationEvent>();
             using(var session = _repository.CreateSession()) 
             {
-                var dbList = await session.GetByCoursePlanningId(coursePlanningId);
+                var dbList = await session.GetByCoursePlanningIdAsync(coursePlanningId);
                 examinationEvents = dbList.Select(x => _mapper.ToEntity(x)).ToList();
             }
 
@@ -48,7 +48,7 @@ namespace HAN.OOSE.ICDE.Logic
             var examinationEvents = new List<ExaminationEvent>();
             using(var session = _repository.CreateSession())
             {
-                var dbList = await session.GetByExamId(examId);
+                var dbList = await session.GetByExamIdAsync(examId);
                 examinationEvents = dbList.Select(x => _mapper.ToEntity(x)).ToList();
             }
 
