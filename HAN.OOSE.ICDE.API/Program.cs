@@ -1,4 +1,5 @@
 using HAN.OOSE.ICDE.Persistency.Database.Extensions;
+using HAN.OOSE.ICDE.Persistency.Database.Repository.Extensions;
 
 namespace HAN.OOSE.ICDE.API
 {
@@ -16,6 +17,7 @@ namespace HAN.OOSE.ICDE.API
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddDatabase();
+            builder.Services.AddRepositories();
 
             var app = builder.Build();
 

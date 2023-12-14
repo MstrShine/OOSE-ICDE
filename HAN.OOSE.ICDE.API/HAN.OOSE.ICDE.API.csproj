@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\HAN.OOSE.ICDE.Domain\HAN.OOSE.ICDE.Domain.csproj" />
     <ProjectReference Include="..\HAN.OOSE.ICDE.Persistency.Database\HAN.OOSE.ICDE.Persistency.Database.csproj" />
+    <ProjectReference Include="..\HAN.OOSE.ICDE.Persistency.Repository\HAN.OOSE.ICDE.Persistency.Database.Repository.csproj" />
   </ItemGroup>
 
 </Project>
