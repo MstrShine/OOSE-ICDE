@@ -10,6 +10,6 @@ namespace HAN.OOSE.ICDE.Logic.Interfaces
 {
     public interface IAssessmentCriteriaManager : IVersionedEntityManager<AssessmentCriteria>
     {
-        Task<List<AssessmentCriteria>> GetByAssessmentDimensionId(Guid assessmentDimensionId);
+        Task<List<AssessmentCriteria>> GetByAssessmentDimensionIdAsync(Guid assessmentDimensionId);
     }
 }

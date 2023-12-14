@@ -21,7 +21,7 @@ namespace HAN.OOSE.ICDE.Logic
         {
         }
 
-        public async Task<List<AssessmentCriteria>> GetByAssessmentDimensionId(Guid assessmentDimensionId)
+        public async Task<List<AssessmentCriteria>> GetByAssessmentDimensionIdAsync(Guid assessmentDimensionId)
         {
             if(assessmentDimensionId == Guid.Empty)
             {

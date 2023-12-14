@@ -10,8 +10,8 @@ namespace HAN.OOSE.ICDE.Logic.Interfaces
 {
     public interface IExaminationEventManager : IVersionedEntityManager<ExaminationEvent>
     {
-        Task<List<ExaminationEvent>> GetByCoursePlanningId(Guid coursePlanningId);
+        Task<List<ExaminationEvent>> GetByCoursePlanningIdAsync(Guid coursePlanningId);
 
-        Task<List<ExaminationEvent>> GetByExamId(Guid examId);
+        Task<List<ExaminationEvent>> GetByExamIdAsync(Guid examId);
     }
 }

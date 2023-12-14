@@ -10,6 +10,6 @@ namespace HAN.OOSE.ICDE.Logic.Interfaces
 {
     public interface IExamManager : IVersionedEntityManager<Exam>
     {
-        Task<List<Exam>> GetByLearningOutcomeUnitId(Guid learningOutcomeUnitId);
+        Task<List<Exam>> GetByLearningOutcomeUnitIdAsync(Guid learningOutcomeUnitId);
     }
 }

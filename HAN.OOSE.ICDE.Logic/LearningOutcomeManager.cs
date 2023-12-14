@@ -21,7 +21,7 @@ namespace HAN.OOSE.ICDE.Logic
         {
         }
 
-        public async Task<List<LearningOutcome>> GetByExamId(Guid examId)
+        public async Task<List<LearningOutcome>> GetByExamIdAsync(Guid examId)
         {
             if(examId == Guid.Empty)
             {
@@ -38,7 +38,7 @@ namespace HAN.OOSE.ICDE.Logic
             return learningOutcomes;
         }
 
-        public async Task<List<LearningOutcome>> GetByLearningOutcomeUnitId(Guid learningOutcomeUnitId)
+        public async Task<List<LearningOutcome>> GetByLearningOutcomeUnitIdAsync(Guid learningOutcomeUnitId)
         {
             if(learningOutcomeUnitId == Guid.Empty)
             {
@@ -55,7 +55,7 @@ namespace HAN.OOSE.ICDE.Logic
             return learningOutcomes;
         }
 
-        public async Task<List<LearningOutcome>> GetByLessonId(Guid lessonId)
+        public async Task<List<LearningOutcome>> GetByLessonIdAsync(Guid lessonId)
         {
             if(lessonId == Guid.Empty)
             {

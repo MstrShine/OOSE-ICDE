@@ -10,6 +10,6 @@ namespace HAN.OOSE.ICDE.Logic.Interfaces
 {
     public interface ILessonManager : IVersionedEntityManager<Lesson>
     {
-        Task<List<Lesson>> GetByCoursePlanningId(Guid coursePlanningId);
+        Task<List<Lesson>> GetByCoursePlanningIdAsync(Guid coursePlanningId);
     }
 }

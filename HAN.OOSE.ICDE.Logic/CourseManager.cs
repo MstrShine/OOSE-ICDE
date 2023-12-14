@@ -21,7 +21,7 @@ namespace HAN.OOSE.ICDE.Logic
         {
         }
 
-        public async Task<List<Course>> GetByStudyId(Guid studyId)
+        public async Task<List<Course>> GetByStudyIdAsync(Guid studyId)
         {
             if(studyId == Guid.Empty)
             {

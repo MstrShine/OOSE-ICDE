@@ -10,6 +10,6 @@ namespace HAN.OOSE.ICDE.Logic.Interfaces
 {
     public interface IGradeDescriptionManager : IVersionedEntityManager<GradeDescription>
     {
-        Task<List<GradeDescription>> GetByAssessmentCriteriaId(Guid assessmentCriteriaId);
+        Task<List<GradeDescription>> GetByAssessmentCriteriaIdAsync(Guid assessmentCriteriaId);
     }
 }
