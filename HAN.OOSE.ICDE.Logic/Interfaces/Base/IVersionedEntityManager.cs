@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HAN.OOSE.ICDE.Logic.Interfaces
+namespace HAN.OOSE.ICDE.Logic.Interfaces.Base
 {
     public interface IVersionedEntityManager<T> : IEntityManager<T> where T : VersionedEntity
     {

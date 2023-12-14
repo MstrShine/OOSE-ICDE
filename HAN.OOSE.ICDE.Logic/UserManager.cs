@@ -1,7 +1,7 @@
 ﻿
 
 using HAN.OOSE.ICDE.Domain;
-using HAN.OOSE.ICDE.Logic.Interfaces;
+using HAN.OOSE.ICDE.Logic.Interfaces.Base;
 using HAN.OOSE.ICDE.Logic.Mapping.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions.Base;

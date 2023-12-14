@@ -1,4 +1,5 @@
-﻿using HAN.OOSE.ICDE.Logic.Mapping.Interfaces;
+﻿using HAN.OOSE.ICDE.Logic.Base;
+using HAN.OOSE.ICDE.Logic.Mapping.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions.Base;
@@ -10,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Logic
 {
-    public class CompetencyManager : VersionedEntityManager<Domain.Competency, Persistency.Database.Domain.Competency>
+    public class CompetencyManager : VersionedEntityManager<Domain.Competency, Persistency.Database.Domain.Competency, ICompetencyRepositorySession>
     {
         public CompetencyManager(
-            IEntityRepository<IVersionedEntityRepositorySession<Persistency.Database.Domain.Competency>, Persistency.Database.Domain.Competency> repository, 
+            IEntityRepository<ICompetencyRepositorySession, Persistency.Database.Domain.Competency> repository, 
             IEntityMapper<Domain.Competency, Persistency.Database.Domain.Competency> mapper) : base(repository, mapper)
         {
         }

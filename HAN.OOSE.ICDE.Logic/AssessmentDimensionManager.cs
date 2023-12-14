@@ -1,4 +1,5 @@
-﻿using HAN.OOSE.ICDE.Logic.Mapping.Interfaces;
+﻿using HAN.OOSE.ICDE.Logic.Base;
+using HAN.OOSE.ICDE.Logic.Mapping.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions.Base;
@@ -10,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Logic
 {
-    public class AssessmentDimensionManager : VersionedEntityManager<Domain.AssessmentDimension, Persistency.Database.Domain.AssessmentDimension>
+    public class AssessmentDimensionManager : VersionedEntityManager<Domain.AssessmentDimension, Persistency.Database.Domain.AssessmentDimension, IAssessmentDimensionRepositorySession>
     {
         public AssessmentDimensionManager(
-            IEntityRepository<IVersionedEntityRepositorySession<Persistency.Database.Domain.AssessmentDimension>, Persistency.Database.Domain.AssessmentDimension> repository, 
+            IEntityRepository<IAssessmentDimensionRepositorySession, Persistency.Database.Domain.AssessmentDimension> repository, 
             IEntityMapper<Domain.AssessmentDimension, Persistency.Database.Domain.AssessmentDimension> mapper) : base(repository, mapper)
         {
         }
