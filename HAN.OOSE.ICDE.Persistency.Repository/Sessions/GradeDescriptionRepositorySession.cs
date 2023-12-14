@@ -18,7 +18,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
         {
         }
 
-        public Task<List<GradeDescription>> GetByAssessmentCriteriaId(Guid assessmentCriteriaId)
+        public Task<List<GradeDescription>> GetByAssessmentCriteriaIdAsync(Guid assessmentCriteriaId)
         {
             if(assessmentCriteriaId == Guid.Empty)
             {
