@@ -9,11 +9,7 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
 {
     public class CourseMap : VersionedEntityMapperBase<Domain.Course, Persistency.Database.Domain.Course>
     {
-        private readonly IEntityMapper<Domain.LearningOutcomeUnit, Persistency.Database.Domain.LearningOutcomeUnit> _learningOutcomeUnitMap;
-        private readonly IEntityMapper<Domain.Competency, Persistency.Database.Domain.Competency> _competencyMap;
-        private readonly IEntityMapper<Domain.CoursePlanning, Persistency.Database.Domain.CoursePlanning> _coursePlanningMap;
-
-        public CourseMap(IEntityMapper<Domain.User, Persistency.Database.Domain.User> userMap) : base(userMap)
+        public CourseMap() : base()
         {
         }
 

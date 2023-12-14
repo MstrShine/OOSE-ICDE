@@ -1,4 +1,5 @@
 ﻿using HAN.OOSE.ICDE.Domain;
+using HAN.OOSE.ICDE.Domain.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
