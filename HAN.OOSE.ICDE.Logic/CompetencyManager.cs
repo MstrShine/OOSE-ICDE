@@ -1,4 +1,6 @@
-﻿using HAN.OOSE.ICDE.Logic.Base;
+﻿using HAN.OOSE.ICDE.Domain;
+using HAN.OOSE.ICDE.Logic.Base;
+using HAN.OOSE.ICDE.Logic.Interfaces;
 using HAN.OOSE.ICDE.Logic.Mapping.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
@@ -11,12 +13,46 @@ using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Logic
 {
-    public class CompetencyManager : VersionedEntityManager<Domain.Competency, Persistency.Database.Domain.Competency, ICompetencyRepositorySession>
+    public class CompetencyManager : VersionedEntityManager<Domain.Competency, Persistency.Database.Domain.Competency, ICompetencyRepositorySession>, ICompetencyManager
     {
         public CompetencyManager(
-            IEntityRepository<ICompetencyRepositorySession, Persistency.Database.Domain.Competency> repository, 
+            IEntityRepository<ICompetencyRepositorySession, Persistency.Database.Domain.Competency> repository,
             IEntityMapper<Domain.Competency, Persistency.Database.Domain.Competency> mapper) : base(repository, mapper)
         {
+        }
+
+        public async Task<List<Competency>> GetByCourseId(Guid courseId)
+        {
+            if (courseId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(courseId));
+            }
+
+            var competencies = new List<Competency>();
+            using (var session = _repository.CreateSession())
+            {
+                var dbList = await session.GetByCourseId(courseId);
+                competencies = dbList.Select(x => _mapper.ToEntity(x)).ToList();
+            }
+
+            return competencies;
+        }
+
+        public async Task<List<Competency>> GetByLearningOutcomeUnitId(Guid learningOutcomeUnitId)
+        {
+            if (learningOutcomeUnitId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(learningOutcomeUnitId));
+            }
+
+            var competencies = new List<Competency>();
+            using(var session = _repository.CreateSession()) 
+            {
+                var dbList = await session.GetByLearningOutcomeUnitId(learningOutcomeUnitId);
+                competencies = dbList.Select(x => _mapper.ToEntity(x)).ToList();
+            }
+
+            return competencies;
         }
     }
 }

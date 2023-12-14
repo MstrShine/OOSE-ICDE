@@ -24,29 +24,99 @@ namespace HAN.OOSE.ICDE.Logic
             _repository = repository;
         }
 
-        public Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            if (id == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
+            using (var session = _repository.CreateSession())
+            {
+                await session.DeleteAsync(id);
+            }
         }
 
-        public Task<List<Study>> GetAllAsync()
+        public async Task<List<Study>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var list = new List<Study>();
+            using (var session = _repository.CreateSession())
+            {
+                var dbList = await session.GetAllAsync();
+                if (dbList != null && dbList.Count > 0)
+                {
+                    list = dbList.Select(x => _mapper.ToEntity(x)).ToList();
+                }
+            }
+
+            return list;
         }
 
-        public Task<Study> GetByIdAsync(Guid id)
+        public async Task<Study> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            if (id == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
+            Study study = null;
+            using (var session = _repository.CreateSession())
+            {
+                var dbEntity = await session.GetByIdAsync(id);
+                if (dbEntity != null)
+                {
+                    study = _mapper.ToEntity(dbEntity);
+                }
+            }
+
+            return study;
         }
 
-        public Task<Study> SaveAsync(Study entity)
+        public async Task<Study> SaveAsync(Study entity)
         {
-            throw new NotImplementedException();
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            Study saved = null;
+            using (var session = _repository.CreateSession())
+            {
+                var converted = _mapper.FromEntity(entity);
+                var fromDb = await session.SaveAsync(converted);
+                if (fromDb != null)
+                {
+                    saved = _mapper.ToEntity(fromDb);
+                }
+            }
+
+            return saved;
         }
 
-        public Task<Study> UpdateAsync(Study entity)
+        public async Task<Study> UpdateAsync(Study entity)
         {
-            throw new NotImplementedException();
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            if (entity.Id == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(entity.Id));
+            }
+
+            Study updated = null;
+            using (var session = _repository.CreateSession())
+            {
+                var converted = _mapper.FromEntity(entity);
+                var fromDb = await session.UpdateAsync(converted);
+                if (fromDb != null)
+                {
+                    updated = _mapper.ToEntity(fromDb);
+                }
+            }
+
+            return updated;
         }
     }
 }

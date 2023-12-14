@@ -1,4 +1,6 @@
-﻿using HAN.OOSE.ICDE.Logic.Base;
+﻿using HAN.OOSE.ICDE.Domain;
+using HAN.OOSE.ICDE.Logic.Base;
+using HAN.OOSE.ICDE.Logic.Interfaces;
 using HAN.OOSE.ICDE.Logic.Mapping.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
@@ -11,12 +13,29 @@ using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Logic
 {
-    public class ExamManager : VersionedEntityManager<Domain.Exam, Persistency.Database.Domain.Exam, IExamRepositorySession>
+    public class ExamManager : VersionedEntityManager<Domain.Exam, Persistency.Database.Domain.Exam, IExamRepositorySession>, IExamManager
     {
         public ExamManager(
             IEntityRepository<IExamRepositorySession, Persistency.Database.Domain.Exam> repository, 
             IEntityMapper<Domain.Exam, Persistency.Database.Domain.Exam> mapper) : base(repository, mapper)
         {
+        }
+
+        public async Task<List<Exam>> GetByLearningOutcomeUnitId(Guid learningOutcomeUnitId)
+        {
+            if(learningOutcomeUnitId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(learningOutcomeUnitId));
+            }
+
+            var exams = new List<Exam>();
+            using(var session = _repository.CreateSession())
+            {
+                var dbList = await session.GetByLearningOutcomeUnitId(learningOutcomeUnitId);
+                exams = dbList.Select(x => _mapper.ToEntity(x)).ToList();
+            }
+
+            return exams;
         }
     }
 }
