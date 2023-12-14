@@ -18,7 +18,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
         {
         }
 
-        public Task<List<Lesson>> GetByCoursePlanningId(Guid coursePlanningId)
+        public Task<List<Lesson>> GetByCoursePlanningIdAsync(Guid coursePlanningId)
         {
             if(coursePlanningId == Guid.Empty)
             {

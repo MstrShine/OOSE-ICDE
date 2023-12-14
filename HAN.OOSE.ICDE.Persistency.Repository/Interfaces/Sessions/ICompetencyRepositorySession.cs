@@ -10,8 +10,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions
 {
     public interface ICompetencyRepositorySession : IVersionedEntityRepositorySession<Competency>
     {
-        Task<List<Competency>> GetByCourseId(Guid courseId);
+        Task<List<Competency>> GetByCourseIdAsync(Guid courseId);
 
-        Task<List<Competency>> GetByLearningOutcomeUnitId(Guid learningOutcomeUnitId);
+        Task<List<Competency>> GetByLearningOutcomeUnitIdAsync(Guid learningOutcomeUnitId);
     }
 }

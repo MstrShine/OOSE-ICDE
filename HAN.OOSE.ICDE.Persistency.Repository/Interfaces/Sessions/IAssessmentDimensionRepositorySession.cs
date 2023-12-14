@@ -10,6 +10,6 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions
 {
     public interface IAssessmentDimensionRepositorySession : IVersionedEntityRepositorySession<AssessmentDimension>
     {
-        Task<List<AssessmentDimension>> GetByExamId(Guid examId);
+        Task<List<AssessmentDimension>> GetByExamIdAsync(Guid examId);
     }
 }

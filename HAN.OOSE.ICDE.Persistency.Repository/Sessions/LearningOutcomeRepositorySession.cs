@@ -18,7 +18,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
         {
         }
 
-        public Task<List<LearningOutcome>> GetByExamId(Guid examId)
+        public Task<List<LearningOutcome>> GetByExamIdAsync(Guid examId)
         {
             if(examId == Guid.Empty)
             {
@@ -28,7 +28,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
             return Table.Where(x => x.ExamId == examId).ToListAsync();
         }
 
-        public Task<List<LearningOutcome>> GetByLearningOutcomeUnitId(Guid learningOutcomeUnitId)
+        public Task<List<LearningOutcome>> GetByLearningOutcomeUnitIdAsync(Guid learningOutcomeUnitId)
         {
             if(learningOutcomeUnitId == Guid.Empty)
             {
@@ -38,7 +38,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
             return Table.Where(x => x.LearningOutcomeUnitId == learningOutcomeUnitId).ToListAsync();
         }
 
-        public Task<List<LearningOutcome>> GetByLessonId(Guid lessonId)
+        public Task<List<LearningOutcome>> GetByLessonIdAsync(Guid lessonId)
         {
             if(lessonId == Guid.Empty)
             {

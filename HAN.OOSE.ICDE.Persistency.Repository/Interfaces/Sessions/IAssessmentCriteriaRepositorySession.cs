@@ -10,6 +10,6 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions
 {
     public interface IAssessmentCriteriaRepositorySession : IVersionedEntityRepositorySession<AssessmentCriteria>
     {
-        Task<List<AssessmentCriteria>> GetByAssessmentDimensionId(Guid assessmentDimensionId);
+        Task<List<AssessmentCriteria>> GetByAssessmentDimensionIdAsync(Guid assessmentDimensionId);
     }
 }
