@@ -17,7 +17,8 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
                 Email = entity.Email,
                 Password = entity.Password,
                 FirstName = entity.FirstName,
-                LastName = entity.LastName
+                LastName = entity.LastName,
+                Role = (Persistency.Database.Domain.Enums.Role)entity.Role
             };
 
             return user;
@@ -31,7 +32,8 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
                 Email = dbEntity.Email,
                 Password = dbEntity.Password,
                 FirstName = dbEntity.FirstName,
-                LastName = dbEntity.LastName
+                LastName = dbEntity.LastName,
+                Role = (Domain.Enums.Role)dbEntity.Role
             };
 
             return user;

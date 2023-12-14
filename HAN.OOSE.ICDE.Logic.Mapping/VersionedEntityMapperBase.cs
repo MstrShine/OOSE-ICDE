@@ -1,6 +1,8 @@
 ﻿using HAN.OOSE.ICDE.Domain;
+using HAN.OOSE.ICDE.Domain.Base;
 using HAN.OOSE.ICDE.Logic.Mapping.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Domain;
+using HAN.OOSE.ICDE.Persistency.Database.Domain.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +13,8 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
 {
     public abstract class VersionedEntityMapperBase<T, Y> : IEntityMapper<T, Y> where T : VersionedEntity, new() where Y : VersionDBEntity, new()
     {
-        private readonly IEntityMapper<Domain.User, Persistency.Database.Domain.User> _userMap;
-
-        public VersionedEntityMapperBase(IEntityMapper<Domain.User, Persistency.Database.Domain.User> userMap)
+        public VersionedEntityMapperBase()
         {
-            _userMap = userMap;
         }
 
         public Y FromEntity(T entity)
@@ -25,7 +24,7 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
                 Id = entity.Id,
                 VersionCollection = entity.VersionCollection,
                 DateOfCreation = entity.DateOfCreation,
-                Author = _userMap.FromEntity(entity.Author)
+                Author = entity.Author
             };
 
             return _FromEntity(dbEntity, entity);
@@ -38,7 +37,7 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
                 Id = dbEntity.Id,
                 VersionCollection = dbEntity.VersionCollection,
                 DateOfCreation = dbEntity.DateOfCreation,
-                Author = _userMap.ToEntity(dbEntity.Author)
+                Author = dbEntity.Author
             };
 
             return _ToEntity(entity, dbEntity);

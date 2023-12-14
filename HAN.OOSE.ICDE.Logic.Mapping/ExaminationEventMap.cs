@@ -9,7 +9,7 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
 {
     public class ExaminationEventMap : VersionedEntityMapperBase<Domain.ExaminationEvent, Persistency.Database.Domain.ExaminationEvent>
     {
-        public ExaminationEventMap(IEntityMapper<Domain.User, Persistency.Database.Domain.User> userMap) : base(userMap)
+        public ExaminationEventMap() : base()
         {
         }
 
@@ -18,6 +18,8 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
             dbEntity.Type = entity.Type;
             dbEntity.Date = entity.Date;
             dbEntity.Prerequisites = entity.Prerequisites;
+            dbEntity.CoursePlanningId = entity.CoursePlanningId;
+            dbEntity.ExamId = entity.ExamId;
 
             return dbEntity;
         }
@@ -27,6 +29,8 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
             entity.Type = entity.Type;
             entity.Date = entity.Date;
             entity.Prerequisites = dbEntity.Prerequisites;
+            entity.CoursePlanningId = dbEntity.CoursePlanningId;
+            entity.ExamId = dbEntity.ExamId;
 
             return entity;
         }

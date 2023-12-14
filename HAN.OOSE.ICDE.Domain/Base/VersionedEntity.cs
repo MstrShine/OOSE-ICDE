@@ -10,7 +10,7 @@ namespace HAN.OOSE.ICDE.Domain.Base
     {
         public Guid VersionCollection { get; set; }
 
-        public User Author { get; set; }
+        public Guid Author { get; set; }
 
         public DateTime DateOfCreation { get; set; }
     }

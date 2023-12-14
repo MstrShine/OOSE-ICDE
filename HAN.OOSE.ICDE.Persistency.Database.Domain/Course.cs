@@ -8,8 +8,6 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Domain
 
         public string Description { get; set; }
 
-        public string StudyProgram { get; set; }
-
         public string Code { get; set; }
 
         public int CollegeYear { get; set; }
