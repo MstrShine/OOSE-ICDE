@@ -23,7 +23,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions.Base
             this.dataContext = dataContext;
         }
 
-        public async Task DeleteAsync(Guid id)
+        public virtual async Task DeleteAsync(Guid id)
         {
             if (id == Guid.Empty)
             {
@@ -37,12 +37,12 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions.Base
             await dataContext.SaveChangesAsync();
         }
 
-        public Task<List<T>> GetAllAsync()
+        public virtual Task<List<T>> GetAllAsync()
         {
             return Table.ToListAsync();
         }
 
-        public Task<T> GetByIdAsync(Guid id)
+        public virtual Task<T> GetByIdAsync(Guid id)
         {
             if (id == Guid.Empty)
             {
@@ -52,7 +52,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions.Base
             return Table.SingleAsync(x => x.Id == id);
         }
 
-        public Task<List<T>> GetByVersionIdAsync(Guid versionId)
+        public virtual Task<List<T>> GetByVersionIdAsync(Guid versionId)
         {
             if (versionId == Guid.Empty)
             {
@@ -62,7 +62,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions.Base
             return Table.Where(x => x.VersionCollection == versionId).ToListAsync();
         }
 
-        public async Task<T> SaveAsync(T entity)
+        public virtual async Task<T> SaveAsync(T entity)
         {
             if (entity == null)
             {
@@ -81,7 +81,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions.Base
             return entity;
         }
 
-        public async Task<T> UpdateAsync(T entity)
+        public virtual async Task<T> UpdateAsync(T entity)
         {
             if (entity == null)
             {
