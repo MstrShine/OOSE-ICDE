@@ -1,4 +1,5 @@
 ﻿using HAN.OOSE.ICDE.Domain;
+using HAN.OOSE.ICDE.Logic.Interfaces;
 using HAN.OOSE.ICDE.Logic.Interfaces.Base;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -13,17 +14,17 @@ namespace HAN.OOSE.ICDE.Logic.Extensions
     {
         public static IServiceCollection AddLogic(this IServiceCollection services)
         {
-            services.AddScoped<IVersionedEntityManager<AssessmentCriteria>, AssessmentCriteriaManager>();
-            services.AddScoped<IVersionedEntityManager<AssessmentDimension>, AssessmentDimensionManager>();
-            services.AddScoped<IVersionedEntityManager<Competency>, CompetencyManager>();
-            services.AddScoped<IVersionedEntityManager<Course>, CourseManager>();
-            services.AddScoped<IVersionedEntityManager<CoursePlanning>, CoursePlanningManager>();
-            services.AddScoped<IVersionedEntityManager<ExaminationEvent>, ExaminationEventManager>();
-            services.AddScoped<IVersionedEntityManager<Exam>, ExamManager>();
-            services.AddScoped<IVersionedEntityManager<GradeDescription>, GradeDescriptionManager>();
-            services.AddScoped<IVersionedEntityManager<LearningOutcome>, LearningOutcomeManager>();
-            services.AddScoped<IVersionedEntityManager<LearningOutcomeUnit>, LearningOutcomeUnitManager>();
-            services.AddScoped<IVersionedEntityManager<Lesson>, LessonManager>();
+            services.AddScoped<IAssessmentCriteriaManager, AssessmentCriteriaManager>();
+            services.AddScoped<IAssessmentDimensionManager, AssessmentDimensionManager>();
+            services.AddScoped<ICompetencyManager, CompetencyManager>();
+            services.AddScoped<ICourseManager, CourseManager>();
+            services.AddScoped<ICoursePlanningManager, CoursePlanningManager>();
+            services.AddScoped<IExaminationEventManager, ExaminationEventManager>();
+            services.AddScoped<IExamManager, ExamManager>();
+            services.AddScoped<IGradeDescriptionManager, GradeDescriptionManager>();
+            services.AddScoped<ILearningOutcomeManager, LearningOutcomeManager>();
+            services.AddScoped<ILearningOutcomeUnitManager, LearningOutcomeUnitManager>();
+            services.AddScoped<ILessonManager, LessonManager>();
             services.AddScoped<IEntityManager<User>, UserManager>();
             services.AddScoped<IEntityManager<Study>, StudyManager>();
 
