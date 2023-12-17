@@ -1,4 +1,6 @@
-﻿namespace HAN.OOSE.ICDE.Persistency.Database.Domain
+﻿using HAN.OOSE.ICDE.Persistency.Database.Domain.Base;
+
+namespace HAN.OOSE.ICDE.Persistency.Database.Domain
 {
     public class AssessmentCriteria : VersionDBEntity
     {
@@ -8,8 +10,8 @@
 
         public int MinimumGrade { get; set; }
 
-        public List<GradeDescription> GradeDescriptions { get; set; }
-
         public string Explanation { get; set; }
+
+        public Guid AssessmentDimensionId { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace HAN.OOSE.ICDE.Persistency.Database.Domain
+﻿using HAN.OOSE.ICDE.Persistency.Database.Domain.Base;
+
+namespace HAN.OOSE.ICDE.Persistency.Database.Domain
 {
     public class Lesson : VersionDBEntity
     {
@@ -10,6 +12,6 @@
 
         public DateTime Date { get; set; }
 
-        public List<LearningOutcome> LearningOutcomes { get; set; }
+        public Guid CoursePlanningId { get; set; }
     }
 }

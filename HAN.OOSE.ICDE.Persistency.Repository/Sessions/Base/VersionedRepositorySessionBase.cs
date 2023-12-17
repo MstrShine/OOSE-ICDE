@@ -1,5 +1,6 @@
 ﻿using HAN.OOSE.ICDE.Persistency.Database.Domain;
-using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
+using HAN.OOSE.ICDE.Persistency.Database.Domain.Base;
+using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions.Base;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
+namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions.Base
 {
     public abstract class VersionedRepositorySessionBase<T> : IVersionedEntityRepositorySession<T> where T : VersionDBEntity, new()
     {
@@ -22,7 +23,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
             this.dataContext = dataContext;
         }
 
-        public async Task DeleteAsync(Guid id)
+        public virtual async Task DeleteAsync(Guid id)
         {
             if (id == Guid.Empty)
             {
@@ -36,12 +37,12 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
             await dataContext.SaveChangesAsync();
         }
 
-        public Task<List<T>> GetAllAsync()
+        public virtual Task<List<T>> GetAllAsync()
         {
             return Table.ToListAsync();
         }
 
-        public Task<T> GetByIdAsync(Guid id)
+        public virtual Task<T> GetByIdAsync(Guid id)
         {
             if (id == Guid.Empty)
             {
@@ -51,7 +52,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
             return Table.SingleAsync(x => x.Id == id);
         }
 
-        public Task<List<T>> GetByVersionIdAsync(Guid versionId)
+        public virtual Task<List<T>> GetByVersionIdAsync(Guid versionId)
         {
             if (versionId == Guid.Empty)
             {
@@ -61,7 +62,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
             return Table.Where(x => x.VersionCollection == versionId).ToListAsync();
         }
 
-        public async Task<T> SaveAsync(T entity)
+        public virtual async Task<T> SaveAsync(T entity)
         {
             if (entity == null)
             {
@@ -80,7 +81,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
             return entity;
         }
 
-        public async Task<T> UpdateAsync(T entity)
+        public virtual async Task<T> UpdateAsync(T entity)
         {
             if (entity == null)
             {

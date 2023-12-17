@@ -1,4 +1,7 @@
-﻿namespace HAN.OOSE.ICDE.Persistency.Database.Domain
+﻿using HAN.OOSE.ICDE.Persistency.Database.Domain.Base;
+using HAN.OOSE.ICDE.Persistency.Database.Domain.Enums;
+
+namespace HAN.OOSE.ICDE.Persistency.Database.Domain
 {
     public class User : DBEntity
     {
@@ -9,5 +12,7 @@
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+
+        public Role Role { get; set; }
     }
 }

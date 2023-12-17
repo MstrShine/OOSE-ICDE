@@ -1,4 +1,6 @@
 ﻿using HAN.OOSE.ICDE.Persistency.Database.Domain;
+using HAN.OOSE.ICDE.Persistency.Database.Mapping.Base;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
@@ -12,7 +14,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
             builder.Property(x => x.MinimumGrade).IsRequired();
             builder.Property(x => x.Explanation);
 
-            builder.HasMany(x => x.GradeDescriptions).WithOne();
+            builder.HasMany<GradeDescription>().WithOne().HasForeignKey(x => x.AssessmentCriteriaId).OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

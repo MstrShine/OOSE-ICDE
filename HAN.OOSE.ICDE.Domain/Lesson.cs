@@ -1,4 +1,6 @@
-﻿namespace HAN.OOSE.ICDE.Domain
+﻿using HAN.OOSE.ICDE.Domain.Base;
+
+namespace HAN.OOSE.ICDE.Domain
 {
     public class Lesson : VersionedEntity
     {
@@ -10,6 +12,6 @@
 
         public DateTime Date { get; set; }
 
-        public List<LearningOutcome> LearningOutcomes { get; set; }
+        public Guid CoursePlanningId { get; set; }
     }
 }

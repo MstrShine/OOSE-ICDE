@@ -1,8 +1,8 @@
-﻿using HAN.OOSE.ICDE.Persistency.Database.Domain;
+﻿using HAN.OOSE.ICDE.Persistency.Database.Domain.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
+namespace HAN.OOSE.ICDE.Persistency.Database.Mapping.Base
 {
     public abstract class EntityMapper<T> : IEntityTypeConfiguration<T> where T : DBEntity
     {
