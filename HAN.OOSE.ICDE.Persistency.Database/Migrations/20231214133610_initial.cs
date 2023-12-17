@@ -12,7 +12,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Study",
+                name: "Studies",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -20,11 +20,11 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Study", x => x.Id);
+                    table.PrimaryKey("PK_Studies", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -36,17 +36,16 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Course",
+                name: "Courses",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StudyProgram = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CollegeYear = table.Column<int>(type: "int", nullable: false),
                     CTE = table.Column<int>(type: "int", nullable: false),
@@ -57,21 +56,21 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Course", x => x.Id);
+                    table.PrimaryKey("PK_Courses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Course_Study_StudyId",
+                        name: "FK_Courses_Studies_StudyId",
                         column: x => x.StudyId,
-                        principalTable: "Study",
+                        principalTable: "Studies",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Course_User_Author",
+                        name: "FK_Courses_Users_Author",
                         column: x => x.Author,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "CoursePlanning",
+                name: "CoursePlannings",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -82,21 +81,21 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CoursePlanning", x => x.Id);
+                    table.PrimaryKey("PK_CoursePlannings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CoursePlanning_Course_CourseId",
+                        name: "FK_CoursePlannings_Courses_CourseId",
                         column: x => x.CourseId,
-                        principalTable: "Course",
+                        principalTable: "Courses",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_CoursePlanning_User_Author",
+                        name: "FK_CoursePlannings_Users_Author",
                         column: x => x.Author,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "LearningOutcomeUnit",
+                name: "LearningOutcomeUnits",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -110,21 +109,21 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LearningOutcomeUnit", x => x.Id);
+                    table.PrimaryKey("PK_LearningOutcomeUnits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LearningOutcomeUnit_Course_CourseId",
+                        name: "FK_LearningOutcomeUnits_Courses_CourseId",
                         column: x => x.CourseId,
-                        principalTable: "Course",
+                        principalTable: "Courses",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_LearningOutcomeUnit_User_Author",
+                        name: "FK_LearningOutcomeUnits_Users_Author",
                         column: x => x.Author,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Lesson",
+                name: "Lessons",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -139,21 +138,21 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Lesson", x => x.Id);
+                    table.PrimaryKey("PK_Lessons", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Lesson_CoursePlanning_CoursePlanningId",
+                        name: "FK_Lessons_CoursePlannings_CoursePlanningId",
                         column: x => x.CoursePlanningId,
-                        principalTable: "CoursePlanning",
+                        principalTable: "CoursePlannings",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Lesson_User_Author",
+                        name: "FK_Lessons_Users_Author",
                         column: x => x.Author,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Competency",
+                name: "Competencies",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -167,26 +166,26 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Competency", x => x.Id);
+                    table.PrimaryKey("PK_Competencies", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Competency_Course_CourseId",
+                        name: "FK_Competencies_Courses_CourseId",
                         column: x => x.CourseId,
-                        principalTable: "Course",
+                        principalTable: "Courses",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Competency_LearningOutcomeUnit_LearningOutcomeUnitId",
+                        name: "FK_Competencies_LearningOutcomeUnits_LearningOutcomeUnitId",
                         column: x => x.LearningOutcomeUnitId,
-                        principalTable: "LearningOutcomeUnit",
+                        principalTable: "LearningOutcomeUnits",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Competency_User_Author",
+                        name: "FK_Competencies_Users_Author",
                         column: x => x.Author,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Exam",
+                name: "Exams",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -200,21 +199,21 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Exam", x => x.Id);
+                    table.PrimaryKey("PK_Exams", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Exam_LearningOutcomeUnit_LearningOutcomeUnitId",
+                        name: "FK_Exams_LearningOutcomeUnits_LearningOutcomeUnitId",
                         column: x => x.LearningOutcomeUnitId,
-                        principalTable: "LearningOutcomeUnit",
+                        principalTable: "LearningOutcomeUnits",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Exam_User_Author",
+                        name: "FK_Exams_Users_Author",
                         column: x => x.Author,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "AssessmentDimension",
+                name: "AssessmentDimensions",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -226,21 +225,21 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AssessmentDimension", x => x.Id);
+                    table.PrimaryKey("PK_AssessmentDimensions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AssessmentDimension_Exam_ExamId",
+                        name: "FK_AssessmentDimensions_Exams_ExamId",
                         column: x => x.ExamId,
-                        principalTable: "Exam",
+                        principalTable: "Exams",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_AssessmentDimension_User_Author",
+                        name: "FK_AssessmentDimensions_Users_Author",
                         column: x => x.Author,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "ExaminationEvent",
+                name: "ExaminationEvents",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -255,26 +254,26 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ExaminationEvent", x => x.Id);
+                    table.PrimaryKey("PK_ExaminationEvents", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ExaminationEvent_CoursePlanning_CoursePlanningId",
+                        name: "FK_ExaminationEvents_CoursePlannings_CoursePlanningId",
                         column: x => x.CoursePlanningId,
-                        principalTable: "CoursePlanning",
+                        principalTable: "CoursePlannings",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_ExaminationEvent_Exam_ExamId",
+                        name: "FK_ExaminationEvents_Exams_ExamId",
                         column: x => x.ExamId,
-                        principalTable: "Exam",
+                        principalTable: "Exams",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_ExaminationEvent_User_Author",
+                        name: "FK_ExaminationEvents_Users_Author",
                         column: x => x.Author,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "LearningOutcome",
+                name: "LearningOutcomes",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -289,31 +288,31 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LearningOutcome", x => x.Id);
+                    table.PrimaryKey("PK_LearningOutcomes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LearningOutcome_Exam_ExamId",
+                        name: "FK_LearningOutcomes_Exams_ExamId",
                         column: x => x.ExamId,
-                        principalTable: "Exam",
+                        principalTable: "Exams",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_LearningOutcome_LearningOutcomeUnit_LearningOutcomeUnitId",
+                        name: "FK_LearningOutcomes_LearningOutcomeUnits_LearningOutcomeUnitId",
                         column: x => x.LearningOutcomeUnitId,
-                        principalTable: "LearningOutcomeUnit",
+                        principalTable: "LearningOutcomeUnits",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_LearningOutcome_Lesson_LessonId",
+                        name: "FK_LearningOutcomes_Lessons_LessonId",
                         column: x => x.LessonId,
-                        principalTable: "Lesson",
+                        principalTable: "Lessons",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_LearningOutcome_User_Author",
+                        name: "FK_LearningOutcomes_Users_Author",
                         column: x => x.Author,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "AssessmentCriteria",
+                name: "AssessmentCriterias",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -328,21 +327,21 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AssessmentCriteria", x => x.Id);
+                    table.PrimaryKey("PK_AssessmentCriterias", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AssessmentCriteria_AssessmentDimension_AssessmentDimensionId",
+                        name: "FK_AssessmentCriterias_AssessmentDimensions_AssessmentDimensionId",
                         column: x => x.AssessmentDimensionId,
-                        principalTable: "AssessmentDimension",
+                        principalTable: "AssessmentDimensions",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_AssessmentCriteria_User_Author",
+                        name: "FK_AssessmentCriterias_Users_Author",
                         column: x => x.Author,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "GradeDescription",
+                name: "GradeDescriptions",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -355,148 +354,148 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GradeDescription", x => x.Id);
+                    table.PrimaryKey("PK_GradeDescriptions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_GradeDescription_AssessmentCriteria_AssessmentCriteriaId",
+                        name: "FK_GradeDescriptions_AssessmentCriterias_AssessmentCriteriaId",
                         column: x => x.AssessmentCriteriaId,
-                        principalTable: "AssessmentCriteria",
+                        principalTable: "AssessmentCriterias",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_GradeDescription_User_Author",
+                        name: "FK_GradeDescriptions_Users_Author",
                         column: x => x.Author,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AssessmentCriteria_AssessmentDimensionId",
-                table: "AssessmentCriteria",
+                name: "IX_AssessmentCriterias_AssessmentDimensionId",
+                table: "AssessmentCriterias",
                 column: "AssessmentDimensionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AssessmentCriteria_Author",
-                table: "AssessmentCriteria",
+                name: "IX_AssessmentCriterias_Author",
+                table: "AssessmentCriterias",
                 column: "Author");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AssessmentDimension_Author",
-                table: "AssessmentDimension",
+                name: "IX_AssessmentDimensions_Author",
+                table: "AssessmentDimensions",
                 column: "Author");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AssessmentDimension_ExamId",
-                table: "AssessmentDimension",
+                name: "IX_AssessmentDimensions_ExamId",
+                table: "AssessmentDimensions",
                 column: "ExamId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Competency_Author",
-                table: "Competency",
+                name: "IX_Competencies_Author",
+                table: "Competencies",
                 column: "Author");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Competency_CourseId",
-                table: "Competency",
+                name: "IX_Competencies_CourseId",
+                table: "Competencies",
                 column: "CourseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Competency_LearningOutcomeUnitId",
-                table: "Competency",
+                name: "IX_Competencies_LearningOutcomeUnitId",
+                table: "Competencies",
                 column: "LearningOutcomeUnitId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Course_Author",
-                table: "Course",
+                name: "IX_CoursePlannings_Author",
+                table: "CoursePlannings",
                 column: "Author");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Course_StudyId",
-                table: "Course",
-                column: "StudyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CoursePlanning_Author",
-                table: "CoursePlanning",
-                column: "Author");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CoursePlanning_CourseId",
-                table: "CoursePlanning",
+                name: "IX_CoursePlannings_CourseId",
+                table: "CoursePlannings",
                 column: "CourseId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Exam_Author",
-                table: "Exam",
+                name: "IX_Courses_Author",
+                table: "Courses",
                 column: "Author");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Exam_LearningOutcomeUnitId",
-                table: "Exam",
-                column: "LearningOutcomeUnitId");
+                name: "IX_Courses_StudyId",
+                table: "Courses",
+                column: "StudyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ExaminationEvent_Author",
-                table: "ExaminationEvent",
+                name: "IX_ExaminationEvents_Author",
+                table: "ExaminationEvents",
                 column: "Author");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ExaminationEvent_CoursePlanningId",
-                table: "ExaminationEvent",
+                name: "IX_ExaminationEvents_CoursePlanningId",
+                table: "ExaminationEvents",
                 column: "CoursePlanningId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ExaminationEvent_ExamId",
-                table: "ExaminationEvent",
+                name: "IX_ExaminationEvents_ExamId",
+                table: "ExaminationEvents",
                 column: "ExamId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GradeDescription_AssessmentCriteriaId",
-                table: "GradeDescription",
-                column: "AssessmentCriteriaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GradeDescription_Author",
-                table: "GradeDescription",
+                name: "IX_Exams_Author",
+                table: "Exams",
                 column: "Author");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LearningOutcome_Author",
-                table: "LearningOutcome",
-                column: "Author");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_LearningOutcome_ExamId",
-                table: "LearningOutcome",
-                column: "ExamId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_LearningOutcome_LearningOutcomeUnitId",
-                table: "LearningOutcome",
+                name: "IX_Exams_LearningOutcomeUnitId",
+                table: "Exams",
                 column: "LearningOutcomeUnitId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LearningOutcome_LessonId",
-                table: "LearningOutcome",
+                name: "IX_GradeDescriptions_AssessmentCriteriaId",
+                table: "GradeDescriptions",
+                column: "AssessmentCriteriaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GradeDescriptions_Author",
+                table: "GradeDescriptions",
+                column: "Author");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LearningOutcomes_Author",
+                table: "LearningOutcomes",
+                column: "Author");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LearningOutcomes_ExamId",
+                table: "LearningOutcomes",
+                column: "ExamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LearningOutcomes_LearningOutcomeUnitId",
+                table: "LearningOutcomes",
+                column: "LearningOutcomeUnitId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LearningOutcomes_LessonId",
+                table: "LearningOutcomes",
                 column: "LessonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LearningOutcomeUnit_Author",
-                table: "LearningOutcomeUnit",
+                name: "IX_LearningOutcomeUnits_Author",
+                table: "LearningOutcomeUnits",
                 column: "Author");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LearningOutcomeUnit_CourseId",
-                table: "LearningOutcomeUnit",
+                name: "IX_LearningOutcomeUnits_CourseId",
+                table: "LearningOutcomeUnits",
                 column: "CourseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Lesson_Author",
-                table: "Lesson",
+                name: "IX_Lessons_Author",
+                table: "Lessons",
                 column: "Author");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Lesson_CoursePlanningId",
-                table: "Lesson",
+                name: "IX_Lessons_CoursePlanningId",
+                table: "Lessons",
                 column: "CoursePlanningId");
         }
 
@@ -504,43 +503,43 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Competency");
+                name: "Competencies");
 
             migrationBuilder.DropTable(
-                name: "ExaminationEvent");
+                name: "ExaminationEvents");
 
             migrationBuilder.DropTable(
-                name: "GradeDescription");
+                name: "GradeDescriptions");
 
             migrationBuilder.DropTable(
-                name: "LearningOutcome");
+                name: "LearningOutcomes");
 
             migrationBuilder.DropTable(
-                name: "AssessmentCriteria");
+                name: "AssessmentCriterias");
 
             migrationBuilder.DropTable(
-                name: "Lesson");
+                name: "Lessons");
 
             migrationBuilder.DropTable(
-                name: "AssessmentDimension");
+                name: "AssessmentDimensions");
 
             migrationBuilder.DropTable(
-                name: "CoursePlanning");
+                name: "CoursePlannings");
 
             migrationBuilder.DropTable(
-                name: "Exam");
+                name: "Exams");
 
             migrationBuilder.DropTable(
-                name: "LearningOutcomeUnit");
+                name: "LearningOutcomeUnits");
 
             migrationBuilder.DropTable(
-                name: "Course");
+                name: "Courses");
 
             migrationBuilder.DropTable(
-                name: "Study");
+                name: "Studies");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Users");
         }
     }
 }
