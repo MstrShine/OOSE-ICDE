@@ -9,7 +9,7 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
 {
     public class LearningOutcomeMap : VersionedEntityMapperBase<Domain.LearningOutcome, Persistency.Database.Domain.LearningOutcome>
     {
-        public LearningOutcomeMap(IEntityMapper<Domain.User, Persistency.Database.Domain.User> userMap) : base(userMap)
+        public LearningOutcomeMap() : base()
         {
         }
 
@@ -17,14 +17,20 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
         {
             dbEntity.Name = entity.Name;
             dbEntity.Description = entity.Description;
+            dbEntity.ExamId = entity.ExamId;
+            dbEntity.LearningOutcomeUnitId = entity.LearningOutcomeUnitId;
+            dbEntity.LessonId = entity.LessonId;
 
             return dbEntity;
         }
 
         protected override Domain.LearningOutcome _ToEntity(Domain.LearningOutcome entity, Persistency.Database.Domain.LearningOutcome dbEntity)
         {
-            entity.Name = entity.Name;
-            entity.Description = entity.Description;
+            entity.Name = dbEntity.Name;
+            entity.Description = dbEntity.Description;
+            entity.ExamId = dbEntity.ExamId;
+            entity.LearningOutcomeUnitId = dbEntity.LearningOutcomeUnitId;
+            entity.LessonId = dbEntity.LessonId;
 
             return entity;
         }

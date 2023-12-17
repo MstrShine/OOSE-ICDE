@@ -9,19 +9,14 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
 {
     public class AssessmentDimensionMap : VersionedEntityMapperBase<Domain.AssessmentDimension, Persistency.Database.Domain.AssessmentDimension>
     {
-        private readonly IEntityMapper<Domain.AssessmentCriteria, Persistency.Database.Domain.AssessmentCriteria> _assessmentCriteriaMap;
-
-        public AssessmentDimensionMap(
-            IEntityMapper<Domain.User, Persistency.Database.Domain.User> userMap,
-            IEntityMapper<Domain.AssessmentCriteria, Persistency.Database.Domain.AssessmentCriteria> assessmentCriteriaMap) : base(userMap)
+        public AssessmentDimensionMap() : base()
         {
-            _assessmentCriteriaMap = assessmentCriteriaMap;
         }
 
         protected override Persistency.Database.Domain.AssessmentDimension _FromEntity(Persistency.Database.Domain.AssessmentDimension dbEntity, Domain.AssessmentDimension entity)
         {
             dbEntity.Description = entity.Description;
-            dbEntity.Criterias = entity.Criterias.Select(x => _assessmentCriteriaMap.FromEntity(x)).ToList();
+            dbEntity.ExamId = entity.ExamId;
 
             return dbEntity;
         }
@@ -29,7 +24,7 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
         protected override Domain.AssessmentDimension _ToEntity(Domain.AssessmentDimension entity, Persistency.Database.Domain.AssessmentDimension dbEntity)
         {
             entity.Description = dbEntity.Description;
-            entity.Criterias = dbEntity.Criterias.Select(x => _assessmentCriteriaMap.ToEntity(x)).ToList();
+            entity.ExamId = dbEntity.ExamId;
 
             return entity;
         }

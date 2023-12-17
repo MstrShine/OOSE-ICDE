@@ -9,7 +9,7 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
 {
     public class GradeDescriptionMap : VersionedEntityMapperBase<Domain.GradeDescription, Persistency.Database.Domain.GradeDescription>
     {
-        public GradeDescriptionMap(IEntityMapper<Domain.User, Persistency.Database.Domain.User> userMap) : base(userMap)
+        public GradeDescriptionMap() : base()
         {
         }
 
@@ -17,6 +17,7 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
         {
             dbEntity.Grade = entity.Grade;
             dbEntity.Description = entity.Description;
+            dbEntity.AssessmentCriteriaId = entity.AssessmentCriteriaId;
 
             return dbEntity;
         }
@@ -25,6 +26,7 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
         {
             entity.Grade = entity.Grade;
             entity.Description = entity.Description;
+            entity.AssessmentCriteriaId = dbEntity.AssessmentCriteriaId;
 
             return entity;
         }

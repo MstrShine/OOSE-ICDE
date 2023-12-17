@@ -1,5 +1,5 @@
 ﻿using HAN.OOSE.ICDE.Domain;
-using HAN.OOSE.ICDE.Logic.Interfaces;
+using HAN.OOSE.ICDE.Logic.Interfaces.Base;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -25,6 +25,7 @@ namespace HAN.OOSE.ICDE.Logic.Extensions
             services.AddScoped<IVersionedEntityManager<LearningOutcomeUnit>, LearningOutcomeUnitManager>();
             services.AddScoped<IVersionedEntityManager<Lesson>, LessonManager>();
             services.AddScoped<IEntityManager<User>, UserManager>();
+            services.AddScoped<IEntityManager<Study>, StudyManager>();
 
             return services;
         }

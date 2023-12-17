@@ -8,12 +8,12 @@ namespace HAN.OOSE.ICDE.Domain
 
         public string Description { get; set; }
 
-        public string StudyProgram { get; set; }
-
         public string Code { get; set; }
 
         public int CollegeYear { get; set; }
 
         public int CTE { get; set; }
+
+        public Guid StudyId { get; set; }
     }
 }

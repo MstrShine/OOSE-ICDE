@@ -24,6 +24,7 @@ namespace HAN.OOSE.ICDE.Logic.Mapping.Extensions
             services.AddTransient<IEntityMapper<Domain.LearningOutcomeUnit, Persistency.Database.Domain.LearningOutcomeUnit>, LearningOutcomeUnitMap>();
             services.AddTransient<IEntityMapper<Domain.Lesson, Persistency.Database.Domain.Lesson>, LessonMap>();
             services.AddTransient<IEntityMapper<Domain.User, Persistency.Database.Domain.User>, UserMap>();
+            services.AddTransient<IEntityMapper<Domain.Study, Persistency.Database.Domain.Study>, StudyMap>();
 
             return services;
         }

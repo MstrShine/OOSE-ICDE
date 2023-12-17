@@ -1,24 +1,27 @@
-﻿
-
-using HAN.OOSE.ICDE.Domain;
+﻿using HAN.OOSE.ICDE.Domain;
 using HAN.OOSE.ICDE.Logic.Interfaces.Base;
 using HAN.OOSE.ICDE.Logic.Mapping.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions.Base;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Logic
 {
-    public class UserManager : IEntityManager<Domain.User>
+    public class StudyManager : IEntityManager<Study>
     {
-        private readonly IEntityRepository<IEntityRepositorySession<Persistency.Database.Domain.User>, Persistency.Database.Domain.User> _repository;
-        private readonly IEntityMapper<Domain.User, Persistency.Database.Domain.User> _mapper;
+        private readonly IEntityMapper<Domain.Study, Persistency.Database.Domain.Study> _mapper;
+        private readonly IEntityRepository<IEntityRepositorySession<Persistency.Database.Domain.Study>, Persistency.Database.Domain.Study> _repository;
 
-        public UserManager(
-            IEntityRepository<IEntityRepositorySession<Persistency.Database.Domain.User>, Persistency.Database.Domain.User> repository,
-            IEntityMapper<Domain.User, Persistency.Database.Domain.User> mapper) 
-        { 
-            _repository = repository;
+        public StudyManager(
+            IEntityMapper<Study, Persistency.Database.Domain.Study> mapper, 
+            IEntityRepository<IEntityRepositorySession<Persistency.Database.Domain.Study>, Persistency.Database.Domain.Study> repository)
+        {
             _mapper = mapper;
+            _repository = repository;
         }
 
         public async Task DeleteAsync(Guid id)
@@ -34,9 +37,9 @@ namespace HAN.OOSE.ICDE.Logic
             }
         }
 
-        public async Task<List<User>> GetAllAsync()
+        public async Task<List<Study>> GetAllAsync()
         {
-            var list = new List<User>();
+            var list = new List<Study>();
             using (var session = _repository.CreateSession())
             {
                 var dbList = await session.GetAllAsync();
@@ -49,34 +52,34 @@ namespace HAN.OOSE.ICDE.Logic
             return list;
         }
 
-        public async Task<User> GetByIdAsync(Guid id)
+        public async Task<Study> GetByIdAsync(Guid id)
         {
             if (id == Guid.Empty)
             {
                 throw new ArgumentNullException(nameof(id));
             }
 
-            User user = null;
+            Study study = null;
             using (var session = _repository.CreateSession())
             {
                 var dbEntity = await session.GetByIdAsync(id);
                 if (dbEntity != null)
                 {
-                    user = _mapper.ToEntity(dbEntity);
+                    study = _mapper.ToEntity(dbEntity);
                 }
             }
 
-            return user;
+            return study;
         }
 
-        public async Task<User> SaveAsync(User entity)
+        public async Task<Study> SaveAsync(Study entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            User saved = null;
+            Study saved = null;
             using (var session = _repository.CreateSession())
             {
                 var converted = _mapper.FromEntity(entity);
@@ -90,7 +93,7 @@ namespace HAN.OOSE.ICDE.Logic
             return saved;
         }
 
-        public async Task<User> UpdateAsync(User entity)
+        public async Task<Study> UpdateAsync(Study entity)
         {
             if (entity == null)
             {
@@ -102,7 +105,7 @@ namespace HAN.OOSE.ICDE.Logic
                 throw new ArgumentNullException(nameof(entity.Id));
             }
 
-            User updated = null;
+            Study updated = null;
             using (var session = _repository.CreateSession())
             {
                 var converted = _mapper.FromEntity(entity);

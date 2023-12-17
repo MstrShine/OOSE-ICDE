@@ -9,13 +9,8 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
 {
     public class LessonMap : VersionedEntityMapperBase<Domain.Lesson, Persistency.Database.Domain.Lesson>
     {
-        private readonly IEntityMapper<Domain.LearningOutcome, Persistency.Database.Domain.LearningOutcome> _learningOutcomeMap;
-
-        public LessonMap(
-            IEntityMapper<Domain.User, Persistency.Database.Domain.User> userMap, 
-            IEntityMapper<Domain.LearningOutcome, Persistency.Database.Domain.LearningOutcome> learningOutcomeMap) : base(userMap)
+        public LessonMap() : base()
         {
-            _learningOutcomeMap = learningOutcomeMap;
         }
 
         protected override Persistency.Database.Domain.Lesson _FromEntity(Persistency.Database.Domain.Lesson dbEntity, Domain.Lesson entity)
@@ -24,7 +19,7 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
             dbEntity.Description = entity.Description;
             dbEntity.Didactics = entity.Didactics;
             dbEntity.Date = entity.Date;
-            dbEntity.LearningOutcomes = entity.LearningOutcomes.Select(x => _learningOutcomeMap.FromEntity(x)).ToList();
+            dbEntity.CoursePlanningId = entity.CoursePlanningId;
 
             return dbEntity;
         }
@@ -35,7 +30,7 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
             entity.Description = dbEntity.Description;
             entity.Didactics = dbEntity.Didactics;
             entity.Date = dbEntity.Date;
-            entity.LearningOutcomes = dbEntity.LearningOutcomes.Select(x => _learningOutcomeMap.ToEntity(x)).ToList();
+            entity.CoursePlanningId = dbEntity.CoursePlanningId;
 
             return entity;
         }

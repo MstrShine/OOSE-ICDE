@@ -61,7 +61,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
 
                     b.HasIndex("Author");
 
-                    b.ToTable("AssessmentCriteria");
+                    b.ToTable("AssessmentCriterias");
                 });
 
             modelBuilder.Entity("HAN.OOSE.ICDE.Persistency.Database.Domain.AssessmentDimension", b =>
@@ -93,7 +93,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
 
                     b.HasIndex("ExamId");
 
-                    b.ToTable("AssessmentDimension");
+                    b.ToTable("AssessmentDimensions");
                 });
 
             modelBuilder.Entity("HAN.OOSE.ICDE.Persistency.Database.Domain.Competency", b =>
@@ -134,7 +134,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
 
                     b.HasIndex("LearningOutcomeUnitId");
 
-                    b.ToTable("Competency");
+                    b.ToTable("Competencies");
                 });
 
             modelBuilder.Entity("HAN.OOSE.ICDE.Persistency.Database.Domain.Course", b =>
@@ -171,10 +171,6 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                     b.Property<Guid>("StudyId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("StudyProgram")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid>("VersionCollection")
                         .HasColumnType("uniqueidentifier");
 
@@ -184,7 +180,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
 
                     b.HasIndex("StudyId");
 
-                    b.ToTable("Course");
+                    b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("HAN.OOSE.ICDE.Persistency.Database.Domain.CoursePlanning", b =>
@@ -213,7 +209,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                     b.HasIndex("CourseId")
                         .IsUnique();
 
-                    b.ToTable("CoursePlanning");
+                    b.ToTable("CoursePlannings");
                 });
 
             modelBuilder.Entity("HAN.OOSE.ICDE.Persistency.Database.Domain.Exam", b =>
@@ -251,7 +247,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
 
                     b.HasIndex("LearningOutcomeUnitId");
 
-                    b.ToTable("Exam");
+                    b.ToTable("Exams");
                 });
 
             modelBuilder.Entity("HAN.OOSE.ICDE.Persistency.Database.Domain.ExaminationEvent", b =>
@@ -295,7 +291,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
 
                     b.HasIndex("ExamId");
 
-                    b.ToTable("ExaminationEvent");
+                    b.ToTable("ExaminationEvents");
                 });
 
             modelBuilder.Entity("HAN.OOSE.ICDE.Persistency.Database.Domain.GradeDescription", b =>
@@ -330,7 +326,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
 
                     b.HasIndex("Author");
 
-                    b.ToTable("GradeDescription");
+                    b.ToTable("GradeDescriptions");
                 });
 
             modelBuilder.Entity("HAN.OOSE.ICDE.Persistency.Database.Domain.LearningOutcome", b =>
@@ -376,7 +372,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
 
                     b.HasIndex("LessonId");
 
-                    b.ToTable("LearningOutcome");
+                    b.ToTable("LearningOutcomes");
                 });
 
             modelBuilder.Entity("HAN.OOSE.ICDE.Persistency.Database.Domain.LearningOutcomeUnit", b =>
@@ -414,7 +410,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("LearningOutcomeUnit");
+                    b.ToTable("LearningOutcomeUnits");
                 });
 
             modelBuilder.Entity("HAN.OOSE.ICDE.Persistency.Database.Domain.Lesson", b =>
@@ -457,7 +453,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
 
                     b.HasIndex("CoursePlanningId");
 
-                    b.ToTable("Lesson");
+                    b.ToTable("Lessons");
                 });
 
             modelBuilder.Entity("HAN.OOSE.ICDE.Persistency.Database.Domain.Study", b =>
@@ -472,7 +468,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Study");
+                    b.ToTable("Studies");
                 });
 
             modelBuilder.Entity("HAN.OOSE.ICDE.Persistency.Database.Domain.User", b =>
@@ -502,7 +498,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("HAN.OOSE.ICDE.Persistency.Database.Domain.AssessmentCriteria", b =>

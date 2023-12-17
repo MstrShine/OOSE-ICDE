@@ -9,7 +9,7 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
 {
     public class CompetencyMap : VersionedEntityMapperBase<Domain.Competency, Persistency.Database.Domain.Competency>
     {
-        public CompetencyMap(IEntityMapper<Domain.User, Persistency.Database.Domain.User> userMap) : base(userMap)
+        public CompetencyMap() : base()
         {
         }
 
@@ -17,6 +17,8 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
         {
             dbEntity.Name = entity.Name;
             dbEntity.Code = entity.Code;
+            dbEntity.CourseId = entity.CourseId;
+            dbEntity.LearningOutcomeUnitId = entity.LearningOutcomeUnitId;
 
             return dbEntity;
         }
@@ -25,6 +27,8 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
         {
             entity.Name = dbEntity.Name;
             entity.Code = dbEntity.Code;
+            entity.CourseId = dbEntity.CourseId;
+            entity.LearningOutcomeUnitId = dbEntity.LearningOutcomeUnitId;
 
             return entity;
         }
