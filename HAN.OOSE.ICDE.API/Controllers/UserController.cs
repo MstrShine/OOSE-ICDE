@@ -1,44 +1,57 @@
 ﻿using HAN.OOSE.ICDE.API.Controllers.Base;
 using HAN.OOSE.ICDE.API.Interfaces;
 using HAN.OOSE.ICDE.Domain;
+using HAN.OOSE.ICDE.Logic.Interfaces.Base;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HAN.OOSE.ICDE.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : BaseEntityController<User>
+    public class UserController : ControllerBase
     {
-        public UserController(ILogger<BaseEntityController<User>> logger) : base(logger)
-        {
-        }
+        private readonly ILogger<UserController> _logger;
+        private readonly IEntityManager<User> _userManager;
 
-        [HttpDelete("{id:guid}")]
-        public override Task<ActionResult> Delete(Guid id)
+        public UserController(
+            ILogger<UserController> logger,
+            IEntityManager<User> userManager)
         {
-            throw new NotImplementedException();
+            _logger = logger;
+            _userManager = userManager;
         }
 
         [HttpGet("{id:guid}")]
-        public override Task<ActionResult<User>> Get(Guid id)
+        public async Task<ActionResult<User>> Get(Guid id)
         {
-            throw new NotImplementedException();
+            if(id == Guid.Empty)
+            {
+                return BadRequest(new ArgumentNullException(nameof(id)));
+            }
+
+            var user = await _userManager.GetByIdAsync(id);
+
+            return Ok(user);
         }
 
         [HttpGet]
-        public override Task<ActionResult<List<User>>> GetAll()
+        public async Task<ActionResult<List<User>>> GetAll()
+        {
+            var users = await _userManager.GetAllAsync();
+
+            return Ok(users);
+        }
+
+        [HttpPost("register")]
+        public async Task<ActionResult<User>> Register(User entity)
         {
             throw new NotImplementedException();
         }
 
-        [HttpPost]
-        public override Task<ActionResult<User>> Post(User entity)
-        {
-            throw new NotImplementedException();
-        }
+        public record UpdatePassword(string OldPassword, string NewPassword);
 
-        [HttpPut("{id:guid}")]
-        public override Task<ActionResult<User>> Put(Guid id, User entity)
+        [HttpPut("{id:guid}/password")]
+        public async Task<ActionResult> UpdatePassword(Guid id, UpdatePassword password)
         {
             throw new NotImplementedException();
         }

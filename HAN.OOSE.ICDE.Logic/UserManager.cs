@@ -1,6 +1,4 @@
-﻿
-
-using HAN.OOSE.ICDE.Domain;
+﻿using HAN.OOSE.ICDE.Domain;
 using HAN.OOSE.ICDE.Logic.Interfaces.Base;
 using HAN.OOSE.ICDE.Logic.Mapping.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces;
@@ -46,6 +44,11 @@ namespace HAN.OOSE.ICDE.Logic
                 }
             }
 
+            foreach(var item in list)
+            {
+                item.Password = null;
+            }
+
             return list;
         }
 
@@ -64,6 +67,11 @@ namespace HAN.OOSE.ICDE.Logic
                 {
                     user = _mapper.ToEntity(dbEntity);
                 }
+            }
+
+            if(user != null)
+            {
+                user.Password = null;
             }
 
             return user;
