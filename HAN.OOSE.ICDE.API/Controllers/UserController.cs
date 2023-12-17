@@ -48,10 +48,10 @@ namespace HAN.OOSE.ICDE.API.Controllers
             throw new NotImplementedException();
         }
 
-        public record UpdatePassword(string OldPassword, string NewPassword);
+        public record UpdatePasswordModel(string OldPassword, string NewPassword);
 
         [HttpPut("{id:guid}/password")]
-        public async Task<ActionResult> UpdatePassword(Guid id, UpdatePassword password)
+        public async Task<ActionResult> UpdatePassword(Guid id, UpdatePasswordModel password)
         {
             throw new NotImplementedException();
         }
