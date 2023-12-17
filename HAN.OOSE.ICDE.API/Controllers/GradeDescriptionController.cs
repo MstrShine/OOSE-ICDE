@@ -9,10 +9,13 @@ namespace HAN.OOSE.ICDE.API.Controllers
     [ApiController]
     public class GradeDescriptionController : VersionedEntityController<GradeDescription>
     {
+        private readonly IGradeDescriptionManager _gradeDescriptionManager;
+
         public GradeDescriptionController(
             ILogger<BaseEntityController<GradeDescription>> logger, 
-            IVersionedEntityManager<GradeDescription> entityManager) : base(logger, entityManager)
+            IGradeDescriptionManager entityManager) : base(logger)
         {
+            _gradeDescriptionManager = entityManager;
         }
 
         [HttpDelete("{id:guid}")]
@@ -23,7 +26,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
                 return BadRequest(new ArgumentNullException(nameof(id)));
             }
 
-            await _entityManager.DeleteAsync(id);
+            await _gradeDescriptionManager.DeleteAsync(id);
 
             return Ok();
         }
@@ -36,7 +39,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
                 return BadRequest(new ArgumentNullException(nameof(id)));
             }
 
-            var entities = await _entityManager.GetByIdAsync(id);
+            var entities = await _gradeDescriptionManager.GetByIdAsync(id);
 
             return Ok(entities);
         }
@@ -44,7 +47,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
         [HttpGet]
         public override async Task<ActionResult<List<GradeDescription>>> GetAll()
         {
-            var entities = await _entityManager.GetAllAsync();
+            var entities = await _gradeDescriptionManager.GetAllAsync();
 
             return Ok(entities);
         }
@@ -57,7 +60,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
                 return BadRequest(new ArgumentNullException(nameof(versionId)));
             }
 
-            var entities = await _entityManager.GetByVersionIdAsync(versionId);
+            var entities = await _gradeDescriptionManager.GetByVersionIdAsync(versionId);
 
             return Ok(entities);
         }
@@ -70,7 +73,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
                 return BadRequest(new ArgumentNullException(nameof(entity)));
             }
 
-            var saved = await _entityManager.SaveAsync(entity);
+            var saved = await _gradeDescriptionManager.SaveAsync(entity);
             if (saved == null)
             {
                 return BadRequest("Saving went wrong");
@@ -97,7 +100,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
                 return BadRequest(new ArgumentException("Id in URL not the same as in sent object"));
             }
 
-            var updated = await _entityManager.UpdateAsync(entity);
+            var updated = await _gradeDescriptionManager.UpdateAsync(entity);
             if (updated == null)
             {
                 return BadRequest(new ArgumentException("Updating went wrong"));

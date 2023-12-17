@@ -1,6 +1,7 @@
 ﻿using HAN.OOSE.ICDE.API.Controllers.Base;
 using HAN.OOSE.ICDE.Domain;
 using HAN.OOSE.ICDE.Logic.Interfaces;
+using HAN.OOSE.ICDE.Logic.Interfaces.Base;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HAN.OOSE.ICDE.API.Controllers
@@ -9,10 +10,13 @@ namespace HAN.OOSE.ICDE.API.Controllers
     [ApiController]
     public class AssessmentCriteriaController : VersionedEntityController<AssessmentCriteria>
     {
+        private readonly IAssessmentCriteriaManager _assessmentCriteriaManager;
+
         public AssessmentCriteriaController(
             ILogger<BaseEntityController<AssessmentCriteria>> logger, 
-            IVersionedEntityManager<AssessmentCriteria> entityManager) : base(logger, entityManager)
+            IAssessmentCriteriaManager entityManager) : base(logger)
         {
+            _assessmentCriteriaManager = entityManager;
         }
 
         [HttpDelete("{id:guid}")]
@@ -23,7 +27,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
                 return BadRequest(new ArgumentNullException(nameof(id)));
             }
 
-            await _entityManager.DeleteAsync(id);
+            await _assessmentCriteriaManager.DeleteAsync(id);
 
             return Ok();
         }
@@ -36,7 +40,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
                 return BadRequest(new ArgumentNullException(nameof(id)));
             }
 
-            var entities = await _entityManager.GetByIdAsync(id);
+            var entities = await _assessmentCriteriaManager.GetByIdAsync(id);
 
             return Ok(entities);
         }
@@ -44,7 +48,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
         [HttpGet]
         public override async Task<ActionResult<List<AssessmentCriteria>>> GetAll()
         {
-            var entities = await _entityManager.GetAllAsync();
+            var entities = await _assessmentCriteriaManager.GetAllAsync();
 
             return Ok(entities);
         }
@@ -57,7 +61,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
                 return BadRequest(new ArgumentNullException(nameof(versionId)));
             }
 
-            var entities = await _entityManager.GetByVersionIdAsync(versionId);
+            var entities = await _assessmentCriteriaManager.GetByVersionIdAsync(versionId);
 
             return Ok(entities);
         }
@@ -70,7 +74,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
                 return BadRequest(new ArgumentNullException(nameof(entity)));
             }
 
-            var saved = await _entityManager.SaveAsync(entity);
+            var saved = await _assessmentCriteriaManager.SaveAsync(entity);
             if(saved == null)
             {
                 return BadRequest("Saving went wrong"); 
@@ -97,7 +101,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
                 return BadRequest(new ArgumentException("Id in URL not the same as in sent object"));
             }
 
-            var updated = await _entityManager.UpdateAsync(entity);
+            var updated = await _assessmentCriteriaManager.UpdateAsync(entity);
             if(updated == null)
             {
                 return BadRequest(new ArgumentException("Updating went wrong"));

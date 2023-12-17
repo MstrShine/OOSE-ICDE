@@ -9,10 +9,13 @@ namespace HAN.OOSE.ICDE.API.Controllers
     [ApiController]
     public class LearningOutcomeUnitController : VersionedEntityController<LearningOutcomeUnit>
     {
+        private readonly ILearningOutcomeUnitManager _learningOutcomeUnitManager;
+
         public LearningOutcomeUnitController(
             ILogger<BaseEntityController<LearningOutcomeUnit>> logger, 
-            IVersionedEntityManager<LearningOutcomeUnit> entityManager) : base(logger, entityManager)
+            ILearningOutcomeUnitManager entityManager) : base(logger)
         {
+            _learningOutcomeUnitManager = entityManager;
         }
 
         [HttpDelete("{id:guid}")]
@@ -23,7 +26,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
                 return BadRequest(new ArgumentNullException(nameof(id)));
             }
 
-            await _entityManager.DeleteAsync(id);
+            await _learningOutcomeUnitManager.DeleteAsync(id);
 
             return Ok();
         }
@@ -36,7 +39,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
                 return BadRequest(new ArgumentNullException(nameof(id)));
             }
 
-            var entities = await _entityManager.GetByIdAsync(id);
+            var entities = await _learningOutcomeUnitManager.GetByIdAsync(id);
 
             return Ok(entities);
         }
@@ -44,7 +47,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
         [HttpGet]
         public override async Task<ActionResult<List<LearningOutcomeUnit>>> GetAll()
         {
-            var entities = await _entityManager.GetAllAsync();
+            var entities = await _learningOutcomeUnitManager.GetAllAsync();
 
             return Ok(entities);
         }
@@ -57,7 +60,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
                 return BadRequest(new ArgumentNullException(nameof(versionId)));
             }
 
-            var entities = await _entityManager.GetByVersionIdAsync(versionId);
+            var entities = await _learningOutcomeUnitManager.GetByVersionIdAsync(versionId);
 
             return Ok(entities);
         }
@@ -70,7 +73,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
                 return BadRequest(new ArgumentNullException(nameof(entity)));
             }
 
-            var saved = await _entityManager.SaveAsync(entity);
+            var saved = await _learningOutcomeUnitManager.SaveAsync(entity);
             if (saved == null)
             {
                 return BadRequest("Saving went wrong");
@@ -97,7 +100,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
                 return BadRequest(new ArgumentException("Id in URL not the same as in sent object"));
             }
 
-            var updated = await _entityManager.UpdateAsync(entity);
+            var updated = await _learningOutcomeUnitManager.UpdateAsync(entity);
             if (updated == null)
             {
                 return BadRequest(new ArgumentException("Updating went wrong"));

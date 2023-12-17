@@ -7,12 +7,15 @@ namespace HAN.OOSE.ICDE.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LearningOutcomeController : VersionedEntityController<LearningOutcomeUnit>
+    public class LearningOutcomeController : VersionedEntityController<LearningOutcome>
     {
+        private readonly ILearningOutcomeManager _learningOutcomeManager;
+
         public LearningOutcomeController(
-            ILogger<BaseEntityController<LearningOutcomeUnit>> logger, 
-            IVersionedEntityManager<LearningOutcomeUnit> entityManager) : base(logger, entityManager)
+            ILogger<BaseEntityController<LearningOutcome>> logger, 
+            ILearningOutcomeManager entityManager) : base(logger)
         {
+            _learningOutcomeManager = entityManager;
         }
 
         [HttpDelete("{id:guid}")]
@@ -23,54 +26,54 @@ namespace HAN.OOSE.ICDE.API.Controllers
                 return BadRequest(new ArgumentNullException(nameof(id)));
             }
 
-            await _entityManager.DeleteAsync(id);
+            await _learningOutcomeManager.DeleteAsync(id);
 
             return Ok();
         }
 
         [HttpGet("{id:guid}")]
-        public override async Task<ActionResult<LearningOutcomeUnit>> Get(Guid id)
+        public override async Task<ActionResult<LearningOutcome>> Get(Guid id)
         {
             if (id == Guid.Empty)
             {
                 return BadRequest(new ArgumentNullException(nameof(id)));
             }
 
-            var entities = await _entityManager.GetByIdAsync(id);
+            var entities = await _learningOutcomeManager.GetByIdAsync(id);
 
             return Ok(entities);
         }
 
         [HttpGet]
-        public override async Task<ActionResult<List<LearningOutcomeUnit>>> GetAll()
+        public override async Task<ActionResult<List<LearningOutcome>>> GetAll()
         {
-            var entities = await _entityManager.GetAllAsync();
+            var entities = await _learningOutcomeManager.GetAllAsync();
 
             return Ok(entities);
         }
 
         [HttpGet("version/{versionId:guid}")]
-        public override async Task<ActionResult<List<LearningOutcomeUnit>>> GetByVersionId(Guid versionId)
+        public override async Task<ActionResult<List<LearningOutcome>>> GetByVersionId(Guid versionId)
         {
             if (versionId == Guid.Empty)
             {
                 return BadRequest(new ArgumentNullException(nameof(versionId)));
             }
 
-            var entities = await _entityManager.GetByVersionIdAsync(versionId);
+            var entities = await _learningOutcomeManager.GetByVersionIdAsync(versionId);
 
             return Ok(entities);
         }
 
         [HttpPost]
-        public override async Task<ActionResult<LearningOutcomeUnit>> Post(LearningOutcomeUnit entity)
+        public override async Task<ActionResult<LearningOutcome>> Post(LearningOutcome entity)
         {
             if (entity == null)
             {
                 return BadRequest(new ArgumentNullException(nameof(entity)));
             }
 
-            var saved = await _entityManager.SaveAsync(entity);
+            var saved = await _learningOutcomeManager.SaveAsync(entity);
             if (saved == null)
             {
                 return BadRequest("Saving went wrong");
@@ -80,7 +83,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
         }
 
         [HttpPut("{id:guid}")]
-        public override async Task<ActionResult<LearningOutcomeUnit>> Put(Guid id, LearningOutcomeUnit entity)
+        public override async Task<ActionResult<LearningOutcome>> Put(Guid id, LearningOutcome entity)
         {
             if (id == Guid.Empty)
             {
@@ -97,7 +100,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
                 return BadRequest(new ArgumentException("Id in URL not the same as in sent object"));
             }
 
-            var updated = await _entityManager.UpdateAsync(entity);
+            var updated = await _learningOutcomeManager.UpdateAsync(entity);
             if (updated == null)
             {
                 return BadRequest(new ArgumentException("Updating went wrong"));

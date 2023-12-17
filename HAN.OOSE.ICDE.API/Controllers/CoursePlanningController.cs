@@ -9,10 +9,13 @@ namespace HAN.OOSE.ICDE.API.Controllers
     [ApiController]
     public class CoursePlanningController : VersionedEntityController<CoursePlanning>
     {
+        private readonly ICoursePlanningManager _entityManager;
+
         public CoursePlanningController(
             ILogger<BaseEntityController<CoursePlanning>> logger, 
-            IVersionedEntityManager<CoursePlanning> entityManager) : base(logger, entityManager)
+            ICoursePlanningManager entityManager) : base(logger)
         {
+            _entityManager = entityManager;
         }
 
         [HttpDelete("{id:guid}")]

@@ -9,10 +9,13 @@ namespace HAN.OOSE.ICDE.API.Controllers
     [ApiController]
     public class ExaminationEventController : VersionedEntityController<ExaminationEvent>
     {
+        private readonly IExaminationEventManager _entityManager;
+
         public ExaminationEventController(
             ILogger<BaseEntityController<ExaminationEvent>> logger, 
-            IVersionedEntityManager<ExaminationEvent> entityManager) : base(logger, entityManager)
+            IExaminationEventManager entityManager) : base(logger)
         {
+            _entityManager = entityManager;
         }
 
         [HttpDelete("{id:guid}")]

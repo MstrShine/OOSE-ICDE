@@ -1,5 +1,4 @@
 ﻿using HAN.OOSE.ICDE.API.Controllers.Base;
-using HAN.OOSE.ICDE.API.Interfaces;
 using HAN.OOSE.ICDE.Domain;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,9 +6,9 @@ namespace HAN.OOSE.ICDE.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : BaseEntityController<User>
+    public class StudyController : BaseEntityController<Study>
     {
-        public UserController(ILogger<BaseEntityController<User>> logger) : base(logger)
+        public StudyController(ILogger<BaseEntityController<Study>> logger) : base(logger)
         {
         }
 
@@ -18,22 +17,22 @@ namespace HAN.OOSE.ICDE.API.Controllers
             throw new NotImplementedException();
         }
 
-        public override Task<ActionResult<User>> Get(Guid id)
+        public override Task<ActionResult<Study>> Get(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public override Task<ActionResult<List<User>>> GetAll()
+        public override Task<ActionResult<List<Study>>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public override Task<ActionResult<User>> Post(User entity)
+        public override Task<ActionResult<Study>> Post(Study entity)
         {
             throw new NotImplementedException();
         }
 
-        public override Task<ActionResult<User>> Put(Guid id, User entity)
+        public override Task<ActionResult<Study>> Put(Guid id, Study entity)
         {
             throw new NotImplementedException();
         }
