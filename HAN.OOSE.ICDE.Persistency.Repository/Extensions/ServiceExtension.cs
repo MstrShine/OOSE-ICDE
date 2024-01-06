@@ -49,8 +49,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Extensions
             services.AddScoped<IEntityRepository<ILessonRepositorySession, Lesson>, LessonRepository>();
             services.AddTransient<ILessonRepositorySession, LessonRepositorySession>();
 
-            services.AddScoped<IEntityRepository<IEntityRepositorySession<User>, User>, UserRepository>();
-            services.AddTransient<IEntityRepositorySession<User>, UserRepositorySession>();
+            services.AddScoped<IEntityRepository<IUserRepositorySession, User>, UserRepository>();
+            services.AddTransient<IUserRepositorySession, UserRepositorySession>();
 
             services.AddScoped<IEntityRepository<IEntityRepositorySession<Study>, Study>, StudyRepository>();
             services.AddTransient<IEntityRepositorySession<Study>, StudyRepositorySession>();
