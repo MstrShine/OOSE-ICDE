@@ -1,18 +1,20 @@
 ﻿using HAN.OOSE.ICDE.Domain;
+using HAN.OOSE.ICDE.Logic.Interfaces;
 using HAN.OOSE.ICDE.Logic.Interfaces.Base;
 using HAN.OOSE.ICDE.Logic.Mapping.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces;
+using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions.Base;
 
 namespace HAN.OOSE.ICDE.Logic
 {
-    public class UserManager : IEntityManager<Domain.User>
+    public class UserManager : IUserManager
     {
-        private readonly IEntityRepository<IEntityRepositorySession<Persistency.Database.Domain.User>, Persistency.Database.Domain.User> _repository;
+        private readonly IEntityRepository<IUserRepositorySession, Persistency.Database.Domain.User> _repository;
         private readonly IEntityMapper<Domain.User, Persistency.Database.Domain.User> _mapper;
 
         public UserManager(
-            IEntityRepository<IEntityRepositorySession<Persistency.Database.Domain.User>, Persistency.Database.Domain.User> repository,
+            IEntityRepository<IUserRepositorySession, Persistency.Database.Domain.User> repository,
             IEntityMapper<Domain.User, Persistency.Database.Domain.User> mapper) 
         { 
             _repository = repository;
@@ -44,12 +46,27 @@ namespace HAN.OOSE.ICDE.Logic
                 }
             }
 
-            foreach(var item in list)
+            return list;
+        }
+
+        public async Task<User> GetByEmailAsync(string email)
+        {
+            if (string.IsNullOrEmpty(email))
             {
-                item.Password = null;
+                throw new ArgumentNullException(nameof(email));
             }
 
-            return list;
+            User user = null;
+            using (var session = _repository.CreateSession()) 
+            { 
+                var dbEntity = await session.GetByEmailAsync(email);
+                if (dbEntity != null)
+                {
+                    user = _mapper.ToEntity(dbEntity);
+                }
+            }
+
+            return user;
         }
 
         public async Task<User> GetByIdAsync(Guid id)
@@ -67,11 +84,6 @@ namespace HAN.OOSE.ICDE.Logic
                 {
                     user = _mapper.ToEntity(dbEntity);
                 }
-            }
-
-            if(user != null)
-            {
-                user.Password = null;
             }
 
             return user;

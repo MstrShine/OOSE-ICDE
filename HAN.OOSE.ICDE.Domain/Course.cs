@@ -14,6 +14,8 @@ namespace HAN.OOSE.ICDE.Domain
 
         public int CTE { get; set; }
 
+        public bool IsFinalized { get; set; }
+
         public Guid StudyId { get; set; }
     }
 }

@@ -15,6 +15,7 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
 
         protected override Persistency.Database.Domain.LearningOutcomeUnit _FromEntity(Persistency.Database.Domain.LearningOutcomeUnit dbEntity, Domain.LearningOutcomeUnit entity)
         {
+            dbEntity.Name = entity.Name;
             dbEntity.Code = entity.Code;
             dbEntity.CTE = entity.CTE;
             dbEntity.MinimumGrade = entity.MinimumGrade;
@@ -25,6 +26,7 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
 
         protected override Domain.LearningOutcomeUnit _ToEntity(Domain.LearningOutcomeUnit entity, Persistency.Database.Domain.LearningOutcomeUnit dbEntity)
         {
+            entity.Name = dbEntity.Name;
             entity.Code = dbEntity.Code;
             entity.CTE = dbEntity.CTE;
             entity.MinimumGrade = dbEntity.MinimumGrade;

@@ -4,6 +4,7 @@ using HAN.OOSE.ICDE.Persistency.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240106130452_UserAndCourse")]
+    partial class UserAndCourse
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -224,10 +227,6 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                     b.Property<Guid>("Author")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("DateOfCreation")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2");
@@ -238,12 +237,9 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                     b.Property<int>("MinimumGrade")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
 
                     b.Property<Guid>("VersionCollection")
                         .HasColumnType("uniqueidentifier");
@@ -410,10 +406,6 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
 
                     b.Property<double>("MinimumGrade")
                         .HasColumnType("float");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("VersionCollection")
                         .HasColumnType("uniqueidentifier");

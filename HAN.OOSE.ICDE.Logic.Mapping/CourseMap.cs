@@ -20,6 +20,7 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
             dbEntity.Code = entity.Code;
             dbEntity.CollegeYear = entity.CollegeYear;
             dbEntity.CTE = entity.CTE;
+            dbEntity.IsFinalized = entity.IsFinalized;
             dbEntity.StudyId = entity.StudyId;
 
             return dbEntity;
@@ -32,6 +33,7 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
             entity.Code = dbEntity.Code;
             entity.CollegeYear = dbEntity.CollegeYear;
             entity.CTE = dbEntity.CTE;
+            entity.IsFinalized = dbEntity.IsFinalized;
             entity.StudyId = dbEntity.StudyId;
 
             return entity;

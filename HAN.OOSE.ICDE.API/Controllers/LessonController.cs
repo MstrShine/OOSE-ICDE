@@ -1,6 +1,7 @@
 ﻿using HAN.OOSE.ICDE.API.Controllers.Base;
 using HAN.OOSE.ICDE.Domain;
 using HAN.OOSE.ICDE.Logic.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HAN.OOSE.ICDE.API.Controllers
@@ -19,6 +20,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
         }
 
         [HttpDelete("{id:guid}")]
+        [Authorize(Roles = "Teacher, Administrator")]
         public override async Task<ActionResult> Delete(Guid id)
         {
             if (id == Guid.Empty)
@@ -32,6 +34,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
         }
 
         [HttpGet("{id:guid}")]
+        [Authorize]
         public override async Task<ActionResult<Lesson>> Get(Guid id)
         {
             if (id == Guid.Empty)
@@ -45,6 +48,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public override async Task<ActionResult<List<Lesson>>> GetAll()
         {
             var entities = await _lessonManager.GetAllAsync();
@@ -53,6 +57,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
         }
 
         [HttpGet("version/{versionId:guid}")]
+        [Authorize]
         public override async Task<ActionResult<List<Lesson>>> GetByVersionId(Guid versionId)
         {
             if (versionId == Guid.Empty)
@@ -66,6 +71,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Teacher, Administrator")]
         public override async Task<ActionResult<Lesson>> Post(Lesson entity)
         {
             if (entity == null)
@@ -83,6 +89,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
         }
 
         [HttpPut("{id:guid}")]
+        [Authorize(Roles = "Teacher, Administrator")]
         public override async Task<ActionResult<Lesson>> Put(Guid id, Lesson entity)
         {
             if (id == Guid.Empty)

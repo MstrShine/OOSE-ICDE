@@ -13,6 +13,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
             builder.Property(x => x.FirstName).IsRequired();
             builder.Property(x => x.LastName).IsRequired();
             builder.Property(x => x.Role).IsRequired();
+
+            builder.HasIndex(x => x.Email).IsUnique();
         }
     }
 }

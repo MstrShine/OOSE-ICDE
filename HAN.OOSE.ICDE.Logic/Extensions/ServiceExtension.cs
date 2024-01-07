@@ -25,7 +25,7 @@ namespace HAN.OOSE.ICDE.Logic.Extensions
             services.AddScoped<ILearningOutcomeManager, LearningOutcomeManager>();
             services.AddScoped<ILearningOutcomeUnitManager, LearningOutcomeUnitManager>();
             services.AddScoped<ILessonManager, LessonManager>();
-            services.AddScoped<IEntityManager<User>, UserManager>();
+            services.AddScoped<IUserManager, UserManager>();
             services.AddScoped<IEntityManager<Study>, StudyManager>();
 
             return services;

@@ -1,4 +1,5 @@
 ﻿using HAN.OOSE.ICDE.Persistency.Database.Domain;
+using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions.Base;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
 {
-    public class UserRepositorySession : IEntityRepositorySession<User>
+    public class UserRepositorySession : IUserRepositorySession
     {
         private bool disposedValue;
 
@@ -38,6 +39,16 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
         public Task<List<User>> GetAllAsync()
         {
             return Table.ToListAsync();
+        }
+
+        public Task<User> GetByEmailAsync(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new ArgumentNullException(nameof(email));
+            }
+
+            return Table.SingleAsync(x => x.Email == email);
         }
 
         public Task<User> GetByIdAsync(Guid id)

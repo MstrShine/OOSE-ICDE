@@ -2,6 +2,7 @@
 using HAN.OOSE.ICDE.Domain;
 using HAN.OOSE.ICDE.Logic.Interfaces;
 using HAN.OOSE.ICDE.Logic.Interfaces.Base;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HAN.OOSE.ICDE.API.Controllers
@@ -20,6 +21,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
         }
 
         [HttpDelete("{id:guid}")]
+        [Authorize(Roles = "Teacher, Administrator")]
         public override async Task<ActionResult> Delete(Guid id)
         {
             if(id == Guid.Empty)
@@ -33,6 +35,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
         }
 
         [HttpGet("{id:guid}")]
+        [Authorize]
         public override async Task<ActionResult<AssessmentCriteria>> Get(Guid id)
         {
             if(id == Guid.Empty)
@@ -46,6 +49,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public override async Task<ActionResult<List<AssessmentCriteria>>> GetAll()
         {
             var entities = await _assessmentCriteriaManager.GetAllAsync();
@@ -54,6 +58,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
         }
 
         [HttpGet("version/{versionId:guid}")]
+        [Authorize]
         public override async Task<ActionResult<List<AssessmentCriteria>>> GetByVersionId(Guid versionId)
         {
             if(versionId == Guid.Empty)
@@ -67,6 +72,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Teacher, Administrator")]
         public override async Task<ActionResult<AssessmentCriteria>> Post(AssessmentCriteria entity)
         {
             if(entity == null)
@@ -84,6 +90,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
         }
 
         [HttpPut("{id:guid}")]
+        [Authorize(Roles = "Teacher, Administrator")]
         public override async Task<ActionResult<AssessmentCriteria>> Put(Guid id, AssessmentCriteria entity)
         {
             if(id == Guid.Empty)
