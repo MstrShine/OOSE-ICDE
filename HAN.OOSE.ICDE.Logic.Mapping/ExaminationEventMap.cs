@@ -26,8 +26,8 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
 
         protected override Domain.ExaminationEvent _ToEntity(Domain.ExaminationEvent entity, Persistency.Database.Domain.ExaminationEvent dbEntity)
         {
-            entity.Type = entity.Type;
-            entity.Date = entity.Date;
+            entity.Type = dbEntity.Type;
+            entity.Date = dbEntity.Date;
             entity.Prerequisites = dbEntity.Prerequisites;
             entity.CoursePlanningId = dbEntity.CoursePlanningId;
             entity.ExamId = dbEntity.ExamId;
