@@ -16,8 +16,10 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
 
         protected override Persistency.Database.Domain.Exam _FromEntity(Persistency.Database.Domain.Exam dbEntity, Domain.Exam entity)
         {
+            dbEntity.Name = entity.Name;
+            dbEntity.Code = entity.Code;
             dbEntity.Weight = entity.Weight;
-            dbEntity.Type = entity.Type;
+            dbEntity.Type = (Persistency.Database.Domain.Enums.ExamType)entity.Type;
             dbEntity.MinimumGrade = entity.MinimumGrade;
             dbEntity.LearningOutcomeUnitId = entity.LearningOutcomeUnitId;
 
@@ -26,8 +28,10 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
 
         protected override Domain.Exam _ToEntity(Domain.Exam entity, Persistency.Database.Domain.Exam dbEntity)
         {
+            entity.Name = dbEntity.Name;
+            entity.Code = dbEntity.Code;
             entity.Weight = dbEntity.Weight;
-            entity.Type = dbEntity.Type;
+            entity.Type = (Domain.Enums.ExamType)dbEntity.Type;
             entity.MinimumGrade = dbEntity.MinimumGrade;
             entity.LearningOutcomeUnitId = dbEntity.LearningOutcomeUnitId;
 

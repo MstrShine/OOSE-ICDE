@@ -4,6 +4,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Domain
 {
     public class LearningOutcomeUnit : VersionDBEntity
     {
+        public string Name { get; set; }
+
         public string Code { get; set; }
 
         public double CTE { get; set; }

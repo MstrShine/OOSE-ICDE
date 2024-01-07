@@ -9,6 +9,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
     {
         public override void ConfigureExtension(EntityTypeBuilder<Exam> builder)
         {
+            builder.Property(x => x.Name).IsRequired();
+            builder.Property(x => x.Code).IsRequired();
             builder.Property(x => x.Weight).IsRequired();
             builder.Property(x => x.Type).IsRequired();
             builder.Property(x => x.MinimumGrade).IsRequired();
