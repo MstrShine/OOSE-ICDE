@@ -12,7 +12,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Mapping.Base
             base.Configure(builder);
 
             builder.Property(x => x.VersionCollection);
-            builder.Property(x => x.DateOfCreation).ValueGeneratedOnAdd();
+            builder.Property(x => x.DateOfCreation).HasDefaultValueSql("GETDATE()");
 
             builder.HasOne<User>().WithMany().HasForeignKey(x => x.Author).OnDelete(DeleteBehavior.NoAction);
         }
