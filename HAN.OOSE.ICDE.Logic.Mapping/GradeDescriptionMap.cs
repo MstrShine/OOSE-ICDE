@@ -24,8 +24,8 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
 
         protected override Domain.GradeDescription _ToEntity(Domain.GradeDescription entity, Persistency.Database.Domain.GradeDescription dbEntity)
         {
-            entity.Grade = entity.Grade;
-            entity.Description = entity.Description;
+            entity.Grade = dbEntity.Grade;
+            entity.Description = dbEntity.Description;
             entity.AssessmentCriteriaId = dbEntity.AssessmentCriteriaId;
 
             return entity;

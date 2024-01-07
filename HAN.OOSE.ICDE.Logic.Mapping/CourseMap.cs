@@ -28,8 +28,8 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
 
         protected override Domain.Course _ToEntity(Domain.Course entity, Persistency.Database.Domain.Course dbEntity)
         {
-            entity.Name = entity.Name;
-            entity.Description = entity.Description;
+            entity.Name = dbEntity.Name;
+            entity.Description = dbEntity.Description;
             entity.Code = dbEntity.Code;
             entity.CollegeYear = dbEntity.CollegeYear;
             entity.CTE = dbEntity.CTE;
