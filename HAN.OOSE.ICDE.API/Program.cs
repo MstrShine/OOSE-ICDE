@@ -22,6 +22,8 @@ namespace HAN.OOSE.ICDE.API
 
             var config = builder.Configuration;
             // Add services to the container.
+            builder.Services.AddCors();
+
             builder.Services
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(o =>
@@ -58,6 +60,8 @@ namespace HAN.OOSE.ICDE.API
 
             var app = builder.Build();
             app.EnsureMigrationOfContext<DataContext>();
+
+            app.UseCors(o => o.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseSwagger();
             app.UseSwaggerUI();
