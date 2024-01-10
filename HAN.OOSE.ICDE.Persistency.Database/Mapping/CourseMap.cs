@@ -9,12 +9,13 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
     {
         public override void ConfigureExtension(EntityTypeBuilder<Course> builder)
         {
-            builder.Property(x => x.Name);
-            builder.Property(x => x.Description);
-            builder.Property(x => x.Code);
-            builder.Property(x => x.CollegeYear);
-            builder.Property(x => x.CTE);
-            builder.Property(x => x.StudyId);
+            builder.Property(x => x.Name).IsRequired(false);
+            builder.Property(x => x.Description).IsRequired(false);
+            builder.Property(x => x.Code).IsRequired(false);
+            builder.Property(x => x.CollegeYear).HasDefaultValueSql("YEAR(GETDATE())");
+            builder.Property(x => x.CTE).HasDefaultValue(0);
+
+            builder.Property(x => x.StudyId).IsRequired(false);
 
             builder.HasMany<LearningOutcomeUnit>().WithOne().HasForeignKey(x => x.CourseId).OnDelete(DeleteBehavior.NoAction).IsRequired(false);
             builder.HasMany<Competency>().WithOne().HasForeignKey(x => x.CourseId).OnDelete(DeleteBehavior.NoAction).IsRequired(false);

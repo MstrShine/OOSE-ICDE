@@ -8,12 +8,12 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
     {
         public override void ConfigureExtension(EntityTypeBuilder<LearningOutcome> builder)
         {
-            builder.Property(x => x.Name);
-            builder.Property(x => x.Description);
+            builder.Property(x => x.Name).IsRequired(false);
+            builder.Property(x => x.Description).IsRequired(false);
 
-            builder.Property(x => x.ExamId);
-            builder.Property(x => x.LearningOutcomeUnitId);
-            builder.Property(x => x.LessonId);
+            builder.Property(x => x.ExamId).IsRequired(false);
+            builder.Property(x => x.LearningOutcomeUnitId).IsRequired(false);
+            builder.Property(x => x.LessonId).IsRequired(false);
         }
     }
 }

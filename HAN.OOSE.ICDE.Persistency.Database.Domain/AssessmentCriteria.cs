@@ -12,6 +12,6 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Domain
 
         public string Explanation { get; set; }
 
-        public Guid AssessmentDimensionId { get; set; }
+        public Guid? AssessmentDimensionId { get; set; }
     }
 }

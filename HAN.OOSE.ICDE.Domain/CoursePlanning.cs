@@ -4,6 +4,6 @@ namespace HAN.OOSE.ICDE.Domain
 {
     public class CoursePlanning : VersionedEntity
     {
-        public Guid CourseId { get; set; }
+        public Guid? CourseId { get; set; }
     }
 }

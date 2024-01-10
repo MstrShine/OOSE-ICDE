@@ -8,8 +8,8 @@ namespace HAN.OOSE.ICDE.Domain
 
         public string Name { get; set; }
 
-        public Guid CourseId { get; set; }
+        public Guid? CourseId { get; set; }
 
-        public Guid LearningOutcomeUnitId { get; set; }
+        public Guid? LearningOutcomeUnitId { get; set; }
     }
 }

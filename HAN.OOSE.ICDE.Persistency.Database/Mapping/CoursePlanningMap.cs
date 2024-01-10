@@ -9,6 +9,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
     {
         public override void ConfigureExtension(EntityTypeBuilder<CoursePlanning> builder)
         {
+            builder.Property(x => x.CourseId).IsRequired(false);
+
             builder.HasMany<Lesson>().WithOne().HasForeignKey(x => x.CoursePlanningId).OnDelete(DeleteBehavior.NoAction).IsRequired(false);
             builder.HasMany<ExaminationEvent>().WithOne().HasForeignKey(x => x.CoursePlanningId).OnDelete(DeleteBehavior.NoAction).IsRequired(false);
         }
