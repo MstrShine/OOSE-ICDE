@@ -48,7 +48,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
                 throw new ArgumentNullException(nameof(email));
             }
 
-            return Table.SingleAsync(x => x.Email == email);
+            return Table.SingleOrDefaultAsync(x => x.Email == email);
         }
 
         public Task<User> GetByIdAsync(Guid id)
@@ -58,7 +58,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
                 throw new ArgumentNullException(nameof(id));
             }
 
-            return Table.SingleAsync(x => x.Id == id);
+            return Table.SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<User> SaveAsync(User entity)
