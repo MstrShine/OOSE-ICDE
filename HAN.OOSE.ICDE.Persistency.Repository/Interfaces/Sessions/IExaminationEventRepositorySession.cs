@@ -13,5 +13,9 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions
         Task<List<ExaminationEvent>> GetByCoursePlanningIdAsync(Guid coursePlanningId);
 
         Task<List<ExaminationEvent>> GetByExamIdAsync(Guid examId);
+
+        Task ChangeCoursePlanningIdAsync(Guid examinationEventId, Guid coursePlanningId);
+
+        Task ChangeExamIdAsync(Guid examinationEventId, Guid examId);
     }
 }

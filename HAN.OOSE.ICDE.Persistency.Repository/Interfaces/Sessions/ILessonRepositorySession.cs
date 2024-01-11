@@ -11,5 +11,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions
     public interface ILessonRepositorySession : IVersionedEntityRepositorySession<Lesson>
     {
         Task<List<Lesson>> GetByCoursePlanningIdAsync(Guid coursePlanningId);
+
+        Task ChangeCoursePlanningIdAsync(Guid lessonId, Guid coursePlanningId);
     }
 }

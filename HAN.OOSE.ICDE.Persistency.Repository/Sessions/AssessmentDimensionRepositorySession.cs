@@ -14,8 +14,11 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
     {
         protected override DbSet<AssessmentDimension> Table => dataContext.AssessmentDimensions;
 
-        public AssessmentDimensionRepositorySession(DataContext dataContext) : base(dataContext)
+        private readonly IAssessmentCriteriaRepositorySession _assessmentCriteriaRepositorySession;
+
+        public AssessmentDimensionRepositorySession(DataContext dataContext, IAssessmentCriteriaRepositorySession assessmentCriteriaRepositorySession) : base(dataContext)
         {
+            _assessmentCriteriaRepositorySession = assessmentCriteriaRepositorySession;
         }
 
         public Task<List<AssessmentDimension>> GetByExamIdAsync(Guid examId)
@@ -26,6 +29,29 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
             }
 
             return Table.Where(x => x.ExamId == examId).ToListAsync();
+        }
+
+        public async Task ChangeExamIdAsync(Guid assessmentDimensionId, Guid examId)
+        {
+            if(assessmentDimensionId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof (assessmentDimensionId));
+            }
+
+            if(examId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof (examId));
+            }
+
+            var toChange = await Table.SingleOrDefaultAsync(x => x.Id == assessmentDimensionId);
+            if(toChange == null) 
+            {
+                throw new Exception($"AssessmentDimension not found with Id: {assessmentDimensionId}");
+            }
+
+            toChange.ExamId = examId;
+            Table.Update(toChange);
+            await dataContext.SaveChangesAsync();
         }
     }
 }
