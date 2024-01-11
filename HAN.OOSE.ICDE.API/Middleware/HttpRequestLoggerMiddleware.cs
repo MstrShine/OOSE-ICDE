@@ -15,9 +15,13 @@
         {
             var request = context.Request;
 
-            _logger.LogInformation($"Incomming Request: HTTP {request.Method} {request.Path}");
+            _logger.LogInformation($"Incomming: HTTP {request.Method} {request.Path}");
 
             await _next(context);
+
+            var response = context.Response;
+
+            _logger.LogInformation($"Outgoing: HTTP-code {response.StatusCode}");
         }
     }
 }
