@@ -11,12 +11,18 @@ namespace HAN.OOSE.ICDE.API.Controllers
     public class CoursePlanningController : VersionedEntityController<CoursePlanning>
     {
         private readonly ICoursePlanningManager _entityManager;
+        private readonly IExaminationEventManager _examinationEventManager;
+        private readonly ILessonManager _lessonManager;
 
         public CoursePlanningController(
-            ILogger<BaseEntityController<CoursePlanning>> logger, 
-            ICoursePlanningManager entityManager) : base(logger)
+            ILogger<BaseEntityController<CoursePlanning>> logger,
+            ICoursePlanningManager entityManager,
+            IExaminationEventManager examinationEventManager,
+            ILessonManager lessonManager) : base(logger)
         {
             _entityManager = entityManager;
+            _examinationEventManager = examinationEventManager;
+            _lessonManager = lessonManager;
         }
 
         [HttpDelete("{id:guid}")]
@@ -68,6 +74,34 @@ namespace HAN.OOSE.ICDE.API.Controllers
             var entities = await _entityManager.GetByVersionIdAsync(versionId);
 
             return Ok(entities);
+        }
+
+        [HttpGet("{id:guid}/examinationevent")]
+        [Authorize]
+        public async Task<ActionResult<List<ExaminationEvent>>> GetExaminationEventsByCoursePlanningId(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest(new ArgumentNullException(nameof(id)));
+            }
+
+            var examinationEvents = await _examinationEventManager.GetByCoursePlanningIdAsync(id);
+
+            return Ok(examinationEvents);
+        }
+
+        [HttpGet("{id:guid}/lesson")]
+        [Authorize]
+        public async Task<ActionResult<List<Lesson>>> GetLessonsByCoursePlanningId(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest(new ArgumentNullException(nameof(id)));
+            }
+
+            var lessons = await _lessonManager.GetByCoursePlanningIdAsync(id);
+
+            return Ok(lessons);
         }
 
         [HttpPost]

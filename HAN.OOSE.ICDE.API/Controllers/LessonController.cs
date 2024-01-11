@@ -11,12 +11,15 @@ namespace HAN.OOSE.ICDE.API.Controllers
     public class LessonController : VersionedEntityController<Lesson>
     {
         private readonly ILessonManager _lessonManager;
+        private readonly ILearningOutcomeManager _learningOutcomeManager;
 
         public LessonController(
-            ILogger<BaseEntityController<Lesson>> logger, 
-            ILessonManager entityManager) : base(logger)
+            ILogger<BaseEntityController<Lesson>> logger,
+            ILessonManager entityManager,
+            ILearningOutcomeManager learningOutcomeManager) : base(logger)
         {
             _lessonManager = entityManager;
+            _learningOutcomeManager = learningOutcomeManager;
         }
 
         [HttpDelete("{id:guid}")]
@@ -68,6 +71,20 @@ namespace HAN.OOSE.ICDE.API.Controllers
             var entities = await _lessonManager.GetByVersionIdAsync(versionId);
 
             return Ok(entities);
+        }
+
+        [HttpGet("{id:guid}/learningoutcome")]
+        [Authorize]
+        public async Task<ActionResult<LearningOutcome>> GetLearningOutcomesByLessonId(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest(new ArgumentNullException(nameof(id)));
+            }
+
+            var learningOutcomes = await _learningOutcomeManager.GetByLessonIdAsync(id);
+
+            return Ok(learningOutcomes);
         }
 
         [HttpPost]

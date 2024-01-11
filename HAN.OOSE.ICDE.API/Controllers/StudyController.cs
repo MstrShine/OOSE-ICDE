@@ -1,5 +1,6 @@
 ﻿using HAN.OOSE.ICDE.API.Controllers.Base;
 using HAN.OOSE.ICDE.Domain;
+using HAN.OOSE.ICDE.Logic.Interfaces;
 using HAN.OOSE.ICDE.Logic.Interfaces.Base;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,19 +12,22 @@ namespace HAN.OOSE.ICDE.API.Controllers
     public class StudyController : BaseEntityController<Study>
     {
         private readonly IEntityManager<Study> _studyManager;
+        private readonly ICourseManager _courseManager;
 
         public StudyController(
-            ILogger<BaseEntityController<Study>> logger, 
-            IEntityManager<Study> studyManager) : base(logger)
+            ILogger<BaseEntityController<Study>> logger,
+            IEntityManager<Study> studyManager,
+            ICourseManager courseManager) : base(logger)
         {
             _studyManager = studyManager;
+            _courseManager = courseManager;
         }
 
         [HttpDelete("{id:guid}")]
         [Authorize(Roles = "Teacher, Administrator")]
         public override async Task<ActionResult> Delete(Guid id)
         {
-            if(id == Guid.Empty)
+            if (id == Guid.Empty)
             {
                 return BadRequest(new ArgumentNullException(nameof(id)));
             }
@@ -54,6 +58,20 @@ namespace HAN.OOSE.ICDE.API.Controllers
             var entities = await _studyManager.GetAllAsync();
 
             return Ok(entities);
+        }
+
+        [HttpGet("{id:guid}/course")]
+        [Authorize]
+        public async Task<ActionResult<List<Course>>> GetCoursesByStudyId(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest(new ArgumentNullException(nameof(id)));
+            }
+
+            var courses = await _courseManager.GetByStudyIdAsync(id);
+
+            return Ok(courses);
         }
 
         [HttpPost]

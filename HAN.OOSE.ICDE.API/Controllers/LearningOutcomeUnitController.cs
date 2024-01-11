@@ -11,12 +11,21 @@ namespace HAN.OOSE.ICDE.API.Controllers
     public class LearningOutcomeUnitController : VersionedEntityController<LearningOutcomeUnit>
     {
         private readonly ILearningOutcomeUnitManager _learningOutcomeUnitManager;
+        private readonly ICompetencyManager _competencyManager;
+        private readonly IExamManager _examManager;
+        private readonly ILearningOutcomeManager _learningOutcomeManager;
 
         public LearningOutcomeUnitController(
-            ILogger<BaseEntityController<LearningOutcomeUnit>> logger, 
-            ILearningOutcomeUnitManager entityManager) : base(logger)
+            ILogger<BaseEntityController<LearningOutcomeUnit>> logger,
+            ILearningOutcomeUnitManager entityManager,
+            ICompetencyManager competencyManager,
+            IExamManager examManager,
+            ILearningOutcomeManager learningOutcomeManager) : base(logger)
         {
             _learningOutcomeUnitManager = entityManager;
+            _competencyManager = competencyManager;
+            _examManager = examManager;
+            _learningOutcomeManager = learningOutcomeManager;
         }
 
         [HttpDelete("{id:guid}")]
@@ -68,6 +77,48 @@ namespace HAN.OOSE.ICDE.API.Controllers
             var entities = await _learningOutcomeUnitManager.GetByVersionIdAsync(versionId);
 
             return Ok(entities);
+        }
+
+        [HttpGet("{id:guid}/competency")]
+        [Authorize]
+        public async Task<ActionResult<List<Competency>>> GetCompetenciesByLearningOutcomeUnitId(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest(new ArgumentNullException(nameof(id)));
+            }
+
+            var competencies = await _competencyManager.GetByLearningOutcomeUnitIdAsync(id);
+
+            return Ok(competencies);
+        }
+
+        [HttpGet("{id:guid}/exam")]
+        [Authorize]
+        public async Task<ActionResult<List<Exam>>> GetExamsByLearningOutcomeUnitId(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest(new ArgumentNullException(nameof(id)));
+            }
+
+            var exams = await _examManager.GetByLearningOutcomeUnitIdAsync(id);
+
+            return Ok(exams);
+        }
+
+        [HttpGet("{id:guid}/learningoutcome")]
+        [Authorize]
+        public async Task<ActionResult<List<LearningOutcome>>> GetLearningOutcomesByLearningOutcomeUnitId(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest(new ArgumentNullException(nameof(id)));
+            }
+
+            var learningOutcomes = await _learningOutcomeManager.GetByLearningOutcomeUnitIdAsync(id);
+
+            return Ok(learningOutcomes);
         }
 
         [HttpPost]

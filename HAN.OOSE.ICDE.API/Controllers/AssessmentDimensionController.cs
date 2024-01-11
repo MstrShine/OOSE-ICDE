@@ -11,11 +11,15 @@ namespace HAN.OOSE.ICDE.API.Controllers
     public class AssessmentDimensionController : VersionedEntityController<AssessmentDimension>
     {
         private readonly IAssessmentDimensionManager _assessmentDimensionManager;
+        private readonly IAssessmentCriteriaManager _assessmentCriteriaManager;
+
         public AssessmentDimensionController(
-            ILogger<BaseEntityController<AssessmentDimension>> logger, 
-            IAssessmentDimensionManager entityManager) : base(logger)
+            ILogger<BaseEntityController<AssessmentDimension>> logger,
+            IAssessmentDimensionManager entityManager,
+            IAssessmentCriteriaManager assessmentCriteriaManager) : base(logger)
         {
             _assessmentDimensionManager = entityManager;
+            _assessmentCriteriaManager = assessmentCriteriaManager;
         }
 
         [HttpDelete("{id:guid}")]
@@ -68,6 +72,21 @@ namespace HAN.OOSE.ICDE.API.Controllers
 
             return Ok(entities);
         }
+
+        [HttpGet("{id:guid}/assessmentcriteria")]
+        [Authorize]
+        public async Task<ActionResult<List<AssessmentCriteria>>> GetAssessmentCriteriasByAssessmentDimensionId(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest(new ArgumentNullException(nameof(id)));
+            }
+
+            var criterias = await _assessmentCriteriaManager.GetByAssessmentDimensionIdAsync(id);
+
+            return Ok(criterias);
+        }
+
 
         [HttpPost]
         [Authorize(Roles = "Teacher, Administrator")]
