@@ -15,6 +15,6 @@ namespace HAN.OOSE.ICDE.Domain
 
         public int MinimumGrade { get; set; }
 
-        public Guid LearningOutcomeUnitId { get; set; }
+        public Guid? LearningOutcomeUnitId { get; set; }
     }
 }

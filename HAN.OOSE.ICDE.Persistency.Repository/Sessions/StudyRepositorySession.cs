@@ -47,7 +47,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
                 throw new ArgumentNullException(nameof(id));
             }
 
-            return Table.SingleAsync(x => x.Id == id);
+            return Table.SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<Study> SaveAsync(Study entity)

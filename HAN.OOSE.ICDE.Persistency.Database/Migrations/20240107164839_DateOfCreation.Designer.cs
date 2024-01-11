@@ -4,6 +4,7 @@ using HAN.OOSE.ICDE.Persistency.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240107164839_DateOfCreation")]
+    partial class DateOfCreation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,7 +31,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AssessmentDimensionId")
+                    b.Property<Guid>("AssessmentDimensionId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("Author")
@@ -40,23 +43,21 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("Explanation")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("MinimumGrade")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(1);
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("VersionCollection")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Weight")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -82,9 +83,10 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ExamId")
+                    b.Property<Guid>("ExamId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("VersionCollection")
@@ -109,9 +111,10 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Code")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("CourseId")
+                    b.Property<Guid>("CourseId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DateOfCreation")
@@ -119,10 +122,11 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<Guid?>("LearningOutcomeUnitId")
+                    b.Property<Guid>("LearningOutcomeUnitId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("VersionCollection")
@@ -149,17 +153,14 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("CTE")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
+                        .HasColumnType("int");
 
                     b.Property<string>("Code")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CollegeYear")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValueSql("YEAR(GETDATE())");
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("DateOfCreation")
                         .ValueGeneratedOnAdd()
@@ -167,15 +168,17 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsFinalized")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("StudyId")
+                    b.Property<Guid>("StudyId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("VersionCollection")
@@ -199,7 +202,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                     b.Property<Guid>("Author")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CourseId")
+                    b.Property<Guid>("CourseId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DateOfCreation")
@@ -215,8 +218,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                     b.HasIndex("Author");
 
                     b.HasIndex("CourseId")
-                        .IsUnique()
-                        .HasFilter("[CourseId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("CoursePlannings");
                 });
@@ -231,6 +233,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Code")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateOfCreation")
@@ -238,15 +241,14 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<Guid?>("LearningOutcomeUnitId")
+                    b.Property<Guid>("LearningOutcomeUnitId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("MinimumGrade")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(1);
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Type")
@@ -256,9 +258,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Weight")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -278,7 +278,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                     b.Property<Guid>("Author")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CoursePlanningId")
+                    b.Property<Guid>("CoursePlanningId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Date")
@@ -289,13 +289,15 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<Guid?>("ExamId")
+                    b.Property<Guid>("ExamId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Prerequisites")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Type")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("VersionCollection")
@@ -318,7 +320,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AssessmentCriteriaId")
+                    b.Property<Guid>("AssessmentCriteriaId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("Author")
@@ -330,12 +332,11 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Grade")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(1);
+                        .HasColumnType("int");
 
                     b.Property<Guid>("VersionCollection")
                         .HasColumnType("uniqueidentifier");
@@ -364,18 +365,20 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ExamId")
+                    b.Property<Guid>("ExamId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("LearningOutcomeUnitId")
+                    b.Property<Guid>("LearningOutcomeUnitId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("LessonId")
+                    b.Property<Guid>("LessonId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("VersionCollection")
@@ -404,14 +407,13 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<double>("CTE")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("float")
-                        .HasDefaultValue(0.0);
+                        .HasColumnType("float");
 
                     b.Property<string>("Code")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("CourseId")
+                    b.Property<Guid>("CourseId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DateOfCreation")
@@ -420,11 +422,10 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<double>("MinimumGrade")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("float")
-                        .HasDefaultValue(1.0);
+                        .HasColumnType("float");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("VersionCollection")
@@ -448,7 +449,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                     b.Property<Guid>("Author")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CoursePlanningId")
+                    b.Property<Guid>("CoursePlanningId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Date")
@@ -460,12 +461,15 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                         .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Didactics")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("VersionCollection")
@@ -487,6 +491,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -532,7 +537,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                     b.HasOne("HAN.OOSE.ICDE.Persistency.Database.Domain.AssessmentDimension", null)
                         .WithMany()
                         .HasForeignKey("AssessmentDimensionId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("HAN.OOSE.ICDE.Persistency.Database.Domain.User", null)
                         .WithMany()
@@ -552,7 +558,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                     b.HasOne("HAN.OOSE.ICDE.Persistency.Database.Domain.Exam", null)
                         .WithMany()
                         .HasForeignKey("ExamId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HAN.OOSE.ICDE.Persistency.Database.Domain.Competency", b =>
@@ -566,12 +573,14 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                     b.HasOne("HAN.OOSE.ICDE.Persistency.Database.Domain.Course", null)
                         .WithMany()
                         .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("HAN.OOSE.ICDE.Persistency.Database.Domain.LearningOutcomeUnit", null)
                         .WithMany()
                         .HasForeignKey("LearningOutcomeUnitId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HAN.OOSE.ICDE.Persistency.Database.Domain.Course", b =>
@@ -585,7 +594,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                     b.HasOne("HAN.OOSE.ICDE.Persistency.Database.Domain.Study", null)
                         .WithMany()
                         .HasForeignKey("StudyId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HAN.OOSE.ICDE.Persistency.Database.Domain.CoursePlanning", b =>
@@ -599,7 +609,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                     b.HasOne("HAN.OOSE.ICDE.Persistency.Database.Domain.Course", null)
                         .WithOne()
                         .HasForeignKey("HAN.OOSE.ICDE.Persistency.Database.Domain.CoursePlanning", "CourseId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HAN.OOSE.ICDE.Persistency.Database.Domain.Exam", b =>
@@ -613,7 +624,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                     b.HasOne("HAN.OOSE.ICDE.Persistency.Database.Domain.LearningOutcomeUnit", null)
                         .WithMany()
                         .HasForeignKey("LearningOutcomeUnitId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HAN.OOSE.ICDE.Persistency.Database.Domain.ExaminationEvent", b =>
@@ -627,12 +639,14 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                     b.HasOne("HAN.OOSE.ICDE.Persistency.Database.Domain.CoursePlanning", null)
                         .WithMany()
                         .HasForeignKey("CoursePlanningId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("HAN.OOSE.ICDE.Persistency.Database.Domain.Exam", null)
                         .WithMany()
                         .HasForeignKey("ExamId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HAN.OOSE.ICDE.Persistency.Database.Domain.GradeDescription", b =>
@@ -640,7 +654,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                     b.HasOne("HAN.OOSE.ICDE.Persistency.Database.Domain.AssessmentCriteria", null)
                         .WithMany()
                         .HasForeignKey("AssessmentCriteriaId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("HAN.OOSE.ICDE.Persistency.Database.Domain.User", null)
                         .WithMany()
@@ -660,17 +675,20 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                     b.HasOne("HAN.OOSE.ICDE.Persistency.Database.Domain.Exam", null)
                         .WithMany()
                         .HasForeignKey("ExamId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("HAN.OOSE.ICDE.Persistency.Database.Domain.LearningOutcomeUnit", null)
                         .WithMany()
                         .HasForeignKey("LearningOutcomeUnitId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("HAN.OOSE.ICDE.Persistency.Database.Domain.Lesson", null)
                         .WithMany()
                         .HasForeignKey("LessonId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HAN.OOSE.ICDE.Persistency.Database.Domain.LearningOutcomeUnit", b =>
@@ -684,7 +702,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                     b.HasOne("HAN.OOSE.ICDE.Persistency.Database.Domain.Course", null)
                         .WithMany()
                         .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HAN.OOSE.ICDE.Persistency.Database.Domain.Lesson", b =>
@@ -698,7 +717,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Migrations
                     b.HasOne("HAN.OOSE.ICDE.Persistency.Database.Domain.CoursePlanning", null)
                         .WithMany()
                         .HasForeignKey("CoursePlanningId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

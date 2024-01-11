@@ -49,7 +49,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions.Base
                 throw new ArgumentNullException(nameof(id));
             }
 
-            return Table.SingleAsync(x => x.Id == id);
+            return Table.SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public virtual Task<List<T>> GetByVersionIdAsync(Guid versionId)

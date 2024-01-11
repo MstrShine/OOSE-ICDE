@@ -12,6 +12,6 @@ namespace HAN.OOSE.ICDE.Domain
 
         public double MinimumGrade { get; set; }
 
-        public Guid CourseId { get; set; }
+        public Guid? CourseId { get; set; }
     }
 }

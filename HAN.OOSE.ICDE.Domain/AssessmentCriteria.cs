@@ -12,6 +12,6 @@ namespace HAN.OOSE.ICDE.Domain
 
         public string Explanation { get; set; }
 
-        public Guid AssessmentDimensionId { get; set; }
+        public Guid? AssessmentDimensionId { get; set; }
     }
 }

@@ -8,6 +8,6 @@ namespace HAN.OOSE.ICDE.Domain
 
         public string Description { get; set; }
 
-        public Guid AssessmentCriteriaId { get; set; }
+        public Guid? AssessmentCriteriaId { get; set; }
     }
 }

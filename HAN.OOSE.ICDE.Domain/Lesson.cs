@@ -12,6 +12,6 @@ namespace HAN.OOSE.ICDE.Domain
 
         public DateTime Date { get; set; }
 
-        public Guid CoursePlanningId { get; set; }
+        public Guid? CoursePlanningId { get; set; }
     }
 }

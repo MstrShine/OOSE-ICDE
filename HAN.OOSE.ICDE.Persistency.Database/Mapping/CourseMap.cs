@@ -9,16 +9,17 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
     {
         public override void ConfigureExtension(EntityTypeBuilder<Course> builder)
         {
-            builder.Property(x => x.Name).IsRequired();
-            builder.Property(x => x.Description).IsRequired();
-            builder.Property(x => x.Code).IsRequired();
-            builder.Property(x => x.CollegeYear).IsRequired();
-            builder.Property(x => x.CTE).IsRequired();
-            builder.Property(x => x.StudyId);
+            builder.Property(x => x.Name).IsRequired(false);
+            builder.Property(x => x.Description).IsRequired(false);
+            builder.Property(x => x.Code).IsRequired(false);
+            builder.Property(x => x.CollegeYear).HasDefaultValueSql("YEAR(GETDATE())");
+            builder.Property(x => x.CTE).HasDefaultValue(0);
 
-            builder.HasMany<LearningOutcomeUnit>().WithOne().HasForeignKey(x => x.CourseId).OnDelete(DeleteBehavior.NoAction);
-            builder.HasMany<Competency>().WithOne().HasForeignKey(x => x.CourseId).OnDelete(DeleteBehavior.NoAction);
-            builder.HasOne<CoursePlanning>().WithOne().HasForeignKey<CoursePlanning>(x => x.CourseId).OnDelete(DeleteBehavior.NoAction);
+            builder.Property(x => x.StudyId).IsRequired(false);
+
+            builder.HasMany<LearningOutcomeUnit>().WithOne().HasForeignKey(x => x.CourseId).OnDelete(DeleteBehavior.NoAction).IsRequired(false);
+            builder.HasMany<Competency>().WithOne().HasForeignKey(x => x.CourseId).OnDelete(DeleteBehavior.NoAction).IsRequired(false);
+            builder.HasOne<CoursePlanning>().WithOne().HasForeignKey<CoursePlanning>(x => x.CourseId).OnDelete(DeleteBehavior.NoAction).IsRequired(false);
         }
     }
 }

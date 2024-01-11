@@ -6,6 +6,6 @@ namespace HAN.OOSE.ICDE.Domain
     {
         public string Description { get; set; }
 
-        public Guid ExamId { get; set; }
+        public Guid? ExamId { get; set; }
     }
 }

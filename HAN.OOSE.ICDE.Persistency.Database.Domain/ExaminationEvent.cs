@@ -10,8 +10,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Domain
 
         public string Prerequisites { get; set; }
 
-        public Guid CoursePlanningId { get; set; }
+        public Guid? CoursePlanningId { get; set; }
 
-        public Guid ExamId { get; set; }
+        public Guid? ExamId { get; set; }
     }
 }

@@ -9,11 +9,11 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
     {
         public override void ConfigureExtension(EntityTypeBuilder<AssessmentDimension> builder)
         {
-            builder.Property(x => x.Description);
+            builder.Property(x => x.Description).IsRequired(false);
 
-            builder.Property(x => x.ExamId);
+            builder.Property(x => x.ExamId).IsRequired(false);
 
-            builder.HasMany<AssessmentCriteria>().WithOne().HasForeignKey(x => x.AssessmentDimensionId).OnDelete(DeleteBehavior.NoAction);
+            builder.HasMany<AssessmentCriteria>().WithOne().HasForeignKey(x => x.AssessmentDimensionId).OnDelete(DeleteBehavior.NoAction).IsRequired(false);
         }
     }
 }
