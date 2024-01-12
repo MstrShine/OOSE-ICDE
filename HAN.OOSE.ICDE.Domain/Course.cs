@@ -1,4 +1,5 @@
 ﻿using HAN.OOSE.ICDE.Domain.Base;
+using System.ComponentModel;
 
 namespace HAN.OOSE.ICDE.Domain
 {
@@ -16,6 +17,7 @@ namespace HAN.OOSE.ICDE.Domain
 
         public bool IsFinalized { get; set; }
 
+        [DefaultValue(null)]
         public Guid? StudyId { get; set; }
     }
 }

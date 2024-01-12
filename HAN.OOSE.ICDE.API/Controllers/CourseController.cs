@@ -95,7 +95,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
 
         [HttpGet("{id:guid}/courseplanning")]
         [Authorize]
-        public async Task<ActionResult<List<CoursePlanning>>> GetCoursePlanningByCourseId(Guid id)
+        public async Task<ActionResult<CoursePlanning>> GetCoursePlanningByCourseId(Guid id)
         {
             if (id == Guid.Empty)
             {
@@ -130,6 +130,8 @@ namespace HAN.OOSE.ICDE.API.Controllers
                 return BadRequest(new ArgumentNullException(nameof(entity)));
             }
 
+            entity.Author = UserId;
+
             var saved = await _courseManager.SaveAsync(entity);
             if (saved == null)
             {
@@ -157,6 +159,8 @@ namespace HAN.OOSE.ICDE.API.Controllers
             {
                 return BadRequest(new ArgumentException("Id in URL not the same as in sent object"));
             }
+
+            entity.Author = UserId;
 
             var updated = await _courseManager.UpdateAsync(entity);
             if (updated == null)

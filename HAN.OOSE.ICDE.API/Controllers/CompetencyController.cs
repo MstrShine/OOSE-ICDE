@@ -13,7 +13,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
         private readonly ICompetencyManager _competencyManager;
 
         public CompetencyController(
-            ILogger<BaseEntityController<Competency>> logger, 
+            ILogger<BaseEntityController<Competency>> logger,
             ICompetencyManager entityManager) : base(logger)
         {
             _competencyManager = entityManager;
@@ -79,6 +79,8 @@ namespace HAN.OOSE.ICDE.API.Controllers
                 return BadRequest(new ArgumentNullException(nameof(entity)));
             }
 
+            entity.Author = UserId;
+
             var saved = await _competencyManager.SaveAsync(entity);
             if (saved == null)
             {
@@ -106,6 +108,8 @@ namespace HAN.OOSE.ICDE.API.Controllers
             {
                 return BadRequest(new ArgumentException("Id in URL not the same as in sent object"));
             }
+
+            entity.Author = UserId;
 
             var updated = await _competencyManager.UpdateAsync(entity);
             if (updated == null)

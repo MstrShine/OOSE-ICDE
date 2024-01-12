@@ -130,6 +130,8 @@ namespace HAN.OOSE.ICDE.API.Controllers
                 return BadRequest(new ArgumentNullException(nameof(entity)));
             }
 
+            entity.Author = UserId;
+
             var saved = await _entityManager.SaveAsync(entity);
             if (saved == null)
             {
@@ -157,6 +159,8 @@ namespace HAN.OOSE.ICDE.API.Controllers
             {
                 return BadRequest(new ArgumentException("Id in URL not the same as in sent object"));
             }
+
+            entity.Author = UserId;
 
             var updated = await _entityManager.UpdateAsync(entity);
             if (updated == null)
