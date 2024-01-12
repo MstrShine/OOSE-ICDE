@@ -4,12 +4,6 @@ using HAN.OOSE.ICDE.Logic.Interfaces;
 using HAN.OOSE.ICDE.Logic.Mapping.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
-using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Logic
 {
@@ -63,22 +57,20 @@ namespace HAN.OOSE.ICDE.Logic
             {
                 var competencies = competencySession.GetByCourseIdAsync(prevId);
                 var learningOutcomeUnits = learningOutcomeUnitSession.GetByCourseIdAsync(prevId);
-                var coursePlannings = coursePlanningSession.GetByCourseIdAsync(prevId);
+                var coursePlanningTask = coursePlanningSession.GetByCourseIdAsync(prevId);
 
                 foreach (var competency in await competencies)
                 {
                     await competencySession.ChangeCourseIdAsync(competency.Id, saved.Id);
                 }
 
-                foreach(var learningOutcomeUnit in await learningOutcomeUnits)
+                foreach (var learningOutcomeUnit in await learningOutcomeUnits)
                 {
                     await learningOutcomeUnitSession.ChangeCourseIdAsync(learningOutcomeUnit.Id, saved.Id);
                 }
 
-                foreach(var coursePlanning in await coursePlannings)
-                {
-                    await coursePlanningSession.ChangeCourseIdAsync(coursePlanning.Id, saved.Id);
-                }
+                var coursePlanning = await coursePlanningTask;
+                await coursePlanningSession.ChangeCourseIdAsync(coursePlanning.Id, saved.Id);
             }
 
             return saved;

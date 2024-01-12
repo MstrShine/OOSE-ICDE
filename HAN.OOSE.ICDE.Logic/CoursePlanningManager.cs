@@ -4,12 +4,6 @@ using HAN.OOSE.ICDE.Logic.Interfaces;
 using HAN.OOSE.ICDE.Logic.Mapping.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
-using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Logic
 {
@@ -28,21 +22,21 @@ namespace HAN.OOSE.ICDE.Logic
             _lessonRepository = lessonRepository;
         }
 
-        public async Task<List<CoursePlanning>> GetByCourseIdAsync(Guid courseId)
+        public async Task<CoursePlanning> GetByCourseIdAsync(Guid courseId)
         {
             if (courseId == Guid.Empty)
             {
                 throw new ArgumentNullException(nameof(courseId));
             }
 
-            var coursePlannings = new List<CoursePlanning>();
+            CoursePlanning coursePlanning = null;
             using (var session = _repository.CreateSession())
             {
                 var dbList = await session.GetByCourseIdAsync(courseId);
-                coursePlannings = dbList.Select(x => _mapper.ToEntity(x)).ToList();
+                coursePlanning = _mapper.ToEntity(dbList);
             }
 
-            return coursePlannings;
+            return coursePlanning;
         }
 
         public override async Task<CoursePlanning> SaveAsync(CoursePlanning entity)
