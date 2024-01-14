@@ -14,6 +14,6 @@ namespace HAN.OOSE.ICDE.Domain.Base
         [JsonConverter(typeof(GuidJsonConverter))]
         public Guid Author { get; set; }
 
-        public DateTime DateOfCreation { get; set; }
+        public DateTime? DateOfCreation { get; set; }
     }
 }

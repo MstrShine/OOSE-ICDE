@@ -6,6 +6,6 @@
 
         public Guid Author { get; set; }
 
-        public DateTime DateOfCreation { get; set; }
+        public DateTime? DateOfCreation { get; set; }
     }
 }

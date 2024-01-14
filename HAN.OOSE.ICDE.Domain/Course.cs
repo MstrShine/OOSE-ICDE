@@ -5,16 +5,19 @@ namespace HAN.OOSE.ICDE.Domain
 {
     public class Course : VersionedEntity
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
-        public string Code { get; set; }
+        public string? Code { get; set; }
 
+        [DefaultValue(0)]
         public int CollegeYear { get; set; }
 
+        [DefaultValue(0)]
         public int CTE { get; set; }
 
+        [DefaultValue(false)]
         public bool IsFinalized { get; set; }
 
         [DefaultValue(null)]
