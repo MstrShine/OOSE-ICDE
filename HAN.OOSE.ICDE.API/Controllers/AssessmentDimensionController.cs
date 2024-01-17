@@ -127,7 +127,8 @@ namespace HAN.OOSE.ICDE.API.Controllers
                 return BadRequest(new ArgumentException("Id in URL not the same as in sent object"));
             }
 
-            entity.Author = UserId;
+            if (entity.Author == Guid.Empty)
+                entity.Author = UserId;
 
             var updated = await _assessmentDimensionManager.UpdateAsync(entity);
             if (updated == null)
