@@ -12,7 +12,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
             builder.Property(x => x.Name).IsRequired(false);
             builder.Property(x => x.Description).IsRequired(false);
             builder.Property(x => x.Didactics).IsRequired(false);
-            builder.Property(x => x.Date);
+            builder.Property(x => x.Date).IsRequired(false);
 
             builder.Property(x => x.CoursePlanningId).IsRequired(false);
 

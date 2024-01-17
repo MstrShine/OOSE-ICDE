@@ -11,11 +11,9 @@ namespace HAN.OOSE.ICDE.Domain
 
         public string? Code { get; set; }
 
-        [DefaultValue(0)]
-        public int CollegeYear { get; set; }
+        public int? CollegeYear { get; set; }
 
-        [DefaultValue(0)]
-        public int CTE { get; set; }
+        public int? CTE { get; set; }
 
         [DefaultValue(false)]
         public bool IsFinalized { get; set; }

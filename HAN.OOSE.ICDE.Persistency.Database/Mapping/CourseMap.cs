@@ -12,8 +12,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
             builder.Property(x => x.Name).IsRequired(false);
             builder.Property(x => x.Description).IsRequired(false);
             builder.Property(x => x.Code).IsRequired(false);
-            builder.Property(x => x.CollegeYear).HasDefaultValueSql("YEAR(GETDATE())");
-            builder.Property(x => x.CTE).HasDefaultValue(0);
+            builder.Property(x => x.CollegeYear).IsRequired(false);
+            builder.Property(x => x.CTE).IsRequired(false);
 
             builder.Property(x => x.StudyId).IsRequired(false);
 

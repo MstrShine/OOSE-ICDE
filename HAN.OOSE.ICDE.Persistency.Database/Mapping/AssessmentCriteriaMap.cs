@@ -10,8 +10,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
         public override void ConfigureExtension(EntityTypeBuilder<AssessmentCriteria> builder)
         {
             builder.Property(x => x.Name).IsRequired(false);
-            builder.Property(x => x.Weight).HasDefaultValue(0);
-            builder.Property(x => x.MinimumGrade).HasDefaultValue(1);
+            builder.Property(x => x.Weight).IsRequired(false);
+            builder.Property(x => x.MinimumGrade).IsRequired(false);
             builder.Property(x => x.Explanation).IsRequired(false);
 
             builder.HasMany<GradeDescription>().WithOne().HasForeignKey(x => x.AssessmentCriteriaId).OnDelete(DeleteBehavior.NoAction).IsRequired(false);

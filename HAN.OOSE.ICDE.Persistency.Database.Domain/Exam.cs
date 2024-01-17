@@ -5,15 +5,15 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Domain
 {
     public class Exam : VersionDBEntity
     {
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
-        public string Code { get; set; }
+        public string? Code { get; set; }
 
-        public int Weight { get; set; }
+        public int? Weight { get; set; }
 
-        public ExamType Type { get; set; }
+        public ExamType? Type { get; set; }
 
-        public int MinimumGrade { get; set; }
+        public int? MinimumGrade { get; set; }
 
         public Guid? LearningOutcomeUnitId { get; set; }
     }
