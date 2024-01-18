@@ -1,11 +1,11 @@
 namespace HAN.OOSE.ICDE.Logic.Test
 {
+    [TestClass]
     public class UnitTest1
     {
-        [Fact]
-        public void Test1()
+        [TestMethod]
+        public void TestMethod1()
         {
-
         }
     }
 }

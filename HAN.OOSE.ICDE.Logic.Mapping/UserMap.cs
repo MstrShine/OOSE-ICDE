@@ -1,9 +1,4 @@
 ﻿using HAN.OOSE.ICDE.Logic.Mapping.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Logic.Mapping
 {
@@ -11,6 +6,11 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
     {
         public Persistency.Database.Domain.User FromEntity(Domain.User entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             var user = new Persistency.Database.Domain.User()
             {
                 Id = entity.Id,
@@ -26,6 +26,11 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
 
         public Domain.User ToEntity(Persistency.Database.Domain.User dbEntity)
         {
+            if (dbEntity == null)
+            {
+                throw new ArgumentNullException(nameof(dbEntity));
+            }
+
             var user = new Domain.User()
             {
                 Id = dbEntity.Id,
