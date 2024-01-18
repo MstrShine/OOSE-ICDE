@@ -11,5 +11,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions
     public interface IGradeDescriptionRepositorySession : IVersionedEntityRepositorySession<GradeDescription>
     {
         Task<List<GradeDescription>> GetByAssessmentCriteriaIdAsync(Guid assessmentCriteriaId);
+
+        Task ChangeAssessmentCriteriaIdAsync(Guid gradeDescriptionId, Guid assessmentCriteriaId);
     }
 }

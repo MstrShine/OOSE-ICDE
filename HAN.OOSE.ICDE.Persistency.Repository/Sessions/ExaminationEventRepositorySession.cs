@@ -2,11 +2,6 @@
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions.Base;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
 {
@@ -20,7 +15,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
 
         public Task<List<ExaminationEvent>> GetByCoursePlanningIdAsync(Guid coursePlanningId)
         {
-            if(coursePlanningId == Guid.Empty)
+            if (coursePlanningId == Guid.Empty)
             {
                 throw new ArgumentNullException(nameof(coursePlanningId));
             }
@@ -30,12 +25,58 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
 
         public Task<List<ExaminationEvent>> GetByExamIdAsync(Guid examId)
         {
-            if(examId == Guid.Empty)
+            if (examId == Guid.Empty)
             {
-                throw new ArgumentNullException(nameof (examId));
+                throw new ArgumentNullException(nameof(examId));
             }
 
             return Table.Where(x => x.ExamId == examId).ToListAsync();
+        }
+
+        public async Task ChangeCoursePlanningIdAsync(Guid examinationEventId, Guid coursePlanningId)
+        {
+            if (examinationEventId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(examinationEventId));
+            }
+
+            if (coursePlanningId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(coursePlanningId));
+            }
+
+            var toChange = await Table.SingleOrDefaultAsync(x => x.Id == examinationEventId);
+            if (toChange == null)
+            {
+                throw new Exception($"ExaminationEvent not found with Id: {examinationEventId}");
+            }
+
+            toChange.CoursePlanningId = coursePlanningId;
+            Table.Update(toChange);
+            await dataContext.SaveChangesAsync();
+        }
+
+        public async Task ChangeExamIdAsync(Guid examinationEventId, Guid examId)
+        {
+            if (examinationEventId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(examinationEventId));
+            }
+
+            if (examId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(examId));
+            }
+
+            var toChange = await Table.SingleOrDefaultAsync(x => x.Id == examinationEventId);
+            if (toChange == null)
+            {
+                throw new Exception($"ExaminationEvent not found with Id: {examinationEventId}");
+            }
+
+            toChange.ExamId = examId;
+            Table.Update(toChange);
+            await dataContext.SaveChangesAsync();
         }
     }
 }

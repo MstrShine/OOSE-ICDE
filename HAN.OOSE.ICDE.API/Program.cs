@@ -1,16 +1,17 @@
+using HAN.OOSE.ICDE.API.JWT;
+using HAN.OOSE.ICDE.API.JWT.Utils;
+using HAN.OOSE.ICDE.API.Middleware;
+using HAN.OOSE.ICDE.API.Swagger;
+using HAN.OOSE.ICDE.Logic.Extensions;
+using HAN.OOSE.ICDE.Logic.Mapping.Extensions;
+using HAN.OOSE.ICDE.Persistency.Database;
 using HAN.OOSE.ICDE.Persistency.Database.Extensions;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Extensions;
-using HAN.OOSE.ICDE.Logic.Mapping.Extensions;
-using HAN.OOSE.ICDE.Logic.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using HAN.OOSE.ICDE.API.JWT;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using HAN.OOSE.ICDE.API.Swagger;
 using Microsoft.Extensions.Options;
-using HAN.OOSE.ICDE.API.JWT.Utils;
-using HAN.OOSE.ICDE.Persistency.Database;
+using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Text;
 
 namespace HAN.OOSE.ICDE.API
 {
@@ -65,6 +66,8 @@ namespace HAN.OOSE.ICDE.API
 
             app.UseSwagger();
             app.UseSwaggerUI();
+
+            app.UseMiddleware<HttpRequestLoggerMiddleware>();
 
             app.UseHttpsRedirection();
 

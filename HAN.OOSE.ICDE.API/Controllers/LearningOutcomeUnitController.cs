@@ -11,12 +11,21 @@ namespace HAN.OOSE.ICDE.API.Controllers
     public class LearningOutcomeUnitController : VersionedEntityController<LearningOutcomeUnit>
     {
         private readonly ILearningOutcomeUnitManager _learningOutcomeUnitManager;
+        private readonly ICompetencyManager _competencyManager;
+        private readonly IExamManager _examManager;
+        private readonly ILearningOutcomeManager _learningOutcomeManager;
 
         public LearningOutcomeUnitController(
-            ILogger<BaseEntityController<LearningOutcomeUnit>> logger, 
-            ILearningOutcomeUnitManager entityManager) : base(logger)
+            ILogger<BaseEntityController<LearningOutcomeUnit>> logger,
+            ILearningOutcomeUnitManager entityManager,
+            ICompetencyManager competencyManager,
+            IExamManager examManager,
+            ILearningOutcomeManager learningOutcomeManager) : base(logger)
         {
             _learningOutcomeUnitManager = entityManager;
+            _competencyManager = competencyManager;
+            _examManager = examManager;
+            _learningOutcomeManager = learningOutcomeManager;
         }
 
         [HttpDelete("{id:guid}")]
@@ -70,6 +79,48 @@ namespace HAN.OOSE.ICDE.API.Controllers
             return Ok(entities);
         }
 
+        [HttpGet("{id:guid}/competency")]
+        [Authorize]
+        public async Task<ActionResult<List<Competency>>> GetCompetenciesByLearningOutcomeUnitId(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest(new ArgumentNullException(nameof(id)));
+            }
+
+            var competencies = await _competencyManager.GetByLearningOutcomeUnitIdAsync(id);
+
+            return Ok(competencies);
+        }
+
+        [HttpGet("{id:guid}/exam")]
+        [Authorize]
+        public async Task<ActionResult<List<Exam>>> GetExamsByLearningOutcomeUnitId(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest(new ArgumentNullException(nameof(id)));
+            }
+
+            var exams = await _examManager.GetByLearningOutcomeUnitIdAsync(id);
+
+            return Ok(exams);
+        }
+
+        [HttpGet("{id:guid}/learningoutcome")]
+        [Authorize]
+        public async Task<ActionResult<List<LearningOutcome>>> GetLearningOutcomesByLearningOutcomeUnitId(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest(new ArgumentNullException(nameof(id)));
+            }
+
+            var learningOutcomes = await _learningOutcomeManager.GetByLearningOutcomeUnitIdAsync(id);
+
+            return Ok(learningOutcomes);
+        }
+
         [HttpPost]
         [Authorize(Roles = "Teacher, Administrator")]
         public override async Task<ActionResult<LearningOutcomeUnit>> Post(LearningOutcomeUnit entity)
@@ -78,6 +129,8 @@ namespace HAN.OOSE.ICDE.API.Controllers
             {
                 return BadRequest(new ArgumentNullException(nameof(entity)));
             }
+
+            entity.Author = UserId;
 
             var saved = await _learningOutcomeUnitManager.SaveAsync(entity);
             if (saved == null)
@@ -106,6 +159,9 @@ namespace HAN.OOSE.ICDE.API.Controllers
             {
                 return BadRequest(new ArgumentException("Id in URL not the same as in sent object"));
             }
+
+            if (entity.Author == Guid.Empty)
+                entity.Author = UserId;
 
             var updated = await _learningOutcomeUnitManager.UpdateAsync(entity);
             if (updated == null)

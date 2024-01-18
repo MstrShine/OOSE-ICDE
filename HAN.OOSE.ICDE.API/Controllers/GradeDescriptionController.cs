@@ -13,7 +13,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
         private readonly IGradeDescriptionManager _gradeDescriptionManager;
 
         public GradeDescriptionController(
-            ILogger<BaseEntityController<GradeDescription>> logger, 
+            ILogger<BaseEntityController<GradeDescription>> logger,
             IGradeDescriptionManager entityManager) : base(logger)
         {
             _gradeDescriptionManager = entityManager;
@@ -79,6 +79,8 @@ namespace HAN.OOSE.ICDE.API.Controllers
                 return BadRequest(new ArgumentNullException(nameof(entity)));
             }
 
+            entity.Author = UserId;
+
             var saved = await _gradeDescriptionManager.SaveAsync(entity);
             if (saved == null)
             {
@@ -106,6 +108,9 @@ namespace HAN.OOSE.ICDE.API.Controllers
             {
                 return BadRequest(new ArgumentException("Id in URL not the same as in sent object"));
             }
+
+            if (entity.Author == Guid.Empty)
+                entity.Author = UserId;
 
             var updated = await _gradeDescriptionManager.UpdateAsync(entity);
             if (updated == null)

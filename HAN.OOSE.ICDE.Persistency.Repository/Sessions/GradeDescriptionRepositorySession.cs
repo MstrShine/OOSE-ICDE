@@ -27,5 +27,28 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
 
             return Table.Where(x => x.AssessmentCriteriaId == assessmentCriteriaId).ToListAsync();
         }
+
+        public async Task ChangeAssessmentCriteriaIdAsync(Guid gradeDescriptionId, Guid assessmentCriteriaId)
+        {
+            if (gradeDescriptionId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(gradeDescriptionId));
+            }
+
+            if(assessmentCriteriaId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(assessmentCriteriaId));
+            }
+
+            var toChange = await Table.SingleOrDefaultAsync(x => x.Id == gradeDescriptionId);
+            if(toChange == null)
+            {
+                throw new Exception($"GradeDescription not found with Id: {gradeDescriptionId}");
+            }
+
+            toChange.AssessmentCriteriaId = assessmentCriteriaId;
+            Table.Update(toChange);
+            await dataContext.SaveChangesAsync();
+        }
     }
 }

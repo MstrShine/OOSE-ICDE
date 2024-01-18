@@ -11,12 +11,18 @@ namespace HAN.OOSE.ICDE.API.Controllers
     public class CoursePlanningController : VersionedEntityController<CoursePlanning>
     {
         private readonly ICoursePlanningManager _entityManager;
+        private readonly IExaminationEventManager _examinationEventManager;
+        private readonly ILessonManager _lessonManager;
 
         public CoursePlanningController(
-            ILogger<BaseEntityController<CoursePlanning>> logger, 
-            ICoursePlanningManager entityManager) : base(logger)
+            ILogger<BaseEntityController<CoursePlanning>> logger,
+            ICoursePlanningManager entityManager,
+            IExaminationEventManager examinationEventManager,
+            ILessonManager lessonManager) : base(logger)
         {
             _entityManager = entityManager;
+            _examinationEventManager = examinationEventManager;
+            _lessonManager = lessonManager;
         }
 
         [HttpDelete("{id:guid}")]
@@ -70,6 +76,34 @@ namespace HAN.OOSE.ICDE.API.Controllers
             return Ok(entities);
         }
 
+        [HttpGet("{id:guid}/examinationevent")]
+        [Authorize]
+        public async Task<ActionResult<List<ExaminationEvent>>> GetExaminationEventsByCoursePlanningId(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest(new ArgumentNullException(nameof(id)));
+            }
+
+            var examinationEvents = await _examinationEventManager.GetByCoursePlanningIdAsync(id);
+
+            return Ok(examinationEvents);
+        }
+
+        [HttpGet("{id:guid}/lesson")]
+        [Authorize]
+        public async Task<ActionResult<List<Lesson>>> GetLessonsByCoursePlanningId(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest(new ArgumentNullException(nameof(id)));
+            }
+
+            var lessons = await _lessonManager.GetByCoursePlanningIdAsync(id);
+
+            return Ok(lessons);
+        }
+
         [HttpPost]
         [Authorize(Roles = "Teacher, Administrator")]
         public override async Task<ActionResult<CoursePlanning>> Post(CoursePlanning entity)
@@ -78,6 +112,8 @@ namespace HAN.OOSE.ICDE.API.Controllers
             {
                 return BadRequest(new ArgumentNullException(nameof(entity)));
             }
+
+            entity.Author = UserId;
 
             var saved = await _entityManager.SaveAsync(entity);
             if (saved == null)
@@ -106,6 +142,9 @@ namespace HAN.OOSE.ICDE.API.Controllers
             {
                 return BadRequest(new ArgumentException("Id in URL not the same as in sent object"));
             }
+
+            if (entity.Author == Guid.Empty)
+                entity.Author = UserId;
 
             var updated = await _entityManager.UpdateAsync(entity);
             if (updated == null)

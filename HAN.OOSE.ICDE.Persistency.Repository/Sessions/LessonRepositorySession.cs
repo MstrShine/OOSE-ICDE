@@ -27,5 +27,28 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
 
             return Table.Where(x => x.CoursePlanningId == coursePlanningId).ToListAsync();
         }
+
+        public async Task ChangeCoursePlanningIdAsync(Guid lessonId, Guid coursePlanningId)
+        {
+            if (lessonId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(lessonId));
+            }
+
+            if(coursePlanningId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(coursePlanningId));
+            }
+
+            var toChange = await Table.SingleOrDefaultAsync(x => x.Id == lessonId);
+            if (toChange == null) 
+            {
+                throw new Exception($"Lesson not found with Id: {coursePlanningId}");
+            }
+
+            toChange.CoursePlanningId = coursePlanningId;
+            Table.Update(toChange);
+            await dataContext.SaveChangesAsync();
+        }
     }
 }

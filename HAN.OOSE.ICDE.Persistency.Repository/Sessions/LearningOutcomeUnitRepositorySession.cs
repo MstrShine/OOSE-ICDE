@@ -20,12 +20,35 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
 
         public Task<List<LearningOutcomeUnit>> GetByCourseIdAsync(Guid courseId)
         {
-            if(courseId == Guid.Empty)
+            if (courseId == Guid.Empty)
             {
                 throw new ArgumentNullException(nameof(courseId));
             }
 
             return Table.Where(x => x.CourseId == courseId).ToListAsync();
+        }
+
+        public async Task ChangeCourseIdAsync(Guid learningOutcomeUnitId, Guid courseId)
+        {
+            if (learningOutcomeUnitId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(learningOutcomeUnitId));
+            }
+
+            if (courseId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(courseId));
+            }
+
+            var toChange = await Table.SingleOrDefaultAsync(x => x.Id == learningOutcomeUnitId);
+            if(toChange == null)
+            {
+                throw new Exception($"LearningOutcomeUnit not found with Id: {learningOutcomeUnitId}");
+            }
+
+            toChange.CourseId = courseId;
+            Table.Update(toChange);
+            await dataContext.SaveChangesAsync();
         }
     }
 }
