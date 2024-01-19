@@ -32,8 +32,9 @@ namespace HAN.OOSE.ICDE.Logic
             CoursePlanning coursePlanning = null;
             using (var session = _repository.CreateSession())
             {
-                var dbList = await session.GetByCourseIdAsync(courseId);
-                coursePlanning = _mapper.ToEntity(dbList);
+                var dbEntity = await session.GetByCourseIdAsync(courseId);
+                if (dbEntity != null)
+                    coursePlanning = _mapper.ToEntity(dbEntity);
             }
 
             return coursePlanning;
