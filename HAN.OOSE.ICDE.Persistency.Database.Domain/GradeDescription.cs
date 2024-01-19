@@ -2,7 +2,7 @@
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Domain
 {
-    public class GradeDescription : VersionDBEntity
+    public class GradeDescription : VersionedDBEntity
     {
         public int? Grade { get; set; }
 

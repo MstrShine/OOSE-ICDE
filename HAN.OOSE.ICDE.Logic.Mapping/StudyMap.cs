@@ -1,9 +1,4 @@
 ﻿using HAN.OOSE.ICDE.Logic.Mapping.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Logic.Mapping
 {
@@ -11,6 +6,11 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
     {
         public Persistency.Database.Domain.Study FromEntity(Domain.Study entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             return new Persistency.Database.Domain.Study()
             {
                 Id = entity.Id,
@@ -20,6 +20,11 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
 
         public Domain.Study ToEntity(Persistency.Database.Domain.Study dbEntity)
         {
+            if (dbEntity == null)
+            {
+                throw new ArgumentNullException(nameof(dbEntity));
+            }
+
             return new Domain.Study()
             {
                 Id = dbEntity.Id,

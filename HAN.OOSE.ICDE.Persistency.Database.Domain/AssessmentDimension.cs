@@ -2,7 +2,7 @@
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Domain
 {
-    public class AssessmentDimension : VersionDBEntity
+    public class AssessmentDimension : VersionedDBEntity
     {
         public string? Description { get; set; }
 

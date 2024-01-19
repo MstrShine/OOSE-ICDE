@@ -1,17 +1,10 @@
-﻿using HAN.OOSE.ICDE.Domain;
-using HAN.OOSE.ICDE.Domain.Base;
+﻿using HAN.OOSE.ICDE.Domain.Base;
 using HAN.OOSE.ICDE.Logic.Mapping.Interfaces;
-using HAN.OOSE.ICDE.Persistency.Database.Domain;
 using HAN.OOSE.ICDE.Persistency.Database.Domain.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Logic.Mapping
 {
-    public abstract class VersionedEntityMapperBase<T, Y> : IEntityMapper<T, Y> where T : VersionedEntity, new() where Y : VersionDBEntity, new()
+    public abstract class VersionedEntityMapperBase<T, Y> : IEntityMapper<T, Y> where T : VersionedEntity, new() where Y : VersionedDBEntity, new()
     {
         public VersionedEntityMapperBase()
         {
@@ -19,6 +12,11 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
 
         public Y FromEntity(T entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             var dbEntity = new Y()
             {
                 Id = entity.Id,
@@ -32,6 +30,11 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
 
         public T ToEntity(Y dbEntity)
         {
+            if (dbEntity == null)
+            {
+                throw new ArgumentNullException(nameof(dbEntity));
+            }
+
             var entity = new T()
             {
                 Id = dbEntity.Id,
