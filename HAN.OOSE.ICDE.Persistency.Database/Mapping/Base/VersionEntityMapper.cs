@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Mapping.Base
 {
-    public abstract class VersionEntityMapper<T> : EntityMapper<T> where T : VersionDBEntity
+    public abstract class VersionEntityMapper<T> : EntityMapper<T> where T : VersionedDBEntity
     {
         public override void Configure(EntityTypeBuilder<T> builder)
         {

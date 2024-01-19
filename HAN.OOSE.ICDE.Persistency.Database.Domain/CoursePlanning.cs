@@ -2,7 +2,7 @@
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Domain
 {
-    public class CoursePlanning : VersionDBEntity
+    public class CoursePlanning : VersionedDBEntity
     {
         public Guid? CourseId { get; set; }
     }

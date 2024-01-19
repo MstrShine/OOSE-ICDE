@@ -4,7 +4,7 @@ using HAN.OOSE.ICDE.Persistency.Database.Domain.Base;
 
 namespace HAN.OOSE.ICDE.Logic.Mapping
 {
-    public abstract class VersionedEntityMapperBase<T, Y> : IEntityMapper<T, Y> where T : VersionedEntity, new() where Y : VersionDBEntity, new()
+    public abstract class VersionedEntityMapperBase<T, Y> : IEntityMapper<T, Y> where T : VersionedEntity, new() where Y : VersionedDBEntity, new()
     {
         public VersionedEntityMapperBase()
         {

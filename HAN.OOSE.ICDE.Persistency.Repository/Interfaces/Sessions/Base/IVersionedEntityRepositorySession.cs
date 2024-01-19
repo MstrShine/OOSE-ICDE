@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions.Base
 {
-    public interface IVersionedEntityRepositorySession<T> : IEntityRepositorySession<T> where T : VersionDBEntity
+    public interface IVersionedEntityRepositorySession<T> : IEntityRepositorySession<T> where T : VersionedDBEntity
     {
         Task<List<T>> GetByVersionIdAsync(Guid versionId);
     }

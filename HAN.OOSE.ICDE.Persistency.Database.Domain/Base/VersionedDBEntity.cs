@@ -1,6 +1,6 @@
 ﻿namespace HAN.OOSE.ICDE.Persistency.Database.Domain.Base
 {
-    public abstract class VersionDBEntity : DBEntity
+    public abstract class VersionedDBEntity : DBEntity
     {
         public Guid VersionCollection { get; set; }
 

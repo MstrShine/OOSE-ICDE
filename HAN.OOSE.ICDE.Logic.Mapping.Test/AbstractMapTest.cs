@@ -45,7 +45,7 @@ namespace HAN.OOSE.ICDE.Logic.Mapping.Test
             Assert.AreEqual(entity.Id, converted.Id);
         }
 
-        protected void AssertVersionedEntity(VersionedEntity entity, VersionDBEntity converted)
+        protected void AssertVersionedEntity(VersionedEntity entity, VersionedDBEntity converted)
         {
             Assert.AreEqual(entity.Id, converted.Id);
             Assert.AreEqual(entity.Author, converted.Author);
@@ -58,7 +58,7 @@ namespace HAN.OOSE.ICDE.Logic.Mapping.Test
             Assert.AreEqual(dbEntity.Id, converted.Id);
         }
 
-        protected void AssertVersionedDbEntity(VersionDBEntity dbEntity, VersionedEntity converted)
+        protected void AssertVersionedDbEntity(VersionedDBEntity dbEntity, VersionedEntity converted)
         {
             Assert.AreEqual(dbEntity.Id, converted.Id);
             Assert.AreEqual(dbEntity.Author, converted.Author);
