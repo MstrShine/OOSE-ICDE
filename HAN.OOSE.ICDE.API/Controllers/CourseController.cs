@@ -131,6 +131,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
             }
 
             entity.Author = UserId;
+            entity.IsFinalized = false;
 
             var saved = await _courseManager.SaveAsync(entity);
             if (saved == null)
@@ -162,6 +163,8 @@ namespace HAN.OOSE.ICDE.API.Controllers
 
             if (entity.Author == Guid.Empty)
                 entity.Author = UserId;
+
+            entity.IsFinalized = false;
 
             var updated = await _courseManager.UpdateAsync(entity);
             if (updated == null)

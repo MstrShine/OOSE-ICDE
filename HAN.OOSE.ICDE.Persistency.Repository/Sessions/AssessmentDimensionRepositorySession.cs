@@ -2,17 +2,12 @@
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions.Base;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
 {
     public class AssessmentDimensionRepositorySession : VersionedRepositorySessionBase<AssessmentDimension>, IAssessmentDimensionRepositorySession
     {
-        protected override DbSet<AssessmentDimension> Table => dataContext.AssessmentDimensions;
+        protected override DbSet<AssessmentDimension> Table => _DataContext.AssessmentDimensions;
 
         private readonly IAssessmentCriteriaRepositorySession _assessmentCriteriaRepositorySession;
 
@@ -21,9 +16,30 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
             _assessmentCriteriaRepositorySession = assessmentCriteriaRepositorySession;
         }
 
+        public override async Task DeleteAsync(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
+            var entity = await Table.SingleOrDefaultAsync(x => x.Id == id);
+            if (entity == null)
+            {
+                throw new Exception($"Could not find Id: {id} in Table {nameof(_Type)}");
+            }
+
+            entity.ExamId = null;
+
+            Table.Update(entity);
+            await _DataContext.SaveChangesAsync();
+
+            return;
+        }
+
         public Task<List<AssessmentDimension>> GetByExamIdAsync(Guid examId)
         {
-            if(examId == Guid.Empty)
+            if (examId == Guid.Empty)
             {
                 throw new ArgumentNullException(nameof(examId));
             }
@@ -33,25 +49,25 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
 
         public async Task ChangeExamIdAsync(Guid assessmentDimensionId, Guid examId)
         {
-            if(assessmentDimensionId == Guid.Empty)
+            if (assessmentDimensionId == Guid.Empty)
             {
-                throw new ArgumentNullException(nameof (assessmentDimensionId));
+                throw new ArgumentNullException(nameof(assessmentDimensionId));
             }
 
-            if(examId == Guid.Empty)
+            if (examId == Guid.Empty)
             {
-                throw new ArgumentNullException(nameof (examId));
+                throw new ArgumentNullException(nameof(examId));
             }
 
             var toChange = await Table.SingleOrDefaultAsync(x => x.Id == assessmentDimensionId);
-            if(toChange == null) 
+            if (toChange == null)
             {
                 throw new Exception($"AssessmentDimension not found with Id: {assessmentDimensionId}");
             }
 
             toChange.ExamId = examId;
             Table.Update(toChange);
-            await dataContext.SaveChangesAsync();
+            await _DataContext.SaveChangesAsync();
         }
     }
 }

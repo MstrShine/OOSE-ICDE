@@ -2,25 +2,41 @@
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions.Base;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
 {
     public class LessonRepositorySession : VersionedRepositorySessionBase<Lesson>, ILessonRepositorySession
     {
-        protected override DbSet<Lesson> Table => dataContext.Lessons;
+        protected override DbSet<Lesson> Table => _DataContext.Lessons;
 
         public LessonRepositorySession(DataContext dataContext) : base(dataContext)
         {
         }
 
+        public override async Task DeleteAsync(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(id));
+            }
+
+            var entity = await Table.SingleOrDefaultAsync(x => x.Id == id);
+            if (entity == null)
+            {
+                throw new Exception($"Could not find Id: {id} in Table {nameof(_Type)}");
+            }
+
+            entity.CoursePlanningId = null;
+
+            Table.Update(entity);
+            await _DataContext.SaveChangesAsync();
+
+            return;
+        }
+
         public Task<List<Lesson>> GetByCoursePlanningIdAsync(Guid coursePlanningId)
         {
-            if(coursePlanningId == Guid.Empty)
+            if (coursePlanningId == Guid.Empty)
             {
                 throw new ArgumentNullException(nameof(coursePlanningId));
             }
@@ -35,20 +51,20 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
                 throw new ArgumentNullException(nameof(lessonId));
             }
 
-            if(coursePlanningId == Guid.Empty)
+            if (coursePlanningId == Guid.Empty)
             {
                 throw new ArgumentNullException(nameof(coursePlanningId));
             }
 
             var toChange = await Table.SingleOrDefaultAsync(x => x.Id == lessonId);
-            if (toChange == null) 
+            if (toChange == null)
             {
                 throw new Exception($"Lesson not found with Id: {coursePlanningId}");
             }
 
             toChange.CoursePlanningId = coursePlanningId;
             Table.Update(toChange);
-            await dataContext.SaveChangesAsync();
+            await _DataContext.SaveChangesAsync();
         }
     }
 }
