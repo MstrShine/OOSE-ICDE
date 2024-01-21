@@ -90,6 +90,11 @@ namespace HAN.OOSE.ICDE.Logic
 
         public override async Task<LearningOutcome> SaveAsync(LearningOutcome entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             var prevId = entity.Id;
             var saved = await base.SaveAsync(entity);
             if (prevId == Guid.Empty)

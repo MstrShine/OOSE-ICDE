@@ -17,6 +17,7 @@ namespace HAN.OOSE.ICDE.Logic.Test
         protected List<GradeDescription> _gradeDescriptions;
         protected List<LearningOutcome> _learningOutcomes;
         protected List<LearningOutcomeUnit> _learningOutcomeUnits;
+        protected List<LessonLearningOutcome> _lessonLearningOutcomes;
         protected List<Lesson> _lessons;
         protected List<Study> _studies;
         protected List<User> _users;
@@ -557,7 +558,8 @@ namespace HAN.OOSE.ICDE.Logic.Test
             }).Verifiable();
             repositorySessionMock.Setup(x => x.GetByLessonIdAsync(It.IsAny<Guid>())).Returns<Guid>(x =>
             {
-                var entities = _learningOutcomes.Where(y => y.LessonId == x).ToList();
+                var lessonIds = _lessonLearningOutcomes.Where(y => y.LessonId == x).Select(x => x.LearningOutcomeId).ToList();
+                var entities = _learningOutcomes.Where(y => lessonIds.Exists(z => y.Id == z)).ToList();
                 return Task.FromResult(entities);
             }).Verifiable();
             repositorySessionMock.Setup(x => x.ChangeExamIdAsync(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns<Guid, Guid>((x, y) =>
@@ -582,10 +584,10 @@ namespace HAN.OOSE.ICDE.Logic.Test
             }).Verifiable();
             repositorySessionMock.Setup(x => x.ChangeLessonIdAsync(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns<Guid, Guid>((x, y) =>
             {
-                var toChange = _learningOutcomes.FirstOrDefault(z => z.Id == x);
-                if (toChange != null)
+                var toChange = _lessonLearningOutcomes.Where(z => z.LearningOutcomeId == x).ToList();
+                foreach (var c in toChange)
                 {
-                    toChange.LessonId = y;
+                    c.LessonId = y;
                 }
 
                 return Task.CompletedTask;
