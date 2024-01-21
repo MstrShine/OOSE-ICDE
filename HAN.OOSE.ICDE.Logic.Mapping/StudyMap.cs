@@ -14,7 +14,8 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
             return new Persistency.Database.Domain.Study()
             {
                 Id = entity.Id,
-                Name = entity.Name
+                Name = entity.Name,
+                IsDeleted = entity.IsDeleted,
             };
         }
 
@@ -29,6 +30,7 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
             {
                 Id = dbEntity.Id,
                 Name = dbEntity.Name,
+                IsDeleted = dbEntity.IsDeleted,
             };
         }
     }
