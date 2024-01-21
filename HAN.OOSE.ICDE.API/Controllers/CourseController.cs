@@ -171,5 +171,18 @@ namespace HAN.OOSE.ICDE.API.Controllers
 
             return Ok(updated);
         }
+
+        [HttpPost("finalize/{id:guid}")]
+        public async Task<ActionResult> FinalizeCourse(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest(new ArgumentNullException(nameof(id)));
+            }
+
+            // TODO: Maken logica finalize
+
+            return Ok();
+        }
     }
 }
