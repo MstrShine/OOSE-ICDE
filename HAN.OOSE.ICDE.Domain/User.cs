@@ -17,5 +17,8 @@ namespace HAN.OOSE.ICDE.Domain
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public Role Role { get; set; }
+
+        [JsonIgnore]
+        public bool IsDeleted { get; set; }
     }
 }

@@ -18,7 +18,6 @@
                 DateOfCreation = DateTime.Now,
                 LearningOutcomeUnitId = Guid.NewGuid(),
                 ExamId = Guid.NewGuid(),
-                LessonId = Guid.NewGuid(),
                 Description = "Description",
                 Name = "Name",
             };
@@ -28,7 +27,6 @@
             AssertVersionedEntity(entity, converted);
             Assert.AreEqual(entity.LearningOutcomeUnitId, converted.LearningOutcomeUnitId);
             Assert.AreEqual(entity.ExamId, converted.ExamId);
-            Assert.AreEqual(entity.LessonId, converted.LessonId);
             Assert.AreEqual(entity.Description, converted.Description);
             Assert.AreEqual(entity.Name, converted.Name);
         }
@@ -43,7 +41,6 @@
                 DateOfCreation = DateTime.Now,
                 LearningOutcomeUnitId = Guid.NewGuid(),
                 ExamId = Guid.NewGuid(),
-                LessonId = Guid.NewGuid(),
                 Description = "Description",
                 Name = "Name",
             };
@@ -53,7 +50,6 @@
             AssertVersionedDbEntity(dbEntity, converted);
             Assert.AreEqual(dbEntity.LearningOutcomeUnitId, converted.LearningOutcomeUnitId);
             Assert.AreEqual(dbEntity.ExamId, converted.ExamId);
-            Assert.AreEqual(dbEntity.LessonId, converted.LessonId);
             Assert.AreEqual(dbEntity.Description, converted.Description);
             Assert.AreEqual(dbEntity.Name, converted.Name);
         }

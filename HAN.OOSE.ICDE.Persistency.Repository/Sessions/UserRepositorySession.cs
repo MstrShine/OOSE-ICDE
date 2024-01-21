@@ -1,12 +1,6 @@
 ﻿using HAN.OOSE.ICDE.Persistency.Database.Domain;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
-using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions.Base;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
 {
@@ -30,15 +24,21 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
                 throw new ArgumentNullException(nameof(id));
             }
 
-            var user = new User { Id = id };
-            Table.Remove(user);
+            var user = await Table.SingleOrDefaultAsync(x => x.Id == id);
+            if (user == null)
+            {
+                throw new Exception($"Could not find User with id: {id}");
+            }
+
+            user.IsDeleted = true;
+            Table.Update(user);
 
             await _dataContext.SaveChangesAsync();
         }
 
         public Task<List<User>> GetAllAsync()
         {
-            return Table.ToListAsync();
+            return Table.Where(x => x.IsDeleted == false).ToListAsync();
         }
 
         public Task<User> GetByEmailAsync(string email)

@@ -1,11 +1,6 @@
 ﻿using HAN.OOSE.ICDE.Persistency.Database.Domain;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions.Base;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
 {
@@ -29,15 +24,21 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
                 throw new ArgumentNullException(nameof(id));
             }
 
-            var study = new Study { Id = id };
-            Table.Remove(study);
+            var study = await Table.SingleOrDefaultAsync(x => x.Id == id);
+            if (study == null)
+            {
+                throw new Exception($"Could not find Study with Id: {id}");
+            }
+
+            study.IsDeleted = true;
+            Table.Update(study);
 
             await _dataContext.SaveChangesAsync();
         }
 
         public Task<List<Study>> GetAllAsync()
         {
-            return Table.ToListAsync();
+            return Table.Where(x => x.IsDeleted == false).ToListAsync();
         }
 
         public Task<Study> GetByIdAsync(Guid id)

@@ -1,25 +1,17 @@
-﻿using HAN.OOSE.ICDE.Domain;
-using HAN.OOSE.ICDE.Domain.Base;
+﻿using HAN.OOSE.ICDE.Domain.Base;
 using HAN.OOSE.ICDE.Logic.Interfaces.Base;
 using HAN.OOSE.ICDE.Logic.Mapping.Interfaces;
-using HAN.OOSE.ICDE.Persistency.Database.Domain;
 using HAN.OOSE.ICDE.Persistency.Database.Domain.Base;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces;
-using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Logic.Base
 {
     public abstract class VersionedEntityManager<T, Y, R> : IVersionedEntityManager<T> where T : VersionedEntity where Y : VersionedDBEntity where R : IVersionedEntityRepositorySession<Y>
     {
-        protected IEntityRepository<R, Y> _repository;
+        protected readonly IEntityRepository<R, Y> _repository;
 
-        protected IEntityMapper<T, Y> _mapper;
+        protected readonly IEntityMapper<T, Y> _mapper;
 
         public VersionedEntityManager(
             IEntityRepository<R, Y> repository,

@@ -131,6 +131,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
             }
 
             entity.Author = UserId;
+            entity.IsFinalized = false;
 
             var saved = await _courseManager.SaveAsync(entity);
             if (saved == null)
@@ -163,6 +164,8 @@ namespace HAN.OOSE.ICDE.API.Controllers
             if (entity.Author == Guid.Empty)
                 entity.Author = UserId;
 
+            entity.IsFinalized = false;
+
             var updated = await _courseManager.UpdateAsync(entity);
             if (updated == null)
             {
@@ -170,6 +173,19 @@ namespace HAN.OOSE.ICDE.API.Controllers
             }
 
             return Ok(updated);
+        }
+
+        [HttpPost("finalize/{id:guid}")]
+        public async Task<ActionResult> FinalizeCourse(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return BadRequest(new ArgumentNullException(nameof(id)));
+            }
+
+            // TODO: Maken logica finalize
+
+            return Ok();
         }
     }
 }

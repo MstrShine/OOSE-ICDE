@@ -1,26 +1,22 @@
-﻿using HAN.OOSE.ICDE.Persistency.Database.Domain;
-using HAN.OOSE.ICDE.Persistency.Database.Domain.Base;
+﻿using HAN.OOSE.ICDE.Persistency.Database.Domain.Base;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions.Base;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions.Base
 {
     public abstract class VersionedRepositorySessionBase<T> : IVersionedEntityRepositorySession<T> where T : VersionedDBEntity, new()
     {
-        protected readonly DataContext dataContext;
+        protected readonly DataContext _DataContext;
 
-        private bool disposedValue;
+        private bool _DisposedValue;
 
         protected abstract DbSet<T> Table { get; }
 
+        protected readonly Type _Type = typeof(T);
+
         protected VersionedRepositorySessionBase(DataContext dataContext)
         {
-            this.dataContext = dataContext;
+            this._DataContext = dataContext;
         }
 
         public virtual async Task DeleteAsync(Guid id)
@@ -34,7 +30,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions.Base
             entity.Id = id;
             Table.Remove(entity);
 
-            await dataContext.SaveChangesAsync();
+            await _DataContext.SaveChangesAsync();
         }
 
         public virtual Task<List<T>> GetAllAsync()
@@ -76,7 +72,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions.Base
             }
 
             await Table.AddAsync(entity);
-            await dataContext.SaveChangesAsync();
+            await _DataContext.SaveChangesAsync();
 
             return entity;
         }
@@ -99,14 +95,14 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions.Base
             }
 
             Table.Update(entity);
-            await dataContext.SaveChangesAsync();
+            await _DataContext.SaveChangesAsync();
 
             return entity;
         }
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!_DisposedValue)
             {
                 if (disposing)
                 {
@@ -115,7 +111,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions.Base
 
                 // TODO: free unmanaged resources (unmanaged objects) and override finalizer
                 // TODO: set large fields to null
-                disposedValue = true;
+                _DisposedValue = true;
             }
         }
 

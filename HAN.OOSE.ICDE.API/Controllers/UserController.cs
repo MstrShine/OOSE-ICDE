@@ -1,10 +1,7 @@
-﻿using HAN.OOSE.ICDE.API.Controllers.Base;
-using HAN.OOSE.ICDE.API.Interfaces;
-using HAN.OOSE.ICDE.API.JWT.Utils;
+﻿using HAN.OOSE.ICDE.API.JWT.Utils;
 using HAN.OOSE.ICDE.Domain;
 using HAN.OOSE.ICDE.Domain.Enums;
 using HAN.OOSE.ICDE.Logic.Interfaces;
-using HAN.OOSE.ICDE.Logic.Interfaces.Base;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,7 +29,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
         [Authorize]
         public async Task<ActionResult<User>> Get(Guid id)
         {
-            if(id == Guid.Empty)
+            if (id == Guid.Empty)
             {
                 return BadRequest(new ArgumentNullException(nameof(id)));
             }
@@ -68,12 +65,12 @@ namespace HAN.OOSE.ICDE.API.Controllers
             }
 
             var user = await _userManager.GetByEmailAsync(login.Email);
-            if(user == null)
+            if (user == null || user.IsDeleted)
             {
                 return NotFound($"User with email {login.Email} does not exist");
             }
 
-            if(!BCrypt.Net.BCrypt.EnhancedVerify(login.Password, user.Password))
+            if (!BCrypt.Net.BCrypt.EnhancedVerify(login.Password, user.Password))
             {
                 return Unauthorized("Saved password does not match given password");
             }
@@ -130,9 +127,9 @@ namespace HAN.OOSE.ICDE.API.Controllers
         [Authorize]
         public async Task<ActionResult> UpdatePassword(Guid id, UpdatePasswordModel password)
         {
-            if(string.IsNullOrEmpty(password.OldPassword)) 
-            { 
-                return BadRequest(new ArgumentNullException(nameof(password.OldPassword))); 
+            if (string.IsNullOrEmpty(password.OldPassword))
+            {
+                return BadRequest(new ArgumentNullException(nameof(password.OldPassword)));
             }
 
             if (string.IsNullOrEmpty(password.NewPassword))

@@ -14,8 +14,5 @@ namespace HAN.OOSE.ICDE.Domain
 
         [DefaultValue(null)]
         public Guid? LearningOutcomeUnitId { get; set; }
-
-        [DefaultValue(null)]
-        public Guid? LessonId { get; set; }
     }
 }

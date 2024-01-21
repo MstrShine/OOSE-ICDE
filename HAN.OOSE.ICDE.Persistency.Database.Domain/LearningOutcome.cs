@@ -11,7 +11,5 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Domain
         public Guid? ExamId { get; set; }
 
         public Guid? LearningOutcomeUnitId { get; set; }
-
-        public Guid? LessonId { get; set; }
     }
 }

@@ -1,11 +1,4 @@
-﻿using HAN.OOSE.ICDE.Logic.Mapping.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HAN.OOSE.ICDE.Logic.Mapping
+﻿namespace HAN.OOSE.ICDE.Logic.Mapping
 {
     public class LearningOutcomeMap : VersionedEntityMapperBase<Domain.LearningOutcome, Persistency.Database.Domain.LearningOutcome>
     {
@@ -19,7 +12,6 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
             dbEntity.Description = entity.Description;
             dbEntity.ExamId = entity.ExamId;
             dbEntity.LearningOutcomeUnitId = entity.LearningOutcomeUnitId;
-            dbEntity.LessonId = entity.LessonId;
 
             return dbEntity;
         }
@@ -30,7 +22,6 @@ namespace HAN.OOSE.ICDE.Logic.Mapping
             entity.Description = dbEntity.Description;
             entity.ExamId = dbEntity.ExamId;
             entity.LearningOutcomeUnitId = dbEntity.LearningOutcomeUnitId;
-            entity.LessonId = dbEntity.LessonId;
 
             return entity;
         }

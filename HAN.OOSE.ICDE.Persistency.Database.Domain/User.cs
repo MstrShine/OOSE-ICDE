@@ -14,5 +14,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Domain
         public string LastName { get; set; }
 
         public Role Role { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

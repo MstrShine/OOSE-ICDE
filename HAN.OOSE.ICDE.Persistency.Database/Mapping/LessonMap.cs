@@ -16,7 +16,7 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
 
             builder.Property(x => x.CoursePlanningId).IsRequired(false);
 
-            builder.HasMany<LearningOutcome>().WithOne().HasForeignKey(x => x.LessonId).OnDelete(DeleteBehavior.NoAction).IsRequired(false);
+            builder.HasMany<LessonLearningOutcome>().WithOne().HasForeignKey(x => x.LessonId).OnDelete(DeleteBehavior.NoAction).IsRequired(false);
         }
     }
 }

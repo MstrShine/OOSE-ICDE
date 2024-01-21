@@ -14,7 +14,11 @@ namespace HAN.OOSE.ICDE.Logic.Test.Managers
             var learningOutcomeRepository = new Mock<IEntityRepository<ILearningOutcomeRepositorySession, Persistency.Database.Domain.LearningOutcome>>();
             learningOutcomeRepository.Setup(x => x.CreateSession()).Returns(learningOutcomeSession.Object);
 
-            _manager = new LearningOutcomeManager(learningOutcomeRepository.Object, new LearningOutcomeMap());
+            var lessonSession = CreateLessonRepositorySession();
+            var lessonRepository = new Mock<IEntityRepository<ILessonRepositorySession, Persistency.Database.Domain.Lesson>>();
+            lessonRepository.Setup(x => x.CreateSession()).Returns(lessonSession.Object);
+
+            _manager = new LearningOutcomeManager(learningOutcomeRepository.Object, new LearningOutcomeMap(), lessonRepository.Object);
         }
     }
 }
