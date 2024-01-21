@@ -3,7 +3,7 @@ using HAN.OOSE.ICDE.Persistency.Database.Domain.Enums;
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Domain
 {
-    public class Exam : VersionDBEntity
+    public class Exam : VersionedDBEntity
     {
         public string? Name { get; set; }
 

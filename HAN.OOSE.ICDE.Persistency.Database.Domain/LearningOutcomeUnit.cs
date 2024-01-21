@@ -2,7 +2,7 @@
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Domain
 {
-    public class LearningOutcomeUnit : VersionDBEntity
+    public class LearningOutcomeUnit : VersionedDBEntity
     {
         public string? Name { get; set; }
 

@@ -32,8 +32,9 @@ namespace HAN.OOSE.ICDE.Logic
             CoursePlanning coursePlanning = null;
             using (var session = _repository.CreateSession())
             {
-                var dbList = await session.GetByCourseIdAsync(courseId);
-                coursePlanning = _mapper.ToEntity(dbList);
+                var dbEntity = await session.GetByCourseIdAsync(courseId);
+                if (dbEntity != null)
+                    coursePlanning = _mapper.ToEntity(dbEntity);
             }
 
             return coursePlanning;
@@ -41,6 +42,11 @@ namespace HAN.OOSE.ICDE.Logic
 
         public override async Task<CoursePlanning> SaveAsync(CoursePlanning entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             var prevId = Guid.Parse(entity.Id.ToString());
             var saved = await base.SaveAsync(entity);
             if (prevId == Guid.Empty)

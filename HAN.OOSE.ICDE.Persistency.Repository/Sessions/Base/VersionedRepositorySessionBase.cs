@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions.Base
 {
-    public abstract class VersionedRepositorySessionBase<T> : IVersionedEntityRepositorySession<T> where T : VersionDBEntity, new()
+    public abstract class VersionedRepositorySessionBase<T> : IVersionedEntityRepositorySession<T> where T : VersionedDBEntity, new()
     {
         protected readonly DataContext _DataContext;
 

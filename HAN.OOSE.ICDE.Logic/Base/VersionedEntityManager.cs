@@ -7,7 +7,7 @@ using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions.Base;
 
 namespace HAN.OOSE.ICDE.Logic.Base
 {
-    public abstract class VersionedEntityManager<T, Y, R> : IVersionedEntityManager<T> where T : VersionedEntity where Y : VersionDBEntity where R : IVersionedEntityRepositorySession<Y>
+    public abstract class VersionedEntityManager<T, Y, R> : IVersionedEntityManager<T> where T : VersionedEntity where Y : VersionedDBEntity where R : IVersionedEntityRepositorySession<Y>
     {
         protected readonly IEntityRepository<R, Y> _repository;
 

@@ -2,7 +2,7 @@
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Domain
 {
-    public class ExaminationEvent : VersionDBEntity
+    public class ExaminationEvent : VersionedDBEntity
     {
         public string? Type { get; set; }
 
