@@ -13,7 +13,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Mapping
 
             builder.Property(x => x.ExamId).IsRequired(false);
             builder.Property(x => x.LearningOutcomeUnitId).IsRequired(false);
-            builder.Property(x => x.LessonId).IsRequired(false);
+
+            builder.HasMany<LessonLearningOutcome>().WithOne().HasForeignKey(x => x.LearningOutcomeId).IsRequired(false);
         }
     }
 }

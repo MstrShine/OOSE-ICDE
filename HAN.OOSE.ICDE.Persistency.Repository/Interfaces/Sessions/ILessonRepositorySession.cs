@@ -1,10 +1,5 @@
 ﻿using HAN.OOSE.ICDE.Persistency.Database.Domain;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions
 {
@@ -12,6 +7,10 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions
     {
         Task<List<Lesson>> GetByCoursePlanningIdAsync(Guid coursePlanningId);
 
+        Task<List<Lesson>> GetByLearningOutcomeIdAsync(Guid learningOutcomeId);
+
         Task ChangeCoursePlanningIdAsync(Guid lessonId, Guid coursePlanningId);
+
+        Task ChangeLearningOutcomeIdAsync(Guid lessonId, Guid learningOutcomeId);
     }
 }

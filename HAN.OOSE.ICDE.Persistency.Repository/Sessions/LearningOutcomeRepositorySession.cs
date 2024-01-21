@@ -28,12 +28,12 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
 
             entity.ExamId = null;
             entity.LearningOutcomeUnitId = null;
-            entity.LessonId = null;
-
             Table.Update(entity);
-            await _DataContext.SaveChangesAsync();
 
-            return;
+            var lessonLearningOutcomes = await _DataContext.LessonLearningOutcomes.Where(x => x.LearningOutcomeId != id).ToListAsync();
+            _DataContext.LessonLearningOutcomes.RemoveRange(lessonLearningOutcomes);
+
+            await _DataContext.SaveChangesAsync();
         }
 
         public Task<List<LearningOutcome>> GetByExamIdAsync(Guid examId)
@@ -56,14 +56,17 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
             return Table.Where(x => x.LearningOutcomeUnitId == learningOutcomeUnitId).ToListAsync();
         }
 
-        public Task<List<LearningOutcome>> GetByLessonIdAsync(Guid lessonId)
+        public async Task<List<LearningOutcome>> GetByLessonIdAsync(Guid lessonId)
         {
             if (lessonId == Guid.Empty)
             {
                 throw new ArgumentNullException(nameof(lessonId));
             }
 
-            return Table.Where(x => x.LessonId == lessonId).ToListAsync();
+            var learningOutcomeIds = await _DataContext.LessonLearningOutcomes.Where(x => x.LessonId == lessonId).Select(x => x.LearningOutcomeId).ToListAsync();
+            var learningOutcomes = await Table.Where(x => learningOutcomeIds.Exists(y => x.Id == y)).ToListAsync();
+
+            return learningOutcomes;
         }
 
         public async Task ChangeExamIdAsync(Guid learningOutcomeId, Guid examId)
@@ -124,14 +127,30 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
                 throw new ArgumentNullException(nameof(lessonId));
             }
 
-            var toChange = await Table.SingleOrDefaultAsync(x => x.Id == learningOutcomeId);
+            var toChange = await _DataContext.LessonLearningOutcomes.Where(x => x.LearningOutcomeId == learningOutcomeId).ToListAsync();
             if (toChange == null)
             {
                 throw new Exception($"LearningOutcome not found with Id: {learningOutcomeId}");
             }
 
-            toChange.LessonId = lessonId;
-            Table.Update(toChange);
+            toChange.ForEach(x => x.LessonId = lessonId);
+            _DataContext.LessonLearningOutcomes.UpdateRange(toChange);
+            await _DataContext.SaveChangesAsync();
+        }
+
+        public async Task AddLearningOutcomeToLesson(Guid learningOutcomeId, Guid lessonId)
+        {
+            if (learningOutcomeId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(learningOutcomeId));
+            }
+
+            if (lessonId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(lessonId));
+            }
+
+            await _DataContext.LessonLearningOutcomes.AddAsync(new LessonLearningOutcome() { LessonId = lessonId, LearningOutcomeId = learningOutcomeId });
             await _DataContext.SaveChangesAsync();
         }
     }

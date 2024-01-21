@@ -120,5 +120,24 @@ namespace HAN.OOSE.ICDE.API.Controllers
 
             return Ok(updated);
         }
+
+        [HttpPost("{learningOutcomeId:guid}/lesson/{lessonId:guid}")]
+        [Authorize(Roles = "Teacher, Administrator")]
+        public async Task<ActionResult> AddLearningOutcomeToLesson(Guid learningOutcomeId, Guid lessonId)
+        {
+            if (learningOutcomeId == Guid.Empty)
+            {
+                return BadRequest(new ArgumentNullException(nameof(learningOutcomeId)));
+            }
+
+            if (lessonId == Guid.Empty)
+            {
+                return BadRequest(new ArgumentNullException(nameof(lessonId)));
+            }
+
+            await _learningOutcomeManager.AddLearningOutcomeToLesson(learningOutcomeId, lessonId);
+
+            return Ok();
+        }
     }
 }
