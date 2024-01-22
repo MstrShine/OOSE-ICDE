@@ -11,12 +11,15 @@ namespace HAN.OOSE.ICDE.API.Controllers
     public class LearningOutcomeController : VersionedEntityController<LearningOutcome>
     {
         private readonly ILearningOutcomeManager _learningOutcomeManager;
+        private readonly ILessonManager _lessonManager;
 
         public LearningOutcomeController(
             ILogger<BaseEntityController<LearningOutcome>> logger,
-            ILearningOutcomeManager entityManager) : base(logger)
+            ILearningOutcomeManager entityManager,
+            ILessonManager lessonManager) : base(logger)
         {
             _learningOutcomeManager = entityManager;
+            _lessonManager = lessonManager;
         }
 
         [HttpDelete("{id:guid}")]
@@ -121,23 +124,18 @@ namespace HAN.OOSE.ICDE.API.Controllers
             return Ok(updated);
         }
 
-        [HttpPost("{learningOutcomeId:guid}/lesson/{lessonId:guid}")]
-        [Authorize(Roles = "Teacher, Administrator")]
-        public async Task<ActionResult> AddLearningOutcomeToLesson(Guid learningOutcomeId, Guid lessonId)
+        [HttpGet("{learningOutcomeId:guid}/lesson")]
+        [Authorize()]
+        public async Task<ActionResult<List<Lesson>>> GetLessonsByLearningOutcomeId(Guid learningOutcomeId)
         {
             if (learningOutcomeId == Guid.Empty)
             {
                 return BadRequest(new ArgumentNullException(nameof(learningOutcomeId)));
             }
 
-            if (lessonId == Guid.Empty)
-            {
-                return BadRequest(new ArgumentNullException(nameof(lessonId)));
-            }
+            var lessons = await _lessonManager.GetByLearningOutcomeIdAsync(learningOutcomeId);
 
-            await _learningOutcomeManager.AddLearningOutcomeToLesson(learningOutcomeId, lessonId);
-
-            return Ok();
+            return Ok(lessons);
         }
     }
 }
