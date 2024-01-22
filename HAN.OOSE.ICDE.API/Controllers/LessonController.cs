@@ -73,20 +73,6 @@ namespace HAN.OOSE.ICDE.API.Controllers
             return Ok(entities);
         }
 
-        [HttpGet("{id:guid}/learningoutcome")]
-        [Authorize]
-        public async Task<ActionResult<LearningOutcome>> GetLearningOutcomesByLessonId(Guid id)
-        {
-            if (id == Guid.Empty)
-            {
-                return BadRequest(new ArgumentNullException(nameof(id)));
-            }
-
-            var learningOutcomes = await _learningOutcomeManager.GetByLessonIdAsync(id);
-
-            return Ok(learningOutcomes);
-        }
-
         [HttpPost]
         [Authorize(Roles = "Teacher, Administrator")]
         public override async Task<ActionResult<Lesson>> Post(Lesson entity)

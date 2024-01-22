@@ -27,10 +27,8 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
             }
 
             entity.CoursePlanningId = null;
+            entity.LearningOutcomeId = null;
             Table.Update(entity);
-
-            var lessons = await _DataContext.LessonLearningOutcomes.Where(x => x.LessonId == id).ToListAsync();
-            _DataContext.RemoveRange(lessons);
 
             await _DataContext.SaveChangesAsync();
 
@@ -70,17 +68,14 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
             await _DataContext.SaveChangesAsync();
         }
 
-        public async Task<List<Lesson>> GetByLearningOutcomeIdAsync(Guid learningOutcomeId)
+        public Task<List<Lesson>> GetByLearningOutcomeIdAsync(Guid learningOutcomeId)
         {
             if (learningOutcomeId == Guid.Empty)
             {
                 throw new ArgumentNullException(nameof(learningOutcomeId));
             }
 
-            var lessonIds = await _DataContext.LessonLearningOutcomes.Where(x => x.LearningOutcomeId == learningOutcomeId).Select(x => x.LessonId).ToListAsync();
-            var lessons = await Table.Where(x => lessonIds.Exists(y => x.Id == y)).ToListAsync();
-
-            return lessons;
+            return Table.Where(x => x.LearningOutcomeId == learningOutcomeId).ToListAsync();
         }
 
         public async Task ChangeLearningOutcomeIdAsync(Guid lessonId, Guid learningOutcomeId)
@@ -95,14 +90,14 @@ namespace HAN.OOSE.ICDE.Persistency.Database.Repository.Sessions
                 throw new ArgumentNullException(nameof(learningOutcomeId));
             }
 
-            var toChange = await _DataContext.LessonLearningOutcomes.Where(x => x.LessonId == lessonId).ToListAsync();
+            var toChange = await Table.SingleOrDefaultAsync(x => x.Id == lessonId);
             if (toChange == null)
             {
                 throw new Exception($"Lesson not found with Id: {learningOutcomeId}");
             }
 
-            toChange.ForEach(x => x.LearningOutcomeId = learningOutcomeId);
-            _DataContext.LessonLearningOutcomes.UpdateRange(toChange);
+            toChange.LearningOutcomeId = learningOutcomeId;
+            Table.Update(toChange);
             await _DataContext.SaveChangesAsync();
         }
     }

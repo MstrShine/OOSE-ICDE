@@ -36,30 +36,21 @@ namespace HAN.OOSE.ICDE.Logic
             return lessons;
         }
 
-        public override async Task<Lesson> SaveAsync(Lesson entity)
+        public async Task<List<Lesson>> GetByLearningOutcomeIdAsync(Guid learningOutcomeId)
         {
-            if (entity == null)
+            if (learningOutcomeId == Guid.Empty)
             {
-                throw new ArgumentNullException(nameof(entity));
+                throw new ArgumentNullException(nameof(learningOutcomeId));
             }
 
-            var prevId = Guid.Parse(entity.Id.ToString());
-            var saved = await base.SaveAsync(entity);
-            if (prevId == Guid.Empty)
+            var lessons = new List<Lesson>();
+            using (var session = _repository.CreateSession())
             {
-                return saved;
+                var dbList = await session.GetByLearningOutcomeIdAsync(learningOutcomeId);
+                lessons = dbList.Select(x => _mapper.ToEntity(x)).ToList();
             }
 
-            using (var learningOutcomeSession = _learningOutcomeRepository.CreateSession())
-            {
-                var learningOutcomes = await learningOutcomeSession.GetByLessonIdAsync(prevId);
-                foreach (var learningOutcome in learningOutcomes)
-                {
-                    await learningOutcomeSession.ChangeLessonIdAsync(learningOutcome.Id, saved.Id);
-                }
-            }
-
-            return saved;
+            return lessons;
         }
     }
 }

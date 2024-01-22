@@ -19,24 +19,6 @@ namespace HAN.OOSE.ICDE.Logic
             _lessonRepository = lessonRepository;
         }
 
-        public async Task AddLearningOutcomeToLesson(Guid learningOutcomeId, Guid lessonId)
-        {
-            if (learningOutcomeId == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(learningOutcomeId));
-            }
-
-            if (lessonId == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(lessonId));
-            }
-
-            using (var session = _repository.CreateSession())
-            {
-                await session.AddLearningOutcomeToLesson(learningOutcomeId, lessonId);
-            }
-        }
-
         public async Task<List<LearningOutcome>> GetByExamIdAsync(Guid examId)
         {
             if (examId == Guid.Empty)
@@ -65,23 +47,6 @@ namespace HAN.OOSE.ICDE.Logic
             using (var session = _repository.CreateSession())
             {
                 var dbList = await session.GetByLearningOutcomeUnitIdAsync(learningOutcomeUnitId);
-                learningOutcomes = dbList.Select(x => _mapper.ToEntity(x)).ToList();
-            }
-
-            return learningOutcomes;
-        }
-
-        public async Task<List<LearningOutcome>> GetByLessonIdAsync(Guid lessonId)
-        {
-            if (lessonId == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(lessonId));
-            }
-
-            var learningOutcomes = new List<LearningOutcome>();
-            using (var session = _repository.CreateSession())
-            {
-                var dbList = await session.GetByLessonIdAsync(lessonId);
                 learningOutcomes = dbList.Select(x => _mapper.ToEntity(x)).ToList();
             }
 
