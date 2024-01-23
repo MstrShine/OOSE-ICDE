@@ -16,5 +16,12 @@ namespace HAN.OOSE.ICDE.Logic.Test.Managers
 
             _manager = new GradeDescriptionManager(gradeDescriptionRepositoryMock.Object, new GradeDescriptionMap());
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async Task GetByAssessmentCriteriaId_EmptyGuid()
+        {
+            await _manager.GetByAssessmentCriteriaIdAsync(Guid.Empty);
+        }
     }
 }

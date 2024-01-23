@@ -7,19 +7,67 @@ namespace HAN.OOSE.ICDE.Logic.Test
     [TestClass]
     public abstract class AbstractManagerSetup
     {
-        protected List<AssessmentCriteria> _assessmentCriterias;
-        protected List<AssessmentDimension> _assessmentDimensions;
-        protected List<Competency> _competencies;
-        protected List<Course> _courses;
-        protected List<CoursePlanning> _coursePlannings;
-        protected List<Exam> _exams;
-        protected List<ExaminationEvent> _examinationEvents;
-        protected List<GradeDescription> _gradeDescriptions;
-        protected List<LearningOutcome> _learningOutcomes;
-        protected List<LearningOutcomeUnit> _learningOutcomeUnits;
-        protected List<Lesson> _lessons;
-        protected List<Study> _studies;
-        protected List<User> _users;
+        protected List<AssessmentCriteria> _assessmentCriterias = new();
+        protected List<AssessmentDimension> _assessmentDimensions = new();
+        protected List<Competency> _competencies = new();
+        protected List<Course> _courses = new();
+        protected List<CoursePlanning> _coursePlannings = new();
+        protected List<Exam> _exams = new();
+        protected List<ExaminationEvent> _examinationEvents = new();
+        protected List<GradeDescription> _gradeDescriptions = new();
+        protected List<LearningOutcome> _learningOutcomes = new();
+        protected List<LearningOutcomeUnit> _learningOutcomeUnits = new();
+        protected List<Lesson> _lessons = new();
+        protected List<Study> _studies = new();
+        protected List<User> _users = new();
+
+        public AbstractManagerSetup()
+        {
+            var study1 = Guid.NewGuid();
+            _studies = new()
+            {
+                new()
+                {
+                    Id = study1,
+                    Name = "Study 1",
+                    IsDeleted = false
+                }
+            };
+
+            var user1 = Guid.NewGuid();
+            _users = new()
+            {
+                new()
+                {
+                    Id= user1,
+                    Email = "user1@test.nl",
+                    FirstName = "User",
+                    LastName = "1",
+                    Password = "password",
+                    Role = Persistency.Database.Domain.Enums.Role.Teacher,
+                    IsDeleted=false
+                }
+            };
+
+            var course1 = Guid.NewGuid();
+            _courses = new()
+            {
+                new()
+                {
+                    Id = course1,
+                    Author = user1,
+                    StudyId = study1,
+                    DateOfCreation = DateTime.Now,
+                    VersionCollection = Guid.NewGuid(),
+                    Name = "Course 1",
+                    Code = "C1",
+                    CollegeYear = DateTime.Now.Year,
+                    CTE = 30,
+                    Description = "Course 1 description",
+                    IsFinalized = false,
+                }
+            };
+        }
 
         #region RepositorySessions
         protected Mock<IAssessmentCriteriaRepositorySession> CreateAssessmentCriteriaRepositorySession()

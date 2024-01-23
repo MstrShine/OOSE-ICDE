@@ -33,5 +33,12 @@ namespace HAN.OOSE.ICDE.Logic.Test.Managers
                 coursePlanningRepository.Object,
                 learningOutcomeUnitRepository.Object);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async Task GetByStudyId_EmptyGuid()
+        {
+            await _manager.GetByStudyIdAsync(Guid.Empty);
+        }
     }
 }

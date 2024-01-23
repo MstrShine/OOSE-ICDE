@@ -16,5 +16,19 @@ namespace HAN.OOSE.ICDE.Logic.Test.Managers
 
             _manager = new CompetencyManager(competencyRepository.Object, new CompetencyMap());
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async Task GetByCourseId_EmptyGuid()
+        {
+            await _manager.GetByCourseIdAsync(Guid.Empty);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async Task GetByLearningOutcomeUnitId_EmptyGuid()
+        {
+            await _manager.GetByLearningOutcomeUnitIdAsync(Guid.Empty);
+        }
     }
 }

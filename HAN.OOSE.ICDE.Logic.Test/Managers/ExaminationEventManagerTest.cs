@@ -17,5 +17,19 @@ namespace HAN.OOSE.ICDE.Logic.Test.Managers
 
             _manager = new ExaminationEventManager(examinationEventRepository.Object, new ExaminationEventMap());
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async Task GetByCoursePlanningId_EmptyGuid()
+        {
+            await _manager.GetByCoursePlanningIdAsync(Guid.Empty);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async Task GetByExamId_EmptyGuid()
+        {
+            await _manager.GetByCoursePlanningIdAsync(Guid.Empty);
+        }
     }
 }

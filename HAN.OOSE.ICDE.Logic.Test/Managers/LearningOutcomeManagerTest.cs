@@ -20,5 +20,19 @@ namespace HAN.OOSE.ICDE.Logic.Test.Managers
 
             _manager = new LearningOutcomeManager(learningOutcomeRepository.Object, new LearningOutcomeMap(), lessonRepository.Object);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async Task GetByExamId_EmptyGuid()
+        {
+            await _manager.GetByExamIdAsync(Guid.Empty);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async Task GetByLearningOutcomeUnitId_EmptyGuid()
+        {
+            await _manager.GetByLearningOutcomeUnitIdAsync(Guid.Empty);
+        }
     }
 }

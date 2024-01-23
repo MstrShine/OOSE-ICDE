@@ -33,5 +33,12 @@ namespace HAN.OOSE.ICDE.Logic.Test.Managers
                 assessmentDimensionRepository.Object,
                 learningOutcomeRepository.Object);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async Task GetByLearningOutcomeUnitId_EmptyGuid()
+        {
+            await _manager.GetByLearningOutcomeUnitIdAsync(Guid.Empty);
+        }
     }
 }
