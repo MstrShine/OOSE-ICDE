@@ -47,6 +47,23 @@ namespace HAN.OOSE.ICDE.Logic.Test.Managers
         }
 
         [TestMethod]
+        public async Task GetByCourseId_Valid()
+        {
+            var coursePlanning = await _manager.GetByCourseIdAsync(_course1Id);
+
+            Assert.IsNotNull(coursePlanning);
+            Assert.AreEqual(_course1Id, coursePlanning.CourseId);
+        }
+
+        [TestMethod]
+        public async Task GetByCourseId_IdNotFound()
+        {
+            var coursePlanning = await _manager.GetByCourseIdAsync(Guid.NewGuid());
+
+            Assert.IsNull(coursePlanning);
+        }
+
+        [TestMethod]
         public override async Task Update_Valid()
         {
             var toUpdate = await _manager.GetByIdAsync(IdForBasicTest);

@@ -35,10 +35,44 @@ namespace HAN.OOSE.ICDE.Logic.Test.Managers
         }
 
         [TestMethod]
+        public async Task GetByCoursePlanningId_Valid()
+        {
+            var examinationEvents = await _manager.GetByCoursePlanningIdAsync(_coursePlanning1Id);
+
+            Assert.IsTrue(examinationEvents.All(x => x.CoursePlanningId == _coursePlanning1Id));
+            Assert.AreEqual(_examinationEvents.Count(x => x.CoursePlanningId == _coursePlanning1Id), examinationEvents.Count);
+        }
+
+        [TestMethod]
+        public async Task GetByCoursePlanningId_IdNotFound()
+        {
+            var examinationEvents = await _manager.GetByCoursePlanningIdAsync(Guid.NewGuid());
+
+            Assert.AreEqual(0, examinationEvents.Count);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public async Task GetByExamId_EmptyGuid()
         {
             await _manager.GetByCoursePlanningIdAsync(Guid.Empty);
+        }
+
+        [TestMethod]
+        public async Task GetByExamId_Valid()
+        {
+            var examinationEvents = await _manager.GetByExamIdAsync(_exam1Id);
+
+            Assert.IsTrue(examinationEvents.All(x => x.ExamId == _exam1Id));
+            Assert.AreEqual(_examinationEvents.Count(x => x.ExamId == _exam1Id), examinationEvents.Count);
+        }
+
+        [TestMethod]
+        public async Task GetByExamId_IdNotFound()
+        {
+            var examinationEvents = await _manager.GetByExamIdAsync(Guid.NewGuid());
+
+            Assert.AreEqual(0, examinationEvents.Count);
         }
 
         [TestMethod]

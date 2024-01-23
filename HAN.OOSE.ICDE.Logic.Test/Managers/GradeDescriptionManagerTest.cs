@@ -34,6 +34,23 @@ namespace HAN.OOSE.ICDE.Logic.Test.Managers
         }
 
         [TestMethod]
+        public async Task GetByAssessmentCriteriaId_Valid()
+        {
+            var gradeDescriptions = await _manager.GetByAssessmentCriteriaIdAsync(_assessmentCriteria1Id);
+
+            Assert.IsTrue(gradeDescriptions.All(x => x.AssessmentCriteriaId == _assessmentCriteria1Id));
+            Assert.AreEqual(_gradeDescriptions.Count(x => x.AssessmentCriteriaId == _assessmentCriteria1Id), gradeDescriptions.Count);
+        }
+
+        [TestMethod]
+        public async Task GetByAssessmentCriteriaId_IdNotFound()
+        {
+            var gradeDescriptions = await _manager.GetByAssessmentCriteriaIdAsync(Guid.NewGuid());
+
+            Assert.AreEqual(0, gradeDescriptions.Count);
+        }
+
+        [TestMethod]
         public override async Task Update_Valid()
         {
             var toUpdate = await _manager.GetByIdAsync(IdForBasicTest);

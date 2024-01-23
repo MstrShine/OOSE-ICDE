@@ -38,6 +38,23 @@ namespace HAN.OOSE.ICDE.Logic.Test.Managers
         }
 
         [TestMethod]
+        public async Task GetByExamId_Valid()
+        {
+            var assessmentDimensions = await _manager.GetByExamIdAsync(_exam1Id);
+
+            Assert.IsTrue(assessmentDimensions.All(x => x.ExamId == _exam1Id));
+            Assert.AreEqual(_assessmentDimensions.Count(x => x.ExamId == _exam1Id), assessmentDimensions.Count);
+        }
+
+        [TestMethod]
+        public async Task GetByExamId_IdNotFound()
+        {
+            var assessmentDimensions = await _manager.GetByExamIdAsync(Guid.NewGuid());
+
+            Assert.AreEqual(0, assessmentDimensions.Count);
+        }
+
+        [TestMethod]
         public override async Task Update_Valid()
         {
             var toUpdate = await _manager.GetByIdAsync(IdForBasicTest);

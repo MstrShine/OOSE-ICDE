@@ -38,10 +38,45 @@ namespace HAN.OOSE.ICDE.Logic.Test.Managers
         }
 
         [TestMethod]
+        public async Task GetByExamId_Valid()
+        {
+            var learningOutcomes = await _manager.GetByExamIdAsync(_exam1Id);
+
+            Assert.IsTrue(learningOutcomes.All(x => x.ExamId == _exam1Id));
+            Assert.AreEqual(_learningOutcomes.Count(x => x.ExamId == _exam1Id), learningOutcomes.Count);
+        }
+
+        [TestMethod]
+        public async Task GetByExamId_IdNotFound()
+        {
+            var learningOutcomes = await _manager.GetByExamIdAsync(Guid.NewGuid());
+
+            Assert.AreEqual(0, learningOutcomes.Count);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public async Task GetByLearningOutcomeUnitId_EmptyGuid()
         {
             await _manager.GetByLearningOutcomeUnitIdAsync(Guid.Empty);
+        }
+
+        [TestMethod]
+        public async Task GetByLearningOutcomeUnitId_Valid()
+        {
+            var learningOutcomes = await _manager.GetByLearningOutcomeUnitIdAsync(_learningOutcomeUnit1Id);
+
+            Assert.IsTrue(learningOutcomes.All(x => x.LearningOutcomeUnitId == _learningOutcomeUnit1Id));
+            Assert.AreEqual(_learningOutcomes.Count(x => x.LearningOutcomeUnitId == _learningOutcomeUnit1Id), learningOutcomes.Count);
+
+        }
+
+        [TestMethod]
+        public async Task GetByLearningOutcomeUnitId_IdNotFound()
+        {
+            var learningOutcomes = await _manager.GetByLearningOutcomeUnitIdAsync(Guid.NewGuid());
+
+            Assert.AreEqual(0, learningOutcomes.Count);
         }
 
         [TestMethod]

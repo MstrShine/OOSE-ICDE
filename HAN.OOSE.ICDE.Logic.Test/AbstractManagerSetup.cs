@@ -22,6 +22,7 @@ namespace HAN.OOSE.ICDE.Logic.Test
         protected List<User> _users = new();
 
         protected readonly Guid _user1Id;
+        protected readonly string _userEmail;
 
         protected readonly Guid _study1Id;
 
@@ -72,12 +73,13 @@ namespace HAN.OOSE.ICDE.Logic.Test
             };
 
             _user1Id = Guid.NewGuid();
+            _userEmail = "user1@test.nl";
             _users = new()
             {
                 new()
                 {
                     Id= _user1Id,
-                    Email = "user1@test.nl",
+                    Email = _userEmail,
                     FirstName = "User",
                     LastName = "1",
                     Password = "password",

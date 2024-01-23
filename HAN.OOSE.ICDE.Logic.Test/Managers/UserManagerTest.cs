@@ -23,6 +23,36 @@ namespace HAN.OOSE.ICDE.Logic.Test.Managers
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async Task GetByEmail_EmptyString()
+        {
+            await _manager.GetByEmailAsync("");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async Task GetByEmail_Null()
+        {
+            await _manager.GetByEmailAsync(null);
+        }
+
+        [TestMethod]
+        public async Task GetByEmail_Valid()
+        {
+            var user = await _manager.GetByEmailAsync(_userEmail);
+
+            Assert.AreEqual(_userEmail, user.Email);
+        }
+
+        [TestMethod]
+        public async Task GetByEmail_EmailNotFound()
+        {
+            var user = await _manager.GetByEmailAsync("email@email.com");
+
+            Assert.AreEqual(null, user);
+        }
+
+        [TestMethod]
         public override async Task Update_Valid()
         {
             var toUpdate = await _manager.GetByIdAsync(IdForBasicTest);
