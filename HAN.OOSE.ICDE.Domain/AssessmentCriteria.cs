@@ -15,5 +15,15 @@ namespace HAN.OOSE.ICDE.Domain
 
         [DefaultValue(null)]
         public Guid? AssessmentDimensionId { get; set; }
+
+        public override bool IsValid()
+        {
+            if (string.IsNullOrEmpty(Name)) return false;
+            if (Weight == null || Weight < 0) return false;
+            if (MinimumGrade == null || (MinimumGrade < 0 || MinimumGrade > 10)) return false;
+            if (AssessmentDimensionId == null || AssessmentDimensionId == Guid.Empty) return false;
+
+            return true;
+        }
     }
 }

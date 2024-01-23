@@ -14,5 +14,15 @@ namespace HAN.OOSE.ICDE.Domain
 
         [DefaultValue(null)]
         public Guid? LearningOutcomeUnitId { get; set; }
+
+        public override bool IsValid()
+        {
+            if (string.IsNullOrEmpty(Name)) return false;
+            if (string.IsNullOrEmpty(Description)) return false;
+            if (ExamId == null || ExamId == Guid.Empty) return false;
+            if (LearningOutcomeUnitId == null || LearningOutcomeUnitId == Guid.Empty) return false;
+
+            return true;
+        }
     }
 }

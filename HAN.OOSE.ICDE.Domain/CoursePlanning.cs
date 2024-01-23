@@ -7,5 +7,12 @@ namespace HAN.OOSE.ICDE.Domain
     {
         [DefaultValue(null)]
         public Guid? CourseId { get; set; }
+
+        public override bool IsValid()
+        {
+            if (CourseId == null || CourseId == Guid.Empty) return false;
+
+            return true;
+        }
     }
 }

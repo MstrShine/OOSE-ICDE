@@ -9,5 +9,12 @@ namespace HAN.OOSE.ICDE.Domain
 
         [JsonIgnore]
         public bool IsDeleted { get; set; }
+
+        public override bool IsValid()
+        {
+            if (string.IsNullOrWhiteSpace(Name)) return false;
+
+            return true;
+        }
     }
 }

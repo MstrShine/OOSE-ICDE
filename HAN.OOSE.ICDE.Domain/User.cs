@@ -20,5 +20,15 @@ namespace HAN.OOSE.ICDE.Domain
 
         [JsonIgnore]
         public bool IsDeleted { get; set; }
+
+        public override bool IsValid()
+        {
+            if (string.IsNullOrWhiteSpace(Email)) return false;
+            if (string.IsNullOrWhiteSpace(Password)) return false;
+            if (string.IsNullOrWhiteSpace(FirstName)) return false;
+            if (string.IsNullOrEmpty(LastName)) return false;
+
+            return true;
+        }
     }
 }
