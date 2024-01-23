@@ -10,6 +10,13 @@ namespace HAN.OOSE.ICDE.Domain.Base
         [JsonConverter(typeof(GuidJsonConverter))]
         public Guid Id { get; set; }
 
-        public abstract bool IsValid();
+        public bool IsValid()
+        {
+            if (Id == null || Id == Guid.Empty) return false;
+
+            return IsValidEntity();
+        }
+
+        protected abstract bool IsValidEntity();
     }
 }

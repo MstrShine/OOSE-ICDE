@@ -19,15 +19,20 @@ namespace HAN.OOSE.ICDE.Domain
         [DefaultValue(null)]
         public Guid? LearningOutcomeId { get; set; }
 
-        public override bool IsValid()
+        protected override bool IsValidEntity()
         {
-            if (string.IsNullOrEmpty(Name)) return false;
-            if (string.IsNullOrEmpty(Didactics)) return false;
-            if (Date == null) return false;
-            if (CoursePlanningId == null || CoursePlanningId == Guid.Empty) return false;
-            if (LearningOutcomeId == null || LearningOutcomeId == Guid.Empty) return false;
+            if (base.IsValidEntity())
+            {
+                if (string.IsNullOrEmpty(Name)) return false;
+                if (string.IsNullOrEmpty(Didactics)) return false;
+                if (Date == null) return false;
+                if (CoursePlanningId == null || CoursePlanningId == Guid.Empty) return false;
+                if (LearningOutcomeId == null || LearningOutcomeId == Guid.Empty) return false;
 
-            return true;
+                return true;
+            }
+
+            return false;
         }
     }
 }

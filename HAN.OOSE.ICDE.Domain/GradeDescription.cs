@@ -12,12 +12,17 @@ namespace HAN.OOSE.ICDE.Domain
         [DefaultValue(null)]
         public Guid? AssessmentCriteriaId { get; set; }
 
-        public override bool IsValid()
+        protected override bool IsValidEntity()
         {
-            if (Grade == null || (Grade < 0 || Grade > 10)) return false;
-            if (AssessmentCriteriaId == null || AssessmentCriteriaId == Guid.Empty) return false;
+            if (base.IsValidEntity())
+            {
+                if (Grade == null || (Grade < 0 || Grade > 10)) return false;
+                if (AssessmentCriteriaId == null || AssessmentCriteriaId == Guid.Empty) return false;
 
-            return true;
+                return true;
+            }
+
+            return false;
         }
     }
 }

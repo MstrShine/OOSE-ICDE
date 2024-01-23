@@ -21,7 +21,7 @@ namespace HAN.OOSE.ICDE.Domain
         [JsonIgnore]
         public bool IsDeleted { get; set; }
 
-        public override bool IsValid()
+        protected override bool IsValidEntity()
         {
             if (string.IsNullOrWhiteSpace(Email)) return false;
             if (string.IsNullOrWhiteSpace(Password)) return false;

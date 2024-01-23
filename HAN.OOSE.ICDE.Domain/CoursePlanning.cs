@@ -8,11 +8,16 @@ namespace HAN.OOSE.ICDE.Domain
         [DefaultValue(null)]
         public Guid? CourseId { get; set; }
 
-        public override bool IsValid()
+        protected override bool IsValidEntity()
         {
-            if (CourseId == null || CourseId == Guid.Empty) return false;
+            if (base.IsValidEntity())
+            {
+                if (CourseId == null || CourseId == Guid.Empty) return false;
 
-            return true;
+                return true;
+            }
+
+            return false;
         }
     }
 }

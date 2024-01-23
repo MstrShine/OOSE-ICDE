@@ -1,13 +1,10 @@
 ﻿using HAN.OOSE.ICDE.Domain;
 using HAN.OOSE.ICDE.Logic.Interfaces.Managers;
 using HAN.OOSE.ICDE.Logic.Interfaces.Managers.Base;
+using HAN.OOSE.ICDE.Logic.Interfaces.Validation;
 using HAN.OOSE.ICDE.Logic.Managers;
+using HAN.OOSE.ICDE.Logic.Validation;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Logic.Extensions
 {
@@ -28,6 +25,13 @@ namespace HAN.OOSE.ICDE.Logic.Extensions
             services.AddScoped<ILessonManager, LessonManager>();
             services.AddScoped<IUserManager, UserManager>();
             services.AddScoped<IEntityManager<Study>, StudyManager>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddValidation(this IServiceCollection services)
+        {
+            services.AddScoped<ICourseValidation, CourseValidation>();
 
             return services;
         }

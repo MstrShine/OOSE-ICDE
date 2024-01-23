@@ -10,7 +10,7 @@ namespace HAN.OOSE.ICDE.Domain
         [JsonIgnore]
         public bool IsDeleted { get; set; }
 
-        public override bool IsValid()
+        protected override bool IsValidEntity()
         {
             if (string.IsNullOrWhiteSpace(Name)) return false;
 
