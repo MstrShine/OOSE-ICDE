@@ -1,4 +1,5 @@
-﻿using HAN.OOSE.ICDE.Logic.Interfaces;
+﻿using HAN.OOSE.ICDE.Domain;
+using HAN.OOSE.ICDE.Logic.Interfaces;
 using HAN.OOSE.ICDE.Logic.Mapping;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
@@ -8,6 +9,14 @@ namespace HAN.OOSE.ICDE.Logic.Test.Managers
     [TestClass]
     public class LearningOutcomeUnitManagerTest : VersionedEntityManagerTest<ILearningOutcomeUnitManager, Domain.LearningOutcomeUnit>
     {
+        protected override Guid VersionIdForBasicTests => _learningOutcomeUnit1Version;
+
+        protected override int VersionListCount => _learningOutcomeUnits.Count;
+
+        protected override Guid IdForBasicTest => _learningOutcomeUnit1Id;
+
+        protected override int ListCount => _learningOutcomeUnits.Count;
+
         public LearningOutcomeUnitManagerTest()
         {
             var learningOutcomeUnitSession = CreateLearningOutcomeUnitRepositorySession();
@@ -40,6 +49,36 @@ namespace HAN.OOSE.ICDE.Logic.Test.Managers
         public async Task GetByCourseId_EmptyGuid()
         {
             await _manager.GetByCourseIdAsync(Guid.Empty);
+        }
+
+        [TestMethod]
+        public override async Task Update_Valid()
+        {
+            var toUpdate = await _manager.GetByIdAsync(IdForBasicTest);
+            toUpdate.Name = "Test";
+
+            var beforeUpdateCount = ListCount;
+            await _manager.UpdateAsync(toUpdate);
+
+            var updated = await _manager.GetByIdAsync(IdForBasicTest);
+
+            Assert.AreEqual(IdForBasicTest, updated.Id);
+            Assert.AreEqual("Test", updated.Name);
+            Assert.AreEqual(beforeUpdateCount, ListCount);
+        }
+
+        protected override LearningOutcomeUnit Construct()
+        {
+            return new()
+            {
+                Author = Guid.NewGuid(),
+                DateOfCreation = DateTime.Now,
+                CourseId = Guid.NewGuid(),
+                Name = "Name",
+                Code = "Code",
+                CTE = 0,
+                MinimumGrade = 0,
+            };
         }
     }
 }

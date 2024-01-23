@@ -1,4 +1,5 @@
-﻿using HAN.OOSE.ICDE.Logic.Interfaces;
+﻿using HAN.OOSE.ICDE.Domain;
+using HAN.OOSE.ICDE.Logic.Interfaces;
 using HAN.OOSE.ICDE.Logic.Mapping;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
@@ -8,6 +9,14 @@ namespace HAN.OOSE.ICDE.Logic.Test.Managers
     [TestClass]
     public class LessonManagerTest : VersionedEntityManagerTest<ILessonManager, Domain.Lesson>
     {
+        protected override Guid VersionIdForBasicTests => _lesson1Version;
+
+        protected override int VersionListCount => _lessons.Count(x => x.VersionCollection == VersionIdForBasicTests);
+
+        protected override Guid IdForBasicTest => _lesson1Id;
+
+        protected override int ListCount => _lessons.Count;
+
         public LessonManagerTest()
         {
             var lessonSession = CreateLessonRepositorySession();
@@ -34,6 +43,37 @@ namespace HAN.OOSE.ICDE.Logic.Test.Managers
         public async Task GetByLearningOutcomeId_EmptyGuid()
         {
             await _manager.GetByLearningOutcomeIdAsync(Guid.Empty);
+        }
+
+        [TestMethod]
+        public override async Task Update_Valid()
+        {
+            var toUpdate = await _manager.GetByIdAsync(IdForBasicTest);
+            toUpdate.Name = "Test";
+
+            var beforeUpdateCount = ListCount;
+            await _manager.UpdateAsync(toUpdate);
+
+            var updated = await _manager.GetByIdAsync(IdForBasicTest);
+
+            Assert.AreEqual(IdForBasicTest, updated.Id);
+            Assert.AreEqual("Test", updated.Name);
+            Assert.AreEqual(beforeUpdateCount, ListCount);
+        }
+
+        protected override Lesson Construct()
+        {
+            return new()
+            {
+                Author = Guid.NewGuid(),
+                DateOfCreation = DateTime.Now,
+                CoursePlanningId = Guid.NewGuid(),
+                LearningOutcomeId = Guid.NewGuid(),
+                Name = "Name",
+                Description = "Description",
+                Didactics = "Didactics",
+                Date = DateTime.Now,
+            };
         }
     }
 }

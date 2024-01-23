@@ -9,6 +9,14 @@ namespace HAN.OOSE.ICDE.Logic.Test.Managers
     [TestClass]
     public class AssessmentDimensionManagerTest : VersionedEntityManagerTest<IAssessmentDimensionManager, AssessmentDimension>
     {
+        protected override Guid VersionIdForBasicTests => _assessmentDimension1Version;
+
+        protected override int VersionListCount => _assessmentDimensions.Count(x => x.VersionCollection == VersionIdForBasicTests);
+
+        protected override Guid IdForBasicTest => _assessmentDimension1Id;
+
+        protected override int ListCount => _assessmentDimensions.Count;
+
         public AssessmentDimensionManagerTest()
         {
             var assessmentDimensionSession = CreateAssessmentDimensionRepositorySession();
@@ -27,6 +35,33 @@ namespace HAN.OOSE.ICDE.Logic.Test.Managers
         public async Task GetByExamId_EmptyGuid()
         {
             await _manager.GetByExamIdAsync(Guid.Empty);
+        }
+
+        [TestMethod]
+        public override async Task Update_Valid()
+        {
+            var toUpdate = await _manager.GetByIdAsync(IdForBasicTest);
+            toUpdate.Description = "Test";
+
+            var beforeUpdateCount = ListCount;
+            await _manager.UpdateAsync(toUpdate);
+
+            var updated = await _manager.GetByIdAsync(IdForBasicTest);
+
+            Assert.AreEqual(IdForBasicTest, updated.Id);
+            Assert.AreEqual("Test", updated.Description);
+            Assert.AreEqual(beforeUpdateCount, ListCount);
+        }
+
+        protected override AssessmentDimension Construct()
+        {
+            return new()
+            {
+                DateOfCreation = DateTime.Now,
+                Author = Guid.NewGuid(),
+                ExamId = Guid.NewGuid(),
+                Description = "Description"
+            };
         }
     }
 }

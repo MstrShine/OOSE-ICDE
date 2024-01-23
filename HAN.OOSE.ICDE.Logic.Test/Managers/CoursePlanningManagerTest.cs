@@ -1,4 +1,5 @@
-﻿using HAN.OOSE.ICDE.Logic.Interfaces;
+﻿using HAN.OOSE.ICDE.Domain;
+using HAN.OOSE.ICDE.Logic.Interfaces;
 using HAN.OOSE.ICDE.Logic.Mapping;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
@@ -8,6 +9,14 @@ namespace HAN.OOSE.ICDE.Logic.Test.Managers
     [TestClass]
     public class CoursePlanningManagerTest : VersionedEntityManagerTest<ICoursePlanningManager, Domain.CoursePlanning>
     {
+        protected override Guid VersionIdForBasicTests => _coursePlanning1Version;
+
+        protected override int VersionListCount => _coursePlannings.Count(x => x.VersionCollection == VersionIdForBasicTests);
+
+        protected override Guid IdForBasicTest => _coursePlanning1Id;
+
+        protected override int ListCount => _coursePlannings.Count;
+
         public CoursePlanningManagerTest()
         {
             var coursePlanningSession = CreateCoursePlanningRepositorySession();
@@ -35,6 +44,32 @@ namespace HAN.OOSE.ICDE.Logic.Test.Managers
         public async Task GetByCourseId_EmptyGuid()
         {
             await _manager.GetByCourseIdAsync(Guid.Empty);
+        }
+
+        [TestMethod]
+        public override async Task Update_Valid()
+        {
+            var toUpdate = await _manager.GetByIdAsync(IdForBasicTest);
+            toUpdate.CourseId = Guid.Empty;
+
+            var beforeUpdateCount = ListCount;
+            await _manager.UpdateAsync(toUpdate);
+
+            var updated = await _manager.GetByIdAsync(IdForBasicTest);
+
+            Assert.AreEqual(IdForBasicTest, updated.Id);
+            Assert.AreEqual(Guid.Empty, updated.CourseId);
+            Assert.AreEqual(beforeUpdateCount, ListCount);
+        }
+
+        protected override CoursePlanning Construct()
+        {
+            return new()
+            {
+                Author = Guid.NewGuid(),
+                DateOfCreation = DateTime.Now,
+                CourseId = Guid.NewGuid(),
+            };
         }
     }
 }
