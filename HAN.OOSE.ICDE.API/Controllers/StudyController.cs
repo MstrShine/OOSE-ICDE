@@ -1,7 +1,7 @@
 ﻿using HAN.OOSE.ICDE.API.Controllers.Base;
 using HAN.OOSE.ICDE.Domain;
-using HAN.OOSE.ICDE.Logic.Interfaces;
-using HAN.OOSE.ICDE.Logic.Interfaces.Base;
+using HAN.OOSE.ICDE.Logic.Interfaces.Managers;
+using HAN.OOSE.ICDE.Logic.Interfaces.Managers.Base;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

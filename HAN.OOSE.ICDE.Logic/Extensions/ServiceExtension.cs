@@ -1,6 +1,7 @@
 ﻿using HAN.OOSE.ICDE.Domain;
-using HAN.OOSE.ICDE.Logic.Interfaces;
-using HAN.OOSE.ICDE.Logic.Interfaces.Base;
+using HAN.OOSE.ICDE.Logic.Interfaces.Managers;
+using HAN.OOSE.ICDE.Logic.Interfaces.Managers.Base;
+using HAN.OOSE.ICDE.Logic.Managers;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
