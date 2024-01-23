@@ -21,6 +21,7 @@ namespace HAN.OOSE.ICDE.Logic.Test
         protected List<Study> _studies;
         protected List<User> _users;
 
+        #region RepositorySessions
         protected Mock<IAssessmentCriteriaRepositorySession> CreateAssessmentCriteriaRepositorySession()
         {
             var repositorySessionMock = new Mock<IAssessmentCriteriaRepositorySession>();
@@ -681,12 +682,27 @@ namespace HAN.OOSE.ICDE.Logic.Test
                 var entities = _lessons.Where(y => y.CoursePlanningId == x).ToList();
                 return Task.FromResult(entities);
             }).Verifiable();
+            repositorySessionMock.Setup(x => x.GetByLearningOutcomeIdAsync(It.IsAny<Guid>())).Returns<Guid>(x =>
+            {
+                var entities = _lessons.Where(y => y.LearningOutcomeId == x).ToList();
+                return Task.FromResult(entities);
+            }).Verifiable();
             repositorySessionMock.Setup(x => x.ChangeCoursePlanningIdAsync(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns<Guid, Guid>((x, y) =>
             {
                 var toChange = _lessons.FirstOrDefault(z => z.Id == x);
                 if (toChange != null)
                 {
                     toChange.CoursePlanningId = y;
+                }
+
+                return Task.CompletedTask;
+            }).Verifiable();
+            repositorySessionMock.Setup(x => x.ChangeLearningOutcomeIdAsync(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns<Guid, Guid>((x, y) =>
+            {
+                var toChange = _lessons.FirstOrDefault(z => z.Id == x);
+                if (toChange != null)
+                {
+                    toChange.LearningOutcomeId = y;
                 }
 
                 return Task.CompletedTask;
@@ -773,5 +789,6 @@ namespace HAN.OOSE.ICDE.Logic.Test
 
             return repositorySessionMock;
         }
+        #endregion
     }
 }
