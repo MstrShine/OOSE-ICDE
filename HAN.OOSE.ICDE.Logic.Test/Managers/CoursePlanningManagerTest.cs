@@ -1,4 +1,5 @@
-﻿using HAN.OOSE.ICDE.Logic.Interfaces.Managers;
+﻿using HAN.OOSE.ICDE.Domain;
+using HAN.OOSE.ICDE.Logic.Interfaces.Managers;
 using HAN.OOSE.ICDE.Logic.Managers;
 using HAN.OOSE.ICDE.Logic.Mapping;
 using HAN.OOSE.ICDE.Logic.Test.Managers.Base;
@@ -10,6 +11,14 @@ namespace HAN.OOSE.ICDE.Logic.Test.Managers
     [TestClass]
     public class CoursePlanningManagerTest : VersionedEntityManagerTest<ICoursePlanningManager, Domain.CoursePlanning>
     {
+        protected override Guid VersionIdForBasicTests => _coursePlanning1Version;
+
+        protected override int VersionListCount => _coursePlannings.Count(x => x.VersionCollection == VersionIdForBasicTests);
+
+        protected override Guid IdForBasicTest => _coursePlanning1Id;
+
+        protected override int ListCount => _coursePlannings.Count;
+
         public CoursePlanningManagerTest()
         {
             var coursePlanningSession = CreateCoursePlanningRepositorySession();
@@ -30,6 +39,56 @@ namespace HAN.OOSE.ICDE.Logic.Test.Managers
                 new CoursePlanningMap(),
                 examinationEventRepository.Object,
                 lessonRepository.Object);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async Task GetByCourseId_EmptyGuid()
+        {
+            await _manager.GetByCourseIdAsync(Guid.Empty);
+        }
+
+        [TestMethod]
+        public async Task GetByCourseId_Valid()
+        {
+            var coursePlanning = await _manager.GetByCourseIdAsync(_course1Id);
+
+            Assert.IsNotNull(coursePlanning);
+            Assert.AreEqual(_course1Id, coursePlanning.CourseId);
+        }
+
+        [TestMethod]
+        public async Task GetByCourseId_IdNotFound()
+        {
+            var coursePlanning = await _manager.GetByCourseIdAsync(Guid.NewGuid());
+
+            Assert.IsNull(coursePlanning);
+        }
+
+        [TestMethod]
+        public override async Task Update_Valid()
+        {
+            var toUpdate = await _manager.GetByIdAsync(IdForBasicTest);
+            toUpdate.CourseId = Guid.Empty;
+
+            var beforeUpdateCount = ListCount;
+            await _manager.UpdateAsync(toUpdate);
+
+            var updated = await _manager.GetByIdAsync(IdForBasicTest);
+
+            Assert.AreEqual(IdForBasicTest, updated.Id);
+            Assert.AreEqual(Guid.Empty, updated.CourseId);
+            Assert.AreEqual(beforeUpdateCount, ListCount);
+        }
+
+        protected override CoursePlanning Construct()
+        {
+            return new()
+            {
+                Author = Guid.NewGuid(),
+                DateOfCreation = DateTime.Now,
+                CourseId = Guid.NewGuid(),
+            };
         }
     }
 }
