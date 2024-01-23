@@ -7,20 +7,280 @@ namespace HAN.OOSE.ICDE.Logic.Test
     [TestClass]
     public abstract class AbstractManagerSetup
     {
-        protected List<AssessmentCriteria> _assessmentCriterias;
-        protected List<AssessmentDimension> _assessmentDimensions;
-        protected List<Competency> _competencies;
-        protected List<Course> _courses;
-        protected List<CoursePlanning> _coursePlannings;
-        protected List<Exam> _exams;
-        protected List<ExaminationEvent> _examinationEvents;
-        protected List<GradeDescription> _gradeDescriptions;
-        protected List<LearningOutcome> _learningOutcomes;
-        protected List<LearningOutcomeUnit> _learningOutcomeUnits;
-        protected List<Lesson> _lessons;
-        protected List<Study> _studies;
-        protected List<User> _users;
+        protected List<AssessmentCriteria> _assessmentCriterias = new();
+        protected List<AssessmentDimension> _assessmentDimensions = new();
+        protected List<Competency> _competencies = new();
+        protected List<Course> _courses = new();
+        protected List<CoursePlanning> _coursePlannings = new();
+        protected List<Exam> _exams = new();
+        protected List<ExaminationEvent> _examinationEvents = new();
+        protected List<GradeDescription> _gradeDescriptions = new();
+        protected List<LearningOutcome> _learningOutcomes = new();
+        protected List<LearningOutcomeUnit> _learningOutcomeUnits = new();
+        protected List<Lesson> _lessons = new();
+        protected List<Study> _studies = new();
+        protected List<User> _users = new();
 
+        protected readonly Guid _user1Id;
+        protected readonly string _userEmail;
+
+        protected readonly Guid _study1Id;
+
+        protected readonly Guid _course1Id;
+        protected readonly Guid _course1Version;
+
+        protected readonly Guid _coursePlanning1Id;
+        protected readonly Guid _coursePlanning1Version;
+
+        protected readonly Guid _learningOutcomeUnit1Id;
+        protected readonly Guid _learningOutcomeUnit1Version;
+
+        protected readonly Guid _competency1Id;
+        protected readonly Guid _competency1Version;
+
+        protected readonly Guid _exam1Id;
+        protected readonly Guid _exam1Version;
+
+        protected readonly Guid _examinationEvent1Id;
+        protected readonly Guid _examinationEvent1Version;
+
+        protected readonly Guid _assessmentDimension1Id;
+        protected readonly Guid _assessmentDimension1Version;
+
+        protected readonly Guid _assessmentCriteria1Id;
+        protected readonly Guid _assessmentCriteria1Version;
+
+        protected readonly Guid _gradeDescription1Id;
+        protected readonly Guid _gradeDescription1Version;
+
+        protected readonly Guid _learningOutcome1Id;
+        protected readonly Guid _learningOutcome1Version;
+
+        protected readonly Guid _lesson1Id;
+        protected readonly Guid _lesson1Version;
+
+        public AbstractManagerSetup()
+        {
+            _study1Id = Guid.NewGuid();
+            _studies = new()
+            {
+                new()
+                {
+                    Id = _study1Id,
+                    Name = "Study 1",
+                    IsDeleted = false
+                }
+            };
+
+            _user1Id = Guid.NewGuid();
+            _userEmail = "user1@test.nl";
+            _users = new()
+            {
+                new()
+                {
+                    Id= _user1Id,
+                    Email = _userEmail,
+                    FirstName = "User",
+                    LastName = "1",
+                    Password = "password",
+                    Role = Persistency.Database.Domain.Enums.Role.Teacher,
+                    IsDeleted=false
+                }
+            };
+
+            _course1Id = Guid.NewGuid();
+            _course1Version = Guid.NewGuid();
+            _courses = new()
+            {
+                new()
+                {
+                    Id = _course1Id,
+                    Author = _user1Id,
+                    StudyId = _study1Id,
+                    DateOfCreation = DateTime.Now,
+                    VersionCollection = _course1Version,
+                    Name = "Course 1",
+                    Code = "C1",
+                    CollegeYear = DateTime.Now.Year,
+                    CTE = 30,
+                    Description = "Course 1 description",
+                    IsFinalized = false,
+                }
+            };
+
+            _coursePlanning1Id = Guid.NewGuid();
+            _coursePlanning1Version = Guid.NewGuid();
+            _coursePlannings = new()
+            {
+                new()
+                {
+                    Id = _coursePlanning1Id,
+                    Author= _user1Id,
+                    DateOfCreation= DateTime.Now,
+                    VersionCollection = _coursePlanning1Version,
+                    CourseId = _course1Id,
+                }
+            };
+
+            _learningOutcomeUnit1Id = Guid.NewGuid();
+            _learningOutcomeUnit1Version = Guid.NewGuid();
+            _learningOutcomeUnits = new()
+            {
+                new()
+                {
+                    Id = _learningOutcomeUnit1Id,
+                    VersionCollection = _learningOutcomeUnit1Version,
+                    Author = _user1Id,
+                    DateOfCreation = DateTime.Now,
+                    CourseId= _course1Id,
+                    Code = "LOU1",
+                    Name = "LearningOutcomeUnit 1",
+                    CTE = 15,
+                    MinimumGrade = 5.5
+                }
+            };
+
+            _competency1Id = Guid.NewGuid();
+            _competency1Version = Guid.NewGuid();
+            _competencies = new()
+            {
+                new()
+                {
+                    Id = _competency1Id,
+                    VersionCollection = _competency1Version,
+                    Author = _user1Id,
+                    DateOfCreation = DateTime.Now,
+                    CourseId = _course1Id,
+                    LearningOutcomeUnitId = _learningOutcomeUnit1Id,
+                    Name = "Competency 1",
+                    Code = "C1"
+                }
+            };
+
+            _exam1Id = Guid.NewGuid();
+            _exam1Version = Guid.NewGuid();
+            _exams = new()
+            {
+                new()
+                {
+                    Id= _exam1Id,
+                    VersionCollection= _exam1Version,
+                    Author= _user1Id,
+                    DateOfCreation= DateTime.Now,
+                    LearningOutcomeUnitId= _learningOutcomeUnit1Id,
+                    Name = "Exam 1",
+                    Code = "E1",
+                    Type = Persistency.Database.Domain.Enums.ExamType.Casus,
+                    Weight = 50,
+                    MinimumGrade = 6
+                }
+            };
+
+            _examinationEvent1Id = Guid.NewGuid();
+            _examinationEvent1Version = Guid.NewGuid();
+            _examinationEvents = new()
+            {
+                new()
+                {
+                    Id = _examinationEvent1Id,
+                    VersionCollection= _examinationEvent1Version,
+                    Author = _user1Id,
+                    DateOfCreation = DateTime.Now,
+                    CoursePlanningId = _coursePlanning1Id,
+                    ExamId = _exam1Id,
+                    Date = DateTime.Now.AddDays(1),
+                    Type = "Casus",
+                    Prerequisites = "Exam Prerequisites"
+                }
+            };
+
+            _assessmentDimension1Id = Guid.NewGuid();
+            _assessmentDimension1Version = Guid.NewGuid();
+            _assessmentDimensions = new()
+            {
+                new()
+                {
+                    Id = _assessmentDimension1Id,
+                    VersionCollection = _assessmentDimension1Version,
+                    Author = _user1Id,
+                    DateOfCreation= DateTime.Now,
+                    ExamId = _exam1Id,
+                    Description = "AssessmentDimension 1 Description",
+                }
+            };
+
+            _assessmentCriteria1Id = Guid.NewGuid();
+            _assessmentCriteria1Version = Guid.NewGuid();
+            _assessmentCriterias = new()
+            {
+                new()
+                {
+                    Id = _assessmentCriteria1Id,
+                    VersionCollection = _assessmentCriteria1Version,
+                    Author= _user1Id,
+                    DateOfCreation = DateTime.Now,
+                    AssessmentDimensionId = _assessmentDimension1Id,
+                    Name = "AssessmentCriteria 1",
+                    Explanation = "AssessmentCriteria 1 Explanation",
+                    MinimumGrade = 6,
+                    Weight = 50
+                }
+            };
+
+            _gradeDescription1Id = Guid.NewGuid();
+            _gradeDescription1Version = Guid.NewGuid();
+            _gradeDescriptions = new()
+            {
+                new()
+                {
+                    Id = _gradeDescription1Id,
+                    VersionCollection= _gradeDescription1Version,
+                    Author = _user1Id,
+                    DateOfCreation = DateTime.Now,
+                    AssessmentCriteriaId = _assessmentCriteria1Id,
+                    Description = "GradeDescription 1",
+                    Grade = 6
+                }
+            };
+
+            _learningOutcome1Id = Guid.NewGuid();
+            _learningOutcome1Version = Guid.NewGuid();
+            _learningOutcomes = new()
+            {
+                new()
+                {
+                    Id = _learningOutcome1Id,
+                    VersionCollection = _learningOutcome1Version,
+                    Author= _user1Id,
+                    DateOfCreation = DateTime.Now,
+                    LearningOutcomeUnitId = _learningOutcomeUnit1Id,
+                    Name = "LearningOutcome 1",
+                    Description = "LearningOutcome 1 Description",
+                    ExamId = _exam1Id
+                }
+            };
+
+            _lesson1Id = Guid.NewGuid();
+            _lesson1Version = Guid.NewGuid();
+            _lessons = new()
+            {
+                new()
+                {
+                    Id = _lesson1Id,
+                    VersionCollection = _lesson1Version,
+                    Author = _user1Id,
+                    DateOfCreation = DateTime.Now,
+                    CoursePlanningId = _coursePlanning1Id,
+                    Date = DateTime.Now.AddDays(1),
+                    Name = "Lesson 1",
+                    Description = "Lesson 1 Description",
+                    Didactics = "Lesson 1 Dididactics",
+                    LearningOutcomeId = _learningOutcome1Id
+                }
+            };
+        }
+
+        #region RepositorySessions
         protected Mock<IAssessmentCriteriaRepositorySession> CreateAssessmentCriteriaRepositorySession()
         {
             var repositorySessionMock = new Mock<IAssessmentCriteriaRepositorySession>();
@@ -49,6 +309,8 @@ namespace HAN.OOSE.ICDE.Logic.Test
                 if (toUpdate != null)
                 {
                     toUpdate = x;
+                    _assessmentCriterias.RemoveAll(y => y.Id == x.Id);
+                    _assessmentCriterias.Add(toUpdate);
                 }
 
                 return Task.FromResult(toUpdate);
@@ -107,6 +369,8 @@ namespace HAN.OOSE.ICDE.Logic.Test
                 if (toUpdate != null)
                 {
                     toUpdate = x;
+                    _assessmentDimensions.RemoveAll(y => y.Id == x.Id);
+                    _assessmentDimensions.Add(toUpdate);
                 }
 
                 return Task.FromResult(toUpdate);
@@ -166,6 +430,8 @@ namespace HAN.OOSE.ICDE.Logic.Test
                 if (toUpdate != null)
                 {
                     toUpdate = x;
+                    _competencies.RemoveAll(y => y.Id == x.Id);
+                    _competencies.Add(toUpdate);
                 }
 
                 return Task.FromResult(toUpdate);
@@ -239,6 +505,8 @@ namespace HAN.OOSE.ICDE.Logic.Test
                 if (toUpdate != null)
                 {
                     toUpdate = x;
+                    _courses.RemoveAll(y => y.Id == x.Id);
+                    _courses.Add(toUpdate);
                 }
 
                 return Task.FromResult(toUpdate);
@@ -287,6 +555,8 @@ namespace HAN.OOSE.ICDE.Logic.Test
                 if (toUpdate != null)
                 {
                     toUpdate = x;
+                    _coursePlannings.RemoveAll(y => y.Id == x.Id);
+                    _coursePlannings.Add(toUpdate);
                 }
 
                 return Task.FromResult(toUpdate);
@@ -345,6 +615,8 @@ namespace HAN.OOSE.ICDE.Logic.Test
                 if (toUpdate != null)
                 {
                     toUpdate = x;
+                    _examinationEvents.RemoveAll(y => y.Id == x.Id);
+                    _examinationEvents.Add(toUpdate);
                 }
 
                 return Task.FromResult(toUpdate);
@@ -418,6 +690,8 @@ namespace HAN.OOSE.ICDE.Logic.Test
                 if (toUpdate != null)
                 {
                     toUpdate = x;
+                    _exams.RemoveAll(y => y.Id == x.Id);
+                    _exams.Add(toUpdate);
                 }
 
                 return Task.FromResult(toUpdate);
@@ -476,6 +750,8 @@ namespace HAN.OOSE.ICDE.Logic.Test
                 if (toUpdate != null)
                 {
                     toUpdate = x;
+                    _gradeDescriptions.RemoveAll(y => y.Id == x.Id);
+                    _gradeDescriptions.Add(toUpdate);
                 }
 
                 return Task.FromResult(toUpdate);
@@ -534,6 +810,8 @@ namespace HAN.OOSE.ICDE.Logic.Test
                 if (toUpdate != null)
                 {
                     toUpdate = x;
+                    _learningOutcomes.RemoveAll(y => y.Id == x.Id);
+                    _learningOutcomes.Add(toUpdate);
                 }
 
                 return Task.FromResult(toUpdate);
@@ -607,6 +885,8 @@ namespace HAN.OOSE.ICDE.Logic.Test
                 if (toUpdate != null)
                 {
                     toUpdate = x;
+                    _learningOutcomeUnits.RemoveAll(y => y.Id == x.Id);
+                    _learningOutcomeUnits.Add(toUpdate);
                 }
 
                 return Task.FromResult(toUpdate);
@@ -665,6 +945,8 @@ namespace HAN.OOSE.ICDE.Logic.Test
                 if (toUpdate != null)
                 {
                     toUpdate = x;
+                    _lessons.RemoveAll(y => y.Id == x.Id);
+                    _lessons.Add(toUpdate);
                 }
 
                 return Task.FromResult(toUpdate);
@@ -681,12 +963,27 @@ namespace HAN.OOSE.ICDE.Logic.Test
                 var entities = _lessons.Where(y => y.CoursePlanningId == x).ToList();
                 return Task.FromResult(entities);
             }).Verifiable();
+            repositorySessionMock.Setup(x => x.GetByLearningOutcomeIdAsync(It.IsAny<Guid>())).Returns<Guid>(x =>
+            {
+                var entities = _lessons.Where(y => y.LearningOutcomeId == x).ToList();
+                return Task.FromResult(entities);
+            }).Verifiable();
             repositorySessionMock.Setup(x => x.ChangeCoursePlanningIdAsync(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns<Guid, Guid>((x, y) =>
             {
                 var toChange = _lessons.FirstOrDefault(z => z.Id == x);
                 if (toChange != null)
                 {
                     toChange.CoursePlanningId = y;
+                }
+
+                return Task.CompletedTask;
+            }).Verifiable();
+            repositorySessionMock.Setup(x => x.ChangeLearningOutcomeIdAsync(It.IsAny<Guid>(), It.IsAny<Guid>())).Returns<Guid, Guid>((x, y) =>
+            {
+                var toChange = _lessons.FirstOrDefault(z => z.Id == x);
+                if (toChange != null)
+                {
+                    toChange.LearningOutcomeId = y;
                 }
 
                 return Task.CompletedTask;
@@ -717,6 +1014,8 @@ namespace HAN.OOSE.ICDE.Logic.Test
                 if (toUpdate != null)
                 {
                     toUpdate = x;
+                    _studies.RemoveAll(y => y.Id == x.Id);
+                    _studies.Add(toUpdate);
                 }
 
                 return Task.FromResult(toUpdate);
@@ -754,6 +1053,8 @@ namespace HAN.OOSE.ICDE.Logic.Test
                 if (toUpdate != null)
                 {
                     toUpdate = x;
+                    _users.RemoveAll(y => y.Id == x.Id);
+                    _users.Add(toUpdate);
                 }
 
                 return Task.FromResult(toUpdate);
@@ -773,5 +1074,6 @@ namespace HAN.OOSE.ICDE.Logic.Test
 
             return repositorySessionMock;
         }
+        #endregion
     }
 }

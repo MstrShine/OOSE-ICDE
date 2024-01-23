@@ -1,4 +1,5 @@
-﻿using HAN.OOSE.ICDE.Logic.Interfaces;
+﻿using HAN.OOSE.ICDE.Domain;
+using HAN.OOSE.ICDE.Logic.Interfaces;
 using HAN.OOSE.ICDE.Logic.Mapping;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
@@ -8,6 +9,14 @@ namespace HAN.OOSE.ICDE.Logic.Test.Managers
     [TestClass]
     public class ExamManagerTest : VersionedEntityManagerTest<IExamManager, Domain.Exam>
     {
+        protected override Guid VersionIdForBasicTests => _exam1Version;
+
+        protected override int VersionListCount => _exams.Count(x => x.VersionCollection == VersionIdForBasicTests);
+
+        protected override Guid IdForBasicTest => _exam1Id;
+
+        protected override int ListCount => _exams.Count;
+
         public ExamManagerTest()
         {
             var examSession = CreateExamRepositorySession();
@@ -32,6 +41,61 @@ namespace HAN.OOSE.ICDE.Logic.Test.Managers
                 examinationEventRepository.Object,
                 assessmentDimensionRepository.Object,
                 learningOutcomeRepository.Object);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async Task GetByLearningOutcomeUnitId_EmptyGuid()
+        {
+            await _manager.GetByLearningOutcomeUnitIdAsync(Guid.Empty);
+        }
+
+        [TestMethod]
+        public async Task GetByLearningOutcomeUnitId_Valid()
+        {
+            var exams = await _manager.GetByLearningOutcomeUnitIdAsync(_learningOutcomeUnit1Id);
+
+            Assert.IsTrue(exams.All(x => x.LearningOutcomeUnitId == _learningOutcomeUnit1Id));
+            Assert.AreEqual(_exams.Count(x => x.LearningOutcomeUnitId == _learningOutcomeUnit1Id), exams.Count);
+        }
+
+        [TestMethod]
+        public async Task GetByLearningOutcomeUnitId_IdNotFound()
+        {
+            var exams = await _manager.GetByLearningOutcomeUnitIdAsync(Guid.NewGuid());
+
+            Assert.AreEqual(0, exams.Count);
+        }
+
+        [TestMethod]
+        public override async Task Update_Valid()
+        {
+            var toUpdate = await _manager.GetByIdAsync(IdForBasicTest);
+            toUpdate.Name = "Test";
+
+            var beforeUpdateCount = ListCount;
+            await _manager.UpdateAsync(toUpdate);
+
+            var updated = await _manager.GetByIdAsync(IdForBasicTest);
+
+            Assert.AreEqual(IdForBasicTest, updated.Id);
+            Assert.AreEqual("Test", updated.Name);
+            Assert.AreEqual(beforeUpdateCount, ListCount);
+        }
+
+        protected override Exam Construct()
+        {
+            return new()
+            {
+                Author = Guid.NewGuid(),
+                DateOfCreation = DateTime.Now,
+                LearningOutcomeUnitId = Guid.NewGuid(),
+                Name = "Name",
+                Code = "Code",
+                MinimumGrade = 0,
+                Type = Domain.Enums.ExamType.Casus,
+                Weight = 0
+            };
         }
     }
 }
