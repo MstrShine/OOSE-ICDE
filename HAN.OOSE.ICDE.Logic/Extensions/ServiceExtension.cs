@@ -31,7 +31,8 @@ namespace HAN.OOSE.ICDE.Logic.Extensions
 
         public static IServiceCollection AddValidation(this IServiceCollection services)
         {
-            services.AddScoped<ICourseValidation, CourseValidation>();
+            services.AddScoped<IEntityValidation<Course>, CourseValidation>();
+            services.AddScoped<IEntityValidation<CoursePlanning>, CoursePlanningValidation>();
 
             return services;
         }
