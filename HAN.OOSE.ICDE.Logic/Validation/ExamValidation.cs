@@ -12,15 +12,19 @@ namespace HAN.OOSE.ICDE.Logic.Validation
         private readonly IAssessmentDimensionManager _assessmentDimensionManager;
         private readonly IEntityValidation<AssessmentDimension> _assessmentDimensionValidation;
 
+        private readonly IAssessmentCriteriaManager _assessmentCriteriaManager;
+
         public ExamValidation(
             IExamManager entityManager,
             IExaminationEventManager examinationEventManager,
             IAssessmentDimensionManager assessmentDimensionManager,
-            IEntityValidation<AssessmentDimension> assessmentDimensionValidation) : base(entityManager)
+            IEntityValidation<AssessmentDimension> assessmentDimensionValidation,
+            IAssessmentCriteriaManager assessmentCriteriaManager) : base(entityManager)
         {
             _examinationEventManager = examinationEventManager;
             _assessmentDimensionManager = assessmentDimensionManager;
             _assessmentDimensionValidation = assessmentDimensionValidation;
+            _assessmentCriteriaManager = assessmentCriteriaManager;
         }
 
         public override async Task<bool> ValidateEntity(Guid entityId)
@@ -47,6 +51,7 @@ namespace HAN.OOSE.ICDE.Logic.Validation
                 return false;
             }
 
+            var totalWeightOfDimensions = 0;
             foreach (var assessmentDimension in assessmentDimensions)
             {
                 var valid = await _assessmentDimensionValidation.ValidateEntity(assessmentDimension.Id);
@@ -54,6 +59,14 @@ namespace HAN.OOSE.ICDE.Logic.Validation
                 {
                     return false;
                 }
+
+                var assessmentCriterias = await _assessmentCriteriaManager.GetByAssessmentDimensionIdAsync(assessmentDimension.Id);
+                totalWeightOfDimensions += assessmentCriterias.Sum(x => x.Weight) ?? 0;
+            }
+
+            if (totalWeightOfDimensions != 100)
+            {
+                return false;
             }
 
             var examinationEvents = await _examinationEventManager.GetByExamIdAsync(parentId);

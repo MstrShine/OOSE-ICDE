@@ -39,7 +39,7 @@ namespace HAN.OOSE.ICDE.Logic.Validation
         protected override async Task<bool> ValidateChildren(Guid parentId)
         {
             var assessmentCriterias = await _assessmentCriteriaManager.GetByAssessmentDimensionIdAsync(parentId);
-            if (assessmentCriterias.Count < 1)
+            if (assessmentCriterias.Count == 0)
             {
                 return false;
             }
