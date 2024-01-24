@@ -23,9 +23,9 @@ namespace HAN.OOSE.ICDE.Domain
 
         protected override bool IsValidEntity()
         {
-            if (string.IsNullOrWhiteSpace(Email)) return false;
-            if (string.IsNullOrWhiteSpace(Password)) return false;
-            if (string.IsNullOrWhiteSpace(FirstName)) return false;
+            if (string.IsNullOrEmpty(Email)) return false;
+            if (string.IsNullOrEmpty(Password)) return false;
+            if (string.IsNullOrEmpty(FirstName)) return false;
             if (string.IsNullOrEmpty(LastName)) return false;
 
             return true;

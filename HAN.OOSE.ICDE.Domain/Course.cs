@@ -27,7 +27,7 @@ namespace HAN.OOSE.ICDE.Domain
             {
                 if (string.IsNullOrEmpty(Name)) return false;
                 if (string.IsNullOrEmpty(Code)) return false;
-                if (CollegeYear == null) return false;
+                if (CollegeYear == null || CollegeYear < 0) return false;
                 if (CTE == null || CTE < 0) return false;
                 if (StudyId == null || StudyId == Guid.Empty) return false;
 
