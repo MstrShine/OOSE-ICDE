@@ -2,11 +2,6 @@
 using HAN.OOSE.ICDE.Logic.Interfaces.Managers;
 using HAN.OOSE.ICDE.Logic.Interfaces.Validation;
 using HAN.OOSE.ICDE.Logic.Validation.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Logic.Validation
 {
@@ -19,10 +14,10 @@ namespace HAN.OOSE.ICDE.Logic.Validation
         private readonly IEntityValidation<ExaminationEvent> _examinationEventValidation;
 
         public CoursePlanningValidation(
-            ICoursePlanningManager entityManager, 
+            ICoursePlanningManager entityManager,
             ILessonManager lessonManager,
             IEntityValidation<Lesson> lessonValidation,
-            IExaminationEventManager examinationEventManager, 
+            IExaminationEventManager examinationEventManager,
             IEntityValidation<ExaminationEvent> examinationEventValidation) : base(entityManager)
         {
             _lessonManager = lessonManager;
@@ -31,14 +26,55 @@ namespace HAN.OOSE.ICDE.Logic.Validation
             _examinationEventValidation = examinationEventValidation;
         }
 
-        public override Task<bool> ValidateEntity(Guid entityId)
+        public override async Task<bool> ValidateEntity(Guid entityId)
         {
-            throw new NotImplementedException();
+            var coursePlanning = await _entityManager.GetByIdAsync(entityId);
+            if (coursePlanning == null)
+            {
+                return false;
+            }
+
+            if (!coursePlanning.IsValid())
+            {
+                return false;
+            }
+
+            return await ValidateChildren(entityId);
         }
 
-        protected override Task<bool> ValidateChildren(Guid parentId)
+        protected override async Task<bool> ValidateChildren(Guid parentId)
         {
-            throw new NotImplementedException();
+            var lessons = await _lessonManager.GetByCoursePlanningIdAsync(parentId);
+            if (lessons.Count == 0)
+            {
+                return false;
+            }
+
+            foreach (var lesson in lessons)
+            {
+                var valid = await _lessonValidation.ValidateEntity(lesson.Id);
+                if (!valid)
+                {
+                    return false;
+                }
+            }
+
+            var examinationEvents = await _examinationEventManager.GetByCoursePlanningIdAsync(parentId);
+            if (examinationEvents.Count == 0)
+            {
+                return false;
+            }
+
+            foreach (var examEvent in examinationEvents)
+            {
+                var valid = await _examinationEventValidation.ValidateEntity(examEvent.Id);
+                if (!valid)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

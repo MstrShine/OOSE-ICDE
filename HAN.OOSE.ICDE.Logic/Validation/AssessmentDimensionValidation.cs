@@ -1,28 +1,59 @@
 ﻿using HAN.OOSE.ICDE.Domain;
 using HAN.OOSE.ICDE.Logic.Interfaces.Managers;
+using HAN.OOSE.ICDE.Logic.Interfaces.Validation;
 using HAN.OOSE.ICDE.Logic.Validation.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Logic.Validation
 {
     public class AssessmentDimensionValidation : AbstractEntityValidation<AssessmentDimension, IAssessmentDimensionManager>
     {
-        public AssessmentDimensionValidation(IAssessmentDimensionManager entityManager) : base(entityManager)
+        private readonly IAssessmentCriteriaManager _assessmentCriteriaManager;
+        private readonly IEntityValidation<AssessmentCriteria> _assessmentCriteriaValidation;
+
+        public AssessmentDimensionValidation(
+            IAssessmentDimensionManager entityManager,
+            IAssessmentCriteriaManager assessmentCriteriaManager,
+            IEntityValidation<AssessmentCriteria> assessmentCriteriaValidation) : base(entityManager)
         {
+            _assessmentCriteriaManager = assessmentCriteriaManager;
+            _assessmentCriteriaValidation = assessmentCriteriaValidation;
         }
 
-        public override Task<bool> ValidateEntity(Guid entityId)
+        public override async Task<bool> ValidateEntity(Guid entityId)
         {
-            throw new NotImplementedException();
+            var assessmentDimension = await _entityManager.GetByIdAsync(entityId);
+
+            if (assessmentDimension == null)
+            {
+                return false;
+            }
+
+            if (!assessmentDimension.IsValid())
+            {
+                return false;
+            }
+
+            return await ValidateChildren(entityId);
         }
 
-        protected override Task<bool> ValidateChildren(Guid parentId)
+        protected override async Task<bool> ValidateChildren(Guid parentId)
         {
-            throw new NotImplementedException();
+            var assessmentCriterias = await _assessmentCriteriaManager.GetByAssessmentDimensionIdAsync(parentId);
+            if (assessmentCriterias.Count < 1)
+            {
+                return false;
+            }
+
+            foreach (var criteria in assessmentCriterias)
+            {
+                var valid = await _assessmentCriteriaValidation.ValidateEntity(criteria.Id);
+                if (!valid)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

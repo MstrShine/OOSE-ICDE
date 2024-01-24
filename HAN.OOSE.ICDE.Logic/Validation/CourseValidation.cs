@@ -1,6 +1,5 @@
 ﻿using HAN.OOSE.ICDE.Domain;
 using HAN.OOSE.ICDE.Logic.Interfaces.Managers;
-using HAN.OOSE.ICDE.Logic.Interfaces.Managers.Base;
 using HAN.OOSE.ICDE.Logic.Interfaces.Validation;
 using HAN.OOSE.ICDE.Logic.Validation.Base;
 
@@ -20,11 +19,11 @@ namespace HAN.OOSE.ICDE.Logic.Validation
         private int CourseCTE = 0;
 
         public CourseValidation(
-            ICourseManager entityManager, 
-            ICoursePlanningManager coursePlanningManager, 
-            IEntityValidation<CoursePlanning> coursePlanningValidation, 
-            ILearningOutcomeUnitManager learningOutcomeUnitManager, 
-            IEntityValidation<LearningOutcomeUnit> learningOutcomeUnitValidation, 
+            ICourseManager entityManager,
+            ICoursePlanningManager coursePlanningManager,
+            IEntityValidation<CoursePlanning> coursePlanningValidation,
+            ILearningOutcomeUnitManager learningOutcomeUnitManager,
+            IEntityValidation<LearningOutcomeUnit> learningOutcomeUnitValidation,
             ICompetencyManager competencyManager,
             IEntityValidation<Competency> competencyValidation) : base(entityManager)
         {
@@ -56,6 +55,11 @@ namespace HAN.OOSE.ICDE.Logic.Validation
         protected override async Task<bool> ValidateChildren(Guid parentId)
         {
             var coursePlanning = await _coursePlanningManager.GetByCourseIdAsync(parentId);
+            if (coursePlanning == null)
+            {
+                return false;
+            }
+
             var coursePlanningValid = await _coursePlanningValidation.ValidateEntity(coursePlanning.Id);
             if (!coursePlanningValid)
             {
@@ -63,13 +67,18 @@ namespace HAN.OOSE.ICDE.Logic.Validation
             }
 
             var learningOutcomeUnits = await _learningOutcomeUnitManager.GetByCourseIdAsync(parentId);
-            var CteSum = learningOutcomeUnits.Sum(x => x.CTE);
-            if (CteSum == null || CourseCTE != Math.Round(CteSum.Value)) 
+            if (learningOutcomeUnits.Count == 0)
             {
-                return false;    
+                return false;
             }
 
-            foreach(var learningOutcomeUnit in learningOutcomeUnits)
+            var CteSum = learningOutcomeUnits.Sum(x => x.CTE);
+            if (CteSum == null || CourseCTE != Math.Round(CteSum.Value))
+            {
+                return false;
+            }
+
+            foreach (var learningOutcomeUnit in learningOutcomeUnits)
             {
                 var learningOutcomeUnitValid = await _learningOutcomeUnitValidation.ValidateEntity(learningOutcomeUnit.Id);
                 if (!learningOutcomeUnitValid)
@@ -79,7 +88,12 @@ namespace HAN.OOSE.ICDE.Logic.Validation
             }
 
             var competencies = await _competencyManager.GetByCourseIdAsync(parentId);
-            foreach(var competency in competencies)
+            if (competencies.Count == 0)
+            {
+                return false;
+            }
+
+            foreach (var competency in competencies)
             {
                 var competencyValid = await _competencyValidation.ValidateEntity(competency.Id);
                 if (!competencyValid)

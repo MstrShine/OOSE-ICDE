@@ -1,28 +1,45 @@
 ﻿using HAN.OOSE.ICDE.Domain;
 using HAN.OOSE.ICDE.Logic.Interfaces.Managers;
 using HAN.OOSE.ICDE.Logic.Validation.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Logic.Validation
 {
     public class LearningOutcomeValidation : AbstractEntityValidation<LearningOutcome, ILearningOutcomeManager>
     {
-        public LearningOutcomeValidation(ILearningOutcomeManager entityManager) : base(entityManager)
+        private readonly ILessonManager _lessonManager;
+
+        public LearningOutcomeValidation(
+            ILearningOutcomeManager entityManager,
+            ILessonManager lessonManager) : base(entityManager)
         {
+            _lessonManager = lessonManager;
         }
 
-        public override Task<bool> ValidateEntity(Guid entityId)
+        public override async Task<bool> ValidateEntity(Guid entityId)
         {
-            throw new NotImplementedException();
+            var learningOutcome = await _entityManager.GetByIdAsync(entityId);
+            if (learningOutcome == null)
+            {
+                return false;
+            }
+
+            if (!learningOutcome.IsValid())
+            {
+                return false;
+            }
+
+            return await ValidateChildren(entityId);
         }
 
-        protected override Task<bool> ValidateChildren(Guid parentId)
+        protected override async Task<bool> ValidateChildren(Guid parentId)
         {
-            throw new NotImplementedException();
+            var lessons = await _lessonManager.GetByLearningOutcomeIdAsync(parentId);
+            if (lessons.Count == 0)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

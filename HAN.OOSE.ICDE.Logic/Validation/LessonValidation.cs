@@ -1,11 +1,6 @@
 ﻿using HAN.OOSE.ICDE.Domain;
 using HAN.OOSE.ICDE.Logic.Interfaces.Managers;
 using HAN.OOSE.ICDE.Logic.Validation.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Logic.Validation
 {
@@ -15,14 +10,25 @@ namespace HAN.OOSE.ICDE.Logic.Validation
         {
         }
 
-        public override Task<bool> ValidateEntity(Guid entityId)
+        public override async Task<bool> ValidateEntity(Guid entityId)
         {
-            throw new NotImplementedException();
+            var lesson = await _entityManager.GetByIdAsync(entityId);
+            if (lesson == null)
+            {
+                return false;
+            }
+
+            if (!lesson.IsValid())
+            {
+                return false;
+            }
+
+            return await ValidateChildren(entityId);
         }
 
-        protected override Task<bool> ValidateChildren(Guid parentId)
+        protected override async Task<bool> ValidateChildren(Guid parentId)
         {
-            throw new NotImplementedException();
+            return true; // No children
         }
     }
 }
