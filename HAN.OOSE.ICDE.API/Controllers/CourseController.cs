@@ -1,6 +1,7 @@
 ﻿using HAN.OOSE.ICDE.API.Controllers.Base;
 using HAN.OOSE.ICDE.Domain;
 using HAN.OOSE.ICDE.Logic.Interfaces.Managers;
+using HAN.OOSE.ICDE.Logic.Interfaces.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,6 +15,7 @@ namespace HAN.OOSE.ICDE.API.Controllers
         private readonly ICompetencyManager _competencyManager;
         private readonly ICoursePlanningManager _coursePlanningManager;
         private readonly ILearningOutcomeUnitManager _learningOutcomeUnitManager;
+        private readonly IEntityValidation<Course> _courseValidation;
 
         public CourseController(
             ILogger<BaseEntityController<Course>> logger,
@@ -183,7 +185,16 @@ namespace HAN.OOSE.ICDE.API.Controllers
                 return BadRequest(new ArgumentNullException(nameof(id)));
             }
 
-            // TODO: Maken logica finalize
+            var valid = await _courseValidation.ValidateEntity(id);
+            if (!valid)
+            {
+                return BadRequest("Course is currently not valid to finalize");
+            }
+
+            var course = await _courseManager.GetByIdAsync(id);
+            course.IsFinalized = true;
+
+            await _courseManager.UpdateAsync(course);
 
             return Ok();
         }
