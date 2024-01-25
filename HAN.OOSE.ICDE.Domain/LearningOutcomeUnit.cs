@@ -15,5 +15,21 @@ namespace HAN.OOSE.ICDE.Domain
 
         [DefaultValue(null)]
         public Guid? CourseId { get; set; }
+
+        protected override bool IsValidEntity()
+        {
+            if (base.IsValidEntity())
+            {
+                if (string.IsNullOrEmpty(Name)) return false;
+                if (string.IsNullOrEmpty(Code)) return false;
+                if (CTE == null || CTE < 0) return false;
+                if (MinimumGrade == null || (MinimumGrade < 0 || MinimumGrade > 10)) return false;
+                if (CourseId == null || CourseId == Guid.Empty) return false;
+
+                return true;
+            }
+
+            return false;
+        }
     }
 }

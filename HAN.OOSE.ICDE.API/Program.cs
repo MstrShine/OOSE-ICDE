@@ -57,7 +57,7 @@ namespace HAN.OOSE.ICDE.API
             builder.Services.AddRepositories();
             builder.Services.AddMapping();
             builder.Services.AddLogic();
-
+            builder.Services.AddValidation();
 
             var app = builder.Build();
             app.EnsureMigrationOfContext<DataContext>();

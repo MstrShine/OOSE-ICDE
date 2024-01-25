@@ -1,12 +1,10 @@
 ﻿using HAN.OOSE.ICDE.Domain;
-using HAN.OOSE.ICDE.Logic.Interfaces;
-using HAN.OOSE.ICDE.Logic.Interfaces.Base;
+using HAN.OOSE.ICDE.Logic.Interfaces.Managers;
+using HAN.OOSE.ICDE.Logic.Interfaces.Managers.Base;
+using HAN.OOSE.ICDE.Logic.Interfaces.Validation;
+using HAN.OOSE.ICDE.Logic.Managers;
+using HAN.OOSE.ICDE.Logic.Validation;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Logic.Extensions
 {
@@ -27,6 +25,23 @@ namespace HAN.OOSE.ICDE.Logic.Extensions
             services.AddScoped<ILessonManager, LessonManager>();
             services.AddScoped<IUserManager, UserManager>();
             services.AddScoped<IEntityManager<Study>, StudyManager>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddValidation(this IServiceCollection services)
+        {
+            services.AddScoped<IEntityValidation<AssessmentCriteria>, AssessmentCriteriaValidation>();
+            services.AddScoped<IEntityValidation<AssessmentDimension>, AssessmentDimensionValidation>();
+            services.AddScoped<IEntityValidation<Competency>, CompetencyValidation>();
+            services.AddScoped<IEntityValidation<Course>, CourseValidation>();
+            services.AddScoped<IEntityValidation<CoursePlanning>, CoursePlanningValidation>();
+            services.AddScoped<IEntityValidation<ExaminationEvent>, ExaminationEventValidation>();
+            services.AddScoped<IEntityValidation<Exam>, ExamValidation>();
+            services.AddScoped<IEntityValidation<GradeDescription>, GradeDescriptionValidation>();
+            services.AddScoped<IEntityValidation<LearningOutcome>, LearningOutcomeValidation>();
+            services.AddScoped<IEntityValidation<LearningOutcomeUnit>, LearningOutcomeUnitValidation>();
+            services.AddScoped<IEntityValidation<Lesson>, LessonValidation>();
 
             return services;
         }

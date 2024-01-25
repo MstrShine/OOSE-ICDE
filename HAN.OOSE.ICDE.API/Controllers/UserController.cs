@@ -1,7 +1,7 @@
 ﻿using HAN.OOSE.ICDE.API.JWT.Utils;
 using HAN.OOSE.ICDE.Domain;
 using HAN.OOSE.ICDE.Domain.Enums;
-using HAN.OOSE.ICDE.Logic.Interfaces;
+using HAN.OOSE.ICDE.Logic.Interfaces.Managers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
