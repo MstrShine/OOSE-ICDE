@@ -67,6 +67,8 @@ namespace HAN.OOSE.ICDE.Logic.Managers
                 return saved;
             }
 
+            await DeleteAsync(prevId);
+
             using (var session = _lessonRepository.CreateSession())
             {
                 var lessons = await session.GetByLearningOutcomeIdAsync(prevId);

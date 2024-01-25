@@ -56,25 +56,27 @@ namespace HAN.OOSE.ICDE.Logic.Managers
                 return saved;
             }
 
+            await DeleteAsync(prevId);
+
             using (var examinationEventSession = _examinationEventRepository.CreateSession())
             using (var assessmentDimensionSession = _assessmentDimensionRepository.CreateSession())
             using (var learningOutcomeSession = _learningOutcomeRepository.CreateSession())
             {
-                var examinationEvents = examinationEventSession.GetByExamIdAsync(prevId);
-                var assessmentDimensions = assessmentDimensionSession.GetByExamIdAsync(prevId);
-                var learningOutcomes = learningOutcomeSession.GetByExamIdAsync(prevId);
+                var examinationEvents = await examinationEventSession.GetByExamIdAsync(prevId);
+                var assessmentDimensions = await assessmentDimensionSession.GetByExamIdAsync(prevId);
+                var learningOutcomes = await learningOutcomeSession.GetByExamIdAsync(prevId);
 
-                foreach (var examinationEvent in await examinationEvents)
+                foreach (var examinationEvent in examinationEvents)
                 {
                     await examinationEventSession.ChangeExamIdAsync(examinationEvent.Id, saved.Id);
                 }
 
-                foreach (var assessmentDimension in await assessmentDimensions)
+                foreach (var assessmentDimension in assessmentDimensions)
                 {
                     await assessmentDimensionSession.ChangeExamIdAsync(assessmentDimension.Id, saved.Id);
                 }
 
-                foreach (var learningOutcome in await learningOutcomes)
+                foreach (var learningOutcome in learningOutcomes)
                 {
                     await learningOutcomeSession.ChangeExamIdAsync(learningOutcome.Id, saved.Id);
                 }

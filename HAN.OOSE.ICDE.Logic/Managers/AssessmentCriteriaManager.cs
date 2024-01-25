@@ -50,6 +50,8 @@ namespace HAN.OOSE.ICDE.Logic.Managers
                 return saved;
             }
 
+            await DeleteAsync(prevId);
+
             using (var gradeDescriptionSession = _gradeDescriptionRepository.CreateSession())
             {
                 var gradeDescriptions = await gradeDescriptionSession.GetByAssessmentCriteriaIdAsync(prevId);
