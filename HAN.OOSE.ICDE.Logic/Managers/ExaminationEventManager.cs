@@ -51,6 +51,11 @@ namespace HAN.OOSE.ICDE.Logic.Managers
 
         public override async Task<ExaminationEvent> SaveAsync(ExaminationEvent entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             var prevId = Guid.Parse(entity.Id.ToString());
             var saved = await base.SaveAsync(entity);
             if (prevId == Guid.Empty)
