@@ -54,18 +54,20 @@ namespace HAN.OOSE.ICDE.Logic.Managers
                 return saved;
             }
 
+            await DeleteAsync(prevId);
+
             using (var lessonSession = _lessonRepository.CreateSession())
             using (var examinationEventSession = _examinationEventRepository.CreateSession())
             {
-                var lessons = lessonSession.GetByCoursePlanningIdAsync(prevId);
-                var examinationEvents = examinationEventSession.GetByCoursePlanningIdAsync(prevId);
+                var lessons = await lessonSession.GetByCoursePlanningIdAsync(prevId);
+                var examinationEvents = await examinationEventSession.GetByCoursePlanningIdAsync(prevId);
 
-                foreach (var lesson in await lessons)
+                foreach (var lesson in lessons)
                 {
                     await lessonSession.ChangeCoursePlanningIdAsync(lesson.Id, saved.Id);
                 }
 
-                foreach (var examinationEvent in await examinationEvents)
+                foreach (var examinationEvent in examinationEvents)
                 {
                     await examinationEventSession.ChangeCoursePlanningIdAsync(examinationEvent.Id, saved.Id);
                 }

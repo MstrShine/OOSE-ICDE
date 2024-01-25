@@ -56,26 +56,30 @@ namespace HAN.OOSE.ICDE.Logic.Managers
                 return saved;
             }
 
+            await DeleteAsync(prevId);
+
             using (var competencySession = _competencyRepository.CreateSession())
             using (var learningOutcomeUnitSession = _learningOutcomeUnitRepository.CreateSession())
             using (var coursePlanningSession = _coursePlanningRepository.CreateSession())
             {
-                var competencies = competencySession.GetByCourseIdAsync(prevId);
-                var learningOutcomeUnits = learningOutcomeUnitSession.GetByCourseIdAsync(prevId);
-                var coursePlanningTask = coursePlanningSession.GetByCourseIdAsync(prevId);
+                var competencies = await competencySession.GetByCourseIdAsync(prevId);
+                var learningOutcomeUnits = await learningOutcomeUnitSession.GetByCourseIdAsync(prevId);
+                var coursePlanning = await coursePlanningSession.GetByCourseIdAsync(prevId);
 
-                foreach (var competency in await competencies)
+                foreach (var competency in competencies)
                 {
                     await competencySession.ChangeCourseIdAsync(competency.Id, saved.Id);
                 }
 
-                foreach (var learningOutcomeUnit in await learningOutcomeUnits)
+                foreach (var learningOutcomeUnit in learningOutcomeUnits)
                 {
                     await learningOutcomeUnitSession.ChangeCourseIdAsync(learningOutcomeUnit.Id, saved.Id);
                 }
 
-                var coursePlanning = await coursePlanningTask;
-                await coursePlanningSession.ChangeCourseIdAsync(coursePlanning.Id, saved.Id);
+                if (coursePlanning != null)
+                {
+                    await coursePlanningSession.ChangeCourseIdAsync(coursePlanning.Id, saved.Id);
+                }
             }
 
             return saved;

@@ -50,6 +50,8 @@ namespace HAN.OOSE.ICDE.Logic.Managers
                 return saved;
             }
 
+            await DeleteAsync(prevId);
+
             using (var assessmentCriteriaSession = _assessmentCriteriaRepository.CreateSession())
             {
                 var assessmentCriterias = await assessmentCriteriaSession.GetByAssessmentDimensionIdAsync(prevId);

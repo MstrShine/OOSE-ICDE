@@ -22,12 +22,14 @@ namespace HAN.OOSE.ICDE.API.Controllers
             ICourseManager entityManager,
             ICompetencyManager competencyManager,
             ICoursePlanningManager coursePlanningManager,
-            ILearningOutcomeUnitManager learningOutcomeUnitManager) : base(logger)
+            ILearningOutcomeUnitManager learningOutcomeUnitManager,
+            IEntityValidation<Course> courseValidation) : base(logger)
         {
             _courseManager = entityManager;
             _competencyManager = competencyManager;
             _coursePlanningManager = coursePlanningManager;
             _learningOutcomeUnitManager = learningOutcomeUnitManager;
+            _courseValidation = courseValidation;
         }
 
         [HttpDelete("{id:guid}")]

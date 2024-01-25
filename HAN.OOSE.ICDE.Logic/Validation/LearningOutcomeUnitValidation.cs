@@ -65,6 +65,12 @@ namespace HAN.OOSE.ICDE.Logic.Validation
                 return false;
             }
 
+            var examWeightSum = exams.Sum(x => x.Weight);
+            if (examWeightSum != 100)
+            {
+                return false;
+            }
+
             foreach (var exam in exams)
             {
                 var valid = await _examValidation.ValidateEntity(exam.Id);

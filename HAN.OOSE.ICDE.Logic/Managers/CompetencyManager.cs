@@ -4,12 +4,6 @@ using HAN.OOSE.ICDE.Logic.Managers.Base;
 using HAN.OOSE.ICDE.Logic.Mapping.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces;
 using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions;
-using HAN.OOSE.ICDE.Persistency.Database.Repository.Interfaces.Sessions.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HAN.OOSE.ICDE.Logic.Managers
 {
@@ -53,6 +47,26 @@ namespace HAN.OOSE.ICDE.Logic.Managers
             }
 
             return competencies;
+        }
+
+        public override async Task<Competency> SaveAsync(Competency entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            var prevId = Guid.Parse(entity.Id.ToString());
+            var saved = await base.SaveAsync(entity);
+
+            if (prevId == Guid.Empty)
+            {
+                return saved;
+            }
+
+            await DeleteAsync(prevId);
+
+            return saved;
         }
     }
 }

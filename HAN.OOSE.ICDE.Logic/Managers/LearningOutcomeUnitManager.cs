@@ -56,25 +56,27 @@ namespace HAN.OOSE.ICDE.Logic.Managers
                 return saved;
             }
 
+            await DeleteAsync(prevId);
+
             using (var competencySession = _competencyRepository.CreateSession())
             using (var learningOutcomeSession = _learningOutcomeRepository.CreateSession())
             using (var examSession = _examRepository.CreateSession())
             {
-                var competencies = competencySession.GetByLearningOutcomeUnitIdAsync(prevId);
-                var learningOutcomes = learningOutcomeSession.GetByLearningOutcomeUnitIdAsync(prevId);
-                var exams = examSession.GetByLearningOutcomeUnitIdAsync(prevId);
+                var competencies = await competencySession.GetByLearningOutcomeUnitIdAsync(prevId);
+                var learningOutcomes = await learningOutcomeSession.GetByLearningOutcomeUnitIdAsync(prevId);
+                var exams = await examSession.GetByLearningOutcomeUnitIdAsync(prevId);
 
-                foreach (var competency in await competencies)
+                foreach (var competency in competencies)
                 {
                     await competencySession.ChangeLearningOutcomeUnitIdAsync(competency.Id, saved.Id);
                 }
 
-                foreach (var learningOutcome in await learningOutcomes)
+                foreach (var learningOutcome in learningOutcomes)
                 {
                     await learningOutcomeSession.ChangeLearningOutcomeUnitIdAsync(learningOutcome.Id, saved.Id);
                 }
 
-                foreach (var exam in await exams)
+                foreach (var exam in exams)
                 {
                     await examSession.ChangeLearningOutcomeUnitIdAsync(exam.Id, saved.Id);
                 }

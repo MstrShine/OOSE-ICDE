@@ -52,5 +52,25 @@ namespace HAN.OOSE.ICDE.Logic.Managers
 
             return lessons;
         }
+
+        public override async Task<Lesson> SaveAsync(Lesson entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            var prevId = Guid.Parse(entity.Id.ToString());
+            var saved = await base.SaveAsync(entity);
+
+            if (prevId == Guid.Empty)
+            {
+                return saved;
+            }
+
+            await DeleteAsync(prevId);
+
+            return saved;
+        }
     }
 }
